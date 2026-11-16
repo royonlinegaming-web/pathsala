@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="bn" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>জ্ঞানানন্ত পাঠশালা - Limitless Learning • Endless Wisdom</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            bengali: ['"Hind Siliguri"', 'sans-serif'],
+            'bengali-serif': ['"Noto Serif Bengali"', 'serif'],
+            'wedding-card': ['"Galada"', '"Tiro Bangla"', 'cursive', 'serif'],
+            'tiro-bangla': ['"Tiro Bangla"', 'serif'],
+            'parbon-style': [
+              '"Li Parbon"',
+              '"Li Manowar Parbon"',
+              '"Li Alinur Parbon"',
+              '"Parbon"',
+              '"Galada"',
+              '"Anek Bangla"',
+              '"Noto Serif Bengali"',
+              'cursive',
+              'sans-serif'
+            ],
+            latin: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Hind Siliguri, Noto Serif Bengali, Galada, Tiro Bangla & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@700;800&family=Galada&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600;700;800&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Lipighor Parbon Font-Face Declarations */
+    @font-face {
+      font-family: 'Li Parbon';
+      src: local('Li Parbon'), local('Li Manowar Parbon'), local('Parbon'), local('Li Alinur Parbon');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      scroll-behavior: smooth;
+    }
+    .font-latin {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-parbon {
+      font-family: 'Li Parbon', 'Li Manowar Parbon', 'Li Alinur Parbon', 'Parbon', 'Galada', 'Anek Bangla', 'Noto Serif Bengali', cursive, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.015em;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(148, 163, 184, 0.3);
+      border-radius: 9999px;
+    }
+
+    /* Ambient Floating Pulse & Shimmer for Hero Elements */
+    @keyframes gentleFloat {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-8px) rotate(0.8deg);
+      }
+    }
+    @keyframes gentleGlow {
+      0%, 100% {
+        opacity: 0.45;
+        filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.45));
+      }
+      50% {
+        opacity: 0.85;
+        filter: drop-shadow(0 0 45px rgba(168, 85, 247, 0.65));
+      }
+    }
+    @keyframes sparkleSpin {
+      0% { transform: scale(0.9) rotate(0deg); opacity: 0.4; }
+      50% { transform: scale(1.15) rotate(180deg); opacity: 1; }
+      100% { transform: scale(0.9) rotate(360deg); opacity: 0.4; }
+    }
+    .animate-float {
+      animation: gentleFloat 5s ease-in-out infinite;
+    }
+    .animate-glow-pulse {
+      animation: gentleGlow 4.5s ease-in-out infinite;
+    }
+    .animate-sparkle {
+      animation: sparkleSpin 4s linear infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 dark:bg-[#0b1120] text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200 antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- ================= 1. STICKY TOP HEADER ================= -->
+  <header class="sticky top-0 z-30 bg-white/95 dark:bg-[#151f32]/95 backdrop-blur-md border-b border-slate-200 dark:border-[#24334d] shadow-xs transition-colors duration-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Brand & Title: Gyanananta Pathshala + Pen Nib Lamp Flame Emblem -->
+      <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+        <!-- Custom Pen Nib & Diya Flame Emblem -->
+        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-amber-500/10 dark:bg-amber-400/10 border border-amber-500/25 dark:border-amber-400/20 shadow-xs flex items-center justify-center flex-shrink-0 p-2 text-amber-500 dark:text-amber-400">
+          <svg class="w-full h-full" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Diya Base (Lamp Base) -->
+            <path d="M12 36C12 36 15 41 24 41C33 41 36 36 36 36H12Z" fill="currentColor" fill-opacity="0.25"/>
+            <path d="M10 35C10 35 14 42 24 42C34 42 38 35 38 35C38 35 32 37 24 37C16 37 10 35 10 35Z" fill="currentColor"/>
+            <!-- Fountain Pen Nib shaped like an ascending sacred Flame -->
+            <path d="M24 6C20 13 15 21 16 28C16.8 33.6 20.5 35 24 35C27.5 35 31.2 33.6 32 28C33 21 28 13 24 6Z" fill="url(#flameNibGrad)" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <!-- Inner Pen Nib Slit & Breather Hole -->
+            <circle cx="24" cy="22" r="2" fill="currentColor" class="text-amber-600 dark:text-amber-300"/>
+            <path d="M24 24V33" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="text-amber-700 dark:text-amber-200"/>
+            <!-- Flame Tip Shimmer -->
+            <path d="M24 7C23.2 10.5 21 14.5 21 18.5C21 20.2 22.3 21.5 24 21.5C25.7 21.5 27 20.2 27 18.5C27 14.5 24.8 10.5 24 7Z" fill="#FFF" fill-opacity="0.45"/>
+            <!-- Gradients -->
+            <defs>
+              <linearGradient id="flameNibGrad" x1="24" y1="6" x2="24" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#F59E0B"/>
+                <stop offset="55%" stop-color="#D97706"/>
+                <stop offset="100%" stop-color="#4F46E5"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="truncate select-none">
+          <h1 class="text-lg sm:text-xl md:text-2xl font-bold font-bengali text-slate-900 dark:text-white leading-tight truncate">
+            জ্ঞানানন্ত পাঠশালা
+          </h1>
+          <p class="text-[11px] sm:text-xs font-latin font-medium text-slate-500 dark:text-slate-400 tracking-wide truncate mt-0.5">
+            Limitless Learning • Endless Wisdom
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= 2. SEARCH BAR & DAY/NIGHT TOGGLE SECTION ================= -->
+  <section class="border-b border-slate-200 dark:border-[#24334d] bg-white/70 dark:bg-[#111a2e]/60 backdrop-blur-xs">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3.5">
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <!-- Search Input Box -->
+        <div class="relative flex-1">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+            <i class="fa-solid fa-magnifying-glass text-xs sm:text-sm"></i>
+          </span>
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="বিষয় বা অধ্যায় খুঁজুন..." 
+            aria-label="বিষয় ও অধ্যায় অনুসন্ধান"
+            class="w-full h-10 pl-9 sm:pl-10 pr-9 text-xs sm:text-sm rounded-xl bg-slate-100 dark:bg-[#0b1120] border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-slate-100 placeholder-slate-400 transition"
+          >
+          <button 
+            id="search-clear" 
+            type="button" 
+            aria-label="অনুসন্ধান মুছুন"
+            class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hidden cursor-pointer"
+          >
+            <i class="fa-solid fa-circle-xmark text-xs sm:text-sm"></i>
+          </button>
+        </div>
+
+        <!-- Day / Night Mood Toggle Button (Search Bar এর ডান দিকে) -->
+        <button 
+          id="btn-theme" 
+          type="button" 
+          title="দিন ও রাত্রি মোড পরিবর্তন"
+          class="h-10 px-3 sm:px-4 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-semibold transition border border-slate-200 dark:border-slate-700/80 shadow-xs active:scale-95 flex items-center gap-1.5 cursor-pointer flex-shrink-0"
+        >
+          <i id="theme-icon" class="fa-solid fa-sun text-xs sm:text-sm text-amber-400"></i>
+          <span id="theme-text" class="hidden sm:inline whitespace-nowrap">দিন</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. MAIN CONTENT AREA ================= -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-6">
+    
+    <!-- Vertical Subject Accordion Stack -->
+    <section id="subjects-container" class="space-y-3.5 select-none" aria-label="সাধারণ জ্ঞান বিষয় তালিকা">
+      <!-- Injected via JavaScript -->
+    </section>
+
+    <!-- Empty Search State -->
+    <div id="empty-search" class="hidden py-16 text-center select-none">
+      <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-indigo-50 dark:bg-slate-800 text-indigo-500 flex items-center justify-center text-xl shadow-inner">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <h3 class="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100">কোনো বিষয় বা অধ্যায় খুঁজে পাওয়া যায়নি</h3>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-xs mx-auto">
+        অন্য কোনো কী-ওয়ার্ড লিখে পুনরায় অনুসন্ধান করুন।
+      </p>
+    </div>
+
+  </main>
+
+  <!-- ================= 4. FOOTER ================= -->
+  <footer class="mt-auto border-t border-slate-200 dark:border-[#24334d] bg-white dark:bg-[#151f32] py-4 px-4 text-center">
+    <div class="max-w-md mx-auto py-2.5 px-4 rounded-xl bg-slate-50 dark:bg-[#101827] border border-slate-200 dark:border-[#1f2d47] shadow-2xs space-y-1">
+      <!-- Motivational Quote -->
+      <p class="text-xs sm:text-[13px] font-medium text-slate-700 dark:text-slate-200">
+        চাকরি একদিন তোমার সাফল্যই সবচেয়ে বড় উৎসব হবে
+      </p>
+
+      <!-- Clean Single-language Footer Branding -->
+      <p class="text-[11px] font-latin text-slate-400 dark:text-slate-500">
+        General Knowledge Portal • Designed &amp; Created by Gemini
+      </p>
+    </div>
+  </footer>
+
+  <!-- ================= 5. DATA & INTERACTION LOGIC ================= -->
+  <script>
+    /**
+     * Complete GK Curriculum Database
+     */
+    const GK_DATABASE = [
+      {
+        id: "history",
+        nameBn: "ভারতের ইতিহাস",
+        nameEn: "Indian History",
+        icon: "fa-landmark",
+        iconColor: "text-amber-500",
+        badgeColor: "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/80",
+        chapters: [
+          { id: "hist-01", titleBn: "ইতিহাসের ধারণা", titleEn: "Concept of History", targetUrl: "History/Concept of History.html" },
+          { id: "hist-02", titleBn: "ইতিহাসের উপাদান", titleEn: "Sources of History", targetUrl: "History/Sources of History.html" },
+          { id: "hist-03", titleBn: "ইতিহাসের যুগ বিভাজন", titleEn: "Periodization of History", targetUrl: "History/Periodization of History.html" },
+          { id: "hist-04", titleBn: "মেহেরগড় সভ্যতা", titleEn: "Mehrgarh Civilization", targetUrl: "History/Mehrgarh Civilization.html" },
+          { id: "hist-05", titleBn: "সিন্ধু সভ্যতা", titleEn: "Indus Valley Civilization", targetUrl: "History/Indus Valley Civilization.html" },
+          { id: "hist-06", titleBn: "আর্য ও বৈদিক সভ্যতা", titleEn: "Aryan and Vedic Civilization", targetUrl: "History/Aryan and Vedic Civilization.html" },
+          { id: "hist-07", titleBn: "প্রতিবাদী ধর্ম আন্দোলন", titleEn: "Religious Movements", targetUrl: "History/Religious Movements.html" },
+          { id: "hist-08", titleBn: "রাজনৈতিক আধিপত্যের যুগ", titleEn: "Age of Political Hegemony", targetUrl: "History/Age of Political Hegemony.html" },
+          { id: "hist-09", titleBn: "মৌর্য যুগ", titleEn: "Mauryan Age", targetUrl: "History/Mauryan Age.html" },
+          { id: "hist-10", titleBn: "মৌর্য পরবর্তী যুগ ও বৈদেশিক আক্রমণ", titleEn: "Post Mauryan Age and Foreign Invasion", targetUrl: "History/Post Mauryan Age and Foreign Invasion.html" },
+          { id: "hist-11", titleBn: "গুপ্ত যুগ", titleEn: "Gupta Age", targetUrl: "History/Gupta Age.html" },
+          { id: "hist-12", titleBn: "গুপ্তোত্তর যুগে আঞ্চলিক শক্তির উত্থান", titleEn: "Emergence of Regional Powers in Post Gupta Period", targetUrl: "History/Emergence of Regional Powers in Post Gupta Period.html" },
+          { id: "hist-13", titleBn: "দক্ষিণ ভারত", titleEn: "South India", targetUrl: "History/South India.html" },
+          { id: "hist-14", titleBn: "প্রাচীন বাংলা", titleEn: "Ancient Bengal", targetUrl: "History/Ancient Bengal.html" },
+          { id: "hist-15", titleBn: "ভারতে সামন্ততন্ত্র, ধর্ম; বৈদেশিক সভ্যতার সঙ্গে বাণিজ্যিক ও সাংস্কৃতিক যোগাযোগ", titleEn: "Feudalism, Religion in India; Commercial & Cultural Relationship between India and Foreign Civilizations", targetUrl: "History/Feudalism, Religion in India; Commercial & Cultural Relationship between India and Foreign Civilizations.html" },
+          { id: "hist-16", titleBn: "রাজপুত শক্তি", titleEn: "Rajput Powers", targetUrl: "History/Rajput Powers.html" },
+          { id: "hist-17", titleBn: "আরবদের সিন্ধুদেশে আগমন", titleEn: "Arrival of Arabs in Sindh", targetUrl: "History/Arrival of Arabs in Sindh.html" },
+          { id: "hist-18", titleBn: "দিল্লির সুলতানি সাম্রাজ্য", titleEn: "Delhi Sultanate", targetUrl: "History/Delhi Sultanate.html" },
+          { id: "hist-19", titleBn: "সুলতানি আমলে আঞ্চলিক রাজ্যসমূহ", titleEn: "Provincial States in Sultanate Period", targetUrl: "History/Provincial States in Sultanate Period.html" },
+          { id: "hist-20", titleBn: "মধ্যযুগে ধর্মীয় আন্দোলন", titleEn: "Religious Movements in Medieval Period", targetUrl: "History/Religious Movements in Medieval Period.html" },
+          { id: "hist-21", titleBn: "মুঘল সাম্রাজ্য", titleEn: "Mughal Empire", targetUrl: "History/Mughal Empire.html" },
+          { id: "hist-22", titleBn: "মুঘল আমলে আঞ্চলিক শক্তির উত্থান ও মুঘলদের পতন", titleEn: "Rise of Regional Powers during Mughal Period and Decline of the Mughals", targetUrl: "History/Rise of Regional Powers during Mughal Period and Decline of the Mughals.html" },
+          { id: "hist-23", titleBn: "ইউরোপীয়দের ভারতে আগমন", titleEn: "Arrival of the Europeans in India", targetUrl: "History/Arrival of the Europeans in India.html" },
+          { id: "hist-24", titleBn: "ভারতে ব্রিটিশ সাম্রাজ্যের বিস্তার", titleEn: "Expansion of British Empire in India", targetUrl: "History/Expansion of British Empire in India.html" },
+          { id: "hist-25", titleBn: "ব্রিটিশ ভারতের প্রশাসনিক ও অর্থনৈতিক ব্যবস্থা", titleEn: "Administrative and Economic Systems of British India", targetUrl: "History/Administrative and Economic Systems of British India.html" },
+          { id: "hist-26", titleBn: "বিদ্রোহ ও মহাবিদ্রোহ", titleEn: "Revolts and the Revolt of 1857", targetUrl: "History/Revolts and the Revolt of 1857.html" },
+          { id: "hist-27", titleBn: "ঊনবিংশ ও বিংশ শতকে ভারতে শিক্ষা, সমাজ ও ধর্মসংস্কার আন্দোলন", titleEn: "Educational, Social and Religious Reform Movements in India during 19th and 20th Century", targetUrl: "History/Educational, Social and Religious Reform Movements in India during 19th and 20th Century.html" },
+          { id: "hist-28", titleBn: "সংবাদপত্র, বই, সভা-সমিতি", titleEn: "Newspapers, Books and Associations", targetUrl: "History/Newspapers, Books and Associations.html" },
+          { id: "hist-29", titleBn: "ভারতের জাতীয় কংগ্রেস", titleEn: "Indian National Congress", targetUrl: "History/Indian National Congress.html" },
+          { id: "hist-30", titleBn: "ভারত ও ভারতের বাইরে বৈপ্লবিক আন্দোলন", titleEn: "Revolutionary Movements in India and Outside", targetUrl: "History/Revolutionary Movements in India and Outside.html" },
+          { id: "hist-31", titleBn: "ভারতের জাতীয়তাবাদী সংগ্রামের বিভিন্ন পর্যায় ও স্বাধীনতা লাভ", titleEn: "Different Phases of India's National Movement and to Achieve Independence", targetUrl: "History/Different Phases of India's National Movement and to Achieve Independence.html" },
+          { id: "hist-32", titleBn: "ভারতের স্বাধীনতা আন্দোলনের কিছু গুরুত্বপূর্ণ উক্তি, গান ও উপাধি", titleEn: "Some Significant Quotes, Songs and Titles of Indian Freedom Movement", targetUrl: "History/Some Significant Quotes, Songs and Titles of Indian Freedom Movement.html" }
+        ]
+      },
+      {
+        id: "geography",
+        nameBn: "ভারত ও পশ্চিমবঙ্গের ভূগোল",
+        nameEn: "Geography of India & West Bengal",
+        icon: "fa-earth-asia",
+        iconColor: "text-emerald-500",
+        badgeColor: "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/80",
+        chapters: [
+          { id: "geo-01", titleBn: "সৌরজগৎ", titleEn: "Solar System", targetUrl: "Geography/Solar System.html" },
+          { id: "geo-02", titleBn: "পৃথিবী সম্পর্কিত কয়েকটি তথ্য", titleEn: "Some Facts About Earth", targetUrl: "Geography/Some Facts About Earth.html" },
+          { id: "geo-03", titleBn: "পৃথিবীর গতিসমূহ", titleEn: "Motion of the Earth", targetUrl: "Geography/Motion of the Earth.html" },
+          { id: "geo-04", titleBn: "পৃথিবীর ভূ-অভ্যন্তরীণ গঠন", titleEn: "Interior Structure of the Earth", targetUrl: "Geography/Interior Structure of the Earth.html" },
+          { id: "geo-05", titleBn: "অন্তর্জাত প্রক্রিয়া ও তার দ্বারা গঠিত ভূমিরূপ", titleEn: "Endogenetic Processes and Associated Landforms", targetUrl: "Geography/Endogenetic Processes and Associated Landforms.html" },
+          { id: "geo-06", titleBn: "বহির্জাত প্রক্রিয়া ও তার দ্বারা গঠিত ভূমিরূপ", titleEn: "Exogenetic Processes and Associated Landforms", targetUrl: "Geography/Exogenetic Processes and Associated Landforms.html" },
+          { id: "geo-07", titleBn: "প্রধান ভূমিরূপসমূহ", titleEn: "Major Landforms of the Earth", targetUrl: "Geography/Major Landforms of the Earth.html" },
+          { id: "geo-08", titleBn: "বায়ুমণ্ডল", titleEn: "Atmosphere", targetUrl: "Geography/Atmosphere.html" },
+          { id: "geo-09", titleBn: "বারিমণ্ডল", titleEn: "Hydrosphere", targetUrl: "Geography/Hydrosphere.html" },
+          { id: "geo-10", titleBn: "মৃত্তিকা ও স্বাভাবিক উদ্ভিদের বণ্টন", titleEn: "Distribution of Soil and Natural Vegetation", targetUrl: "Geography/Distribution of Soil and Natural Vegetation.html" },
+          { id: "geo-11", titleBn: "ভারত ও পশ্চিমবঙ্গের ভূমিকা", titleEn: "Introduction of India and West Bengal", targetUrl: "Geography/Introduction of India and West Bengal.html" },
+          { id: "geo-12", titleBn: "ভারত ও পশ্চিমবঙ্গের ভূপ্রকৃতি", titleEn: "Physiography of India and West Bengal", targetUrl: "Geography/Physiography of India and West Bengal.html" },
+          { id: "geo-13", titleBn: "ভারত ও পশ্চিমবঙ্গের নদনদী", titleEn: "Rivers of India and West Bengal", targetUrl: "Geography/Rivers of India and West Bengal.html" },
+          { id: "geo-14", titleBn: "ভারত ও পশ্চিমবঙ্গের জলবায়ু", titleEn: "Climate of India and West Bengal", targetUrl: "Geography/Climate of India and West Bengal.html" },
+          { id: "geo-15", titleBn: "ভারত ও পশ্চিমবঙ্গের মৃত্তিকা", titleEn: "Soil of India and West Bengal", targetUrl: "Geography/Soil of India and West Bengal.html" },
+          { id: "geo-16", titleBn: "ভারত ও পশ্চিমবঙ্গের স্বাভাবিক উদ্ভিদ", titleEn: "Natural Vegetation of India and West Bengal", targetUrl: "Geography/Natural Vegetation of India and West Bengal.html" },
+          { id: "geo-17", titleBn: "ভারত ও পশ্চিমবঙ্গের অরণ্য ও বন্যপ্রাণ", titleEn: "Forests and Wildlife of India and West Bengal", targetUrl: "Geography/Forests and Wildlife of India and West Bengal.html" },
+          { id: "geo-18", titleBn: "ভারত ও পশ্চিমবঙ্গের কৃষি ও জলসেচ ব্যবস্থা", titleEn: "Agriculture and Irrigation System of India and West Bengal", targetUrl: "Geography/Agriculture and Irrigation System of India and West Bengal.html" },
+          { id: "geo-19", titleBn: "ভারত ও পশ্চিমবঙ্গের খনিজ ও শক্তি সম্পদ", titleEn: "Mineral and Energy Resources of India and West Bengal", targetUrl: "Geography/Mineral and Energy Resources of India and West Bengal.html" },
+          { id: "geo-20", titleBn: "ভারত ও পশ্চিমবঙ্গের শিল্পসমূহ", titleEn: "Industries of India and West Bengal", targetUrl: "Geography/Industries of India and West Bengal.html" },
+          { id: "geo-21", titleBn: "ভারত ও পশ্চিমবঙ্গের পরিবহণ ও যোগাযোগ ব্যবস্থা", titleEn: "Transport and Communication System of India and West Bengal", targetUrl: "Geography/Transport and Communication System of India and West Bengal.html" },
+          { id: "geo-22", titleBn: "ভারত ও পশ্চিমবঙ্গের জনবসতি ও জনগোষ্ঠী", titleEn: "Settlement and Tribal Community of India and West Bengal", targetUrl: "Geography/Settlement and Tribal Community of India and West Bengal.html" },
+          { id: "geo-23", titleBn: "ভারতের রাজ্য ও পশ্চিমবঙ্গের জেলাসমূহ", titleEn: "States of India and Districts of West Bengal", targetUrl: "Geography/States of India and Districts of West Bengal.html" },
+          { id: "geo-24", titleBn: "বিবিধ", titleEn: "Miscellaneous", targetUrl: "Geography/Miscellaneous.html" }
+        ]
+      },
+      {
+        id: "polity",
+        nameBn: "ভারতের সংবিধান",
+        nameEn: "Indian Constitution & Polity",
+        icon: "fa-scale-balanced",
+        iconColor: "text-blue-500",
+        badgeColor: "bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800/80",
+        chapters: [
+          { id: "pol-01", titleBn: "ভারতীয় সংবিধান রচনার পূর্বে প্রণীত গুরুত্বপূর্ণ আইনসমূহ", titleEn: "Important Laws before the making of Indian Constitution", targetUrl: "Polity/Important Laws before the making of Indian Constitution.html" },
+          { id: "pol-02", titleBn: "গণপরিষদ ও ভারতীয় সংবিধান রচনা", titleEn: "Constituent Assembly and Making of Indian Constitution", targetUrl: "Polity/Constituent Assembly and Making of Indian Constitution.html" },
+          { id: "pol-03", titleBn: "ভারতের সংবিধানের বৈশিষ্ট্য ও উৎস", titleEn: "Features of the Indian Constitution and Source", targetUrl: "Polity/Features of the Indian Constitution and Source.html" },
+          { id: "pol-04", titleBn: "ভারতীয় সংবিধানের প্রস্তাবনা", titleEn: "Preamble of the Indian Constitution", targetUrl: "Polity/Preamble of the Indian Constitution.html" },
+          { id: "pol-05", titleBn: "ভারতীয় ইউনিয়ন ও তার ভূখণ্ড", titleEn: "Indian Union and Its Territory", targetUrl: "Polity/Indian Union and Its Territory.html" },
+          { id: "pol-06", titleBn: "ভারতের নাগরিকত্ব", titleEn: "Citizenship of India", targetUrl: "Polity/Citizenship of India.html" },
+          { id: "pol-07", titleBn: "মৌলিক অধিকার", titleEn: "Fundamental Rights", targetUrl: "Polity/Fundamental Rights.html" },
+          { id: "pol-08", titleBn: "রাষ্ট্রপরিচালনার নির্দেশমূলক নীতিসমূহ", titleEn: "Directive Principles of State Policy", targetUrl: "Polity/Directive Principles of State Policy.html" },
+          { id: "pol-09", titleBn: "মৌলিক कर्तव्य", titleEn: "Fundamental Duties", targetUrl: "Polity/Fundamental Duties.html" },
+          { id: "pol-10", titleBn: "কেন্দ্র ও রাজ্যগুলির মধ্যে সম্পর্ক", titleEn: "Relation between Union and State", targetUrl: "Polity/Relation between Union and State.html" },
+          { id: "pol-11", titleBn: "কেন্দ্রীয় শাসন বিভাগ", titleEn: "Central Government", targetUrl: "Polity/Central Government.html" },
+          { id: "pol-12", titleBn: "কেন্দ্রীয় আইন বিভাগ", titleEn: "Union Legislature", targetUrl: "Polity/Union Legislature.html" },
+          { id: "pol-13", titleBn: "পার্লামেন্ট সম্পর্কিত গুরুত্বপূর্ণ বিষয়", titleEn: "Important Matters Related to Parliament", targetUrl: "Polity/Important Matters Related to Parliament.html" },
+          { id: "pol-14", titleBn: "ভারতের বিচার বিভাগ", titleEn: "The Indian Judiciary", targetUrl: "Polity/The Indian Judiciary.html" },
+          { id: "pol-15", titleBn: "রাজ্যের শাসন বিভাগ", titleEn: "State Executive", targetUrl: "Polity/State Executive.html" },
+          { id: "pol-16", titleBn: "রাজ্যের আইন বিভাগ", titleEn: "State Legislature", targetUrl: "Polity/State Legislature.html" },
+          { id: "pol-17", titleBn: "রাজ্যের বিচার বিভাগ", titleEn: "State Judiciary", targetUrl: "Polity/State Judiciary.html" },
+          { id: "pol-18", titleBn: "স্থানীয় স্বায়ত্তশাসন ব্যবস্থা", titleEn: "Local Self Government", targetUrl: "Polity/Local Self Government.html" },
+          { id: "pol-19", titleBn: "সংবিধান সংশোধন", titleEn: "Constitutional Amendment", targetUrl: "Polity/Constitutional Amendment.html" },
+          { id: "pol-20", titleBn: "সরকারি ভাষা", titleEn: "Official Language", targetUrl: "Polity/Official Language.html" },
+          { id: "pol-21", titleBn: "ভারতীয় সংবিধানে সংরক্ষণ ব্যবস্থা", titleEn: "The Provision of Reservation in Indian Constitution", targetUrl: "Polity/The Provision of Reservation in Indian Constitution.html" },
+          { id: "pol-22", titleBn: "ভারতের দলীয় ব্যবস্থা ও স্বার্থগোষ্ঠী", titleEn: "Indian Party System and Interest Groups", targetUrl: "Polity/Indian Party System and Interest Groups.html" },
+          { id: "pol-23", titleBn: "কয়েকটি রাজ্য ও কেন্দ্রশাসিত অঞ্চলের গৃহীত ব্যবস্থা", titleEn: "Special Provisions for Some States and Union Territories", targetUrl: "Polity/Special Provisions for Some States and Union Territories.html" },
+          { id: "pol-24", titleBn: "সংবিধানে অন্তর্ভুক্ত সংস্থাসমূহ", titleEn: "Constitutional Bodies", targetUrl: "Polity/Constitutional Bodies.html" },
+          { id: "pol-25", titleBn: "সংবিধান বহির্ভূত সংস্থাসমূহ", titleEn: "Non-Constitutional Bodies", targetUrl: "Polity/Non-Constitutional Bodies.html" }
+        ]
+      },
+      {
+        id: "economy",
+        nameBn: "ভারতীয় অর্থনীতি",
+        nameEn: "Indian Economy",
+        icon: "fa-chart-line",
+        iconColor: "text-purple-500",
+        badgeColor: "bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800/80",
+        chapters: [
+          { id: "eco-01", titleBn: "অর্থনীতি এবং অর্থনৈতিক ব্যবস্থা", titleEn: "Economy and Economic System", targetUrl: "Economy/Economy and Economic System.html" },
+          { id: "eco-02", titleBn: "চাহিদা ও জোগান", titleEn: "Demand and Supply", targetUrl: "Economy/Demand and Supply.html" },
+          { id: "eco-03", titleBn: "উৎপাদন, ব্যয়, আয় এবং বাজার", titleEn: "Production, Cost, Revenue and Market", targetUrl: "Economy/Production, Cost, Revenue and Market.html" },
+          { id: "eco-04", titleBn: "ভারতের পঞ্চবার্ষিকী পরিকল্পনা", titleEn: "India's Five Years Planning", targetUrl: "Economy/India's Five Years Planning.html" },
+          { id: "eco-05", titleBn: "জাতীয় আয়", titleEn: "National Income", targetUrl: "Economy/National Income.html" },
+          { id: "eco-06", titleBn: "ভারতীয় কৃষি", titleEn: "Indian Agriculture", targetUrl: "Economy/Indian Agriculture.html" },
+          { id: "eco-07", titleBn: "ভারতীয় শিল্প", titleEn: "Indian Industry", targetUrl: "Economy/Indian Industry.html" },
+          { id: "eco-08", titleBn: "পরিসেবা ক্ষেত্র", titleEn: "Service Sector", targetUrl: "Economy/Service Sector.html" },
+          { id: "eco-09", titleBn: "ভারতের জনসংখ্যা", titleEn: "Population of India", targetUrl: "Economy/Population of India.html" },
+          { id: "eco-10", titleBn: "দারিদ্র্য ও বৈষম্য", titleEn: "Poverty and Inequality", targetUrl: "Economy/Poverty and Inequality.html" },
+          { id: "eco-11", titleBn: "বেকারত্ব", titleEn: "Unemployment", targetUrl: "Economy/Unemployment.html" },
+          { id: "eco-12", titleBn: "ভারতের ব্যাংকিং ব্যবস্থা", titleEn: "Indian Banking System", targetUrl: "Economy/Indian Banking System.html" },
+          { id: "eco-13", titleBn: "ভারতের আর্থিক বাজার", titleEn: "Indian Financial Market", targetUrl: "Economy/Indian Financial Market.html" },
+          { id: "eco-14", titleBn: "অর্থ এবং মুদ্রাস্ফীতি", titleEn: "Money and Inflation", targetUrl: "Economy/Money and Inflation.html" },
+          { id: "eco-15", titleBn: "ভারতের রাজকোষ নীতি", titleEn: "Fiscal Policy of India", targetUrl: "Economy/Fiscal Policy of India.html" },
+          { id: "eco-16", titleBn: "আন্তর্জাতিক বাণিজ্য", titleEn: "International Trade", targetUrl: "Economy/International Trade.html" },
+          { id: "eco-17", titleBn: "ভারত সরকারের প্রকল্পসমূহ", titleEn: "Different Schemes by Government of India", targetUrl: "Economy/Different Schemes by Government of India.html" },
+          { id: "eco-18", titleBn: "আন্তর্জাতিক অর্থনৈতিক প্রতিষ্ঠানসমূহ", titleEn: "International Economic Organisation", targetUrl: "Economy/International Economic Organisation.html" },
+          { id: "eco-19", titleBn: "অর্থনীতি সম্বন্ধীয় সাম্প্রতিক বিষয়সমূহ", titleEn: "Current Topics Related to Economy", targetUrl: "Economy/Current Topics Related to Economy.html" },
+          { id: "eco-20", titleBn: "বিবিধ", titleEn: "Miscellaneous", targetUrl: "Economy/Miscellaneous.html" },
+          { id: "eco-21", titleBn: "পণ্য এবং পরিষেবার পরিবর্তিত GST হার", titleEn: "Changed GST Rate of Goods and Services", targetUrl: "Economy/Changed GST Rate of Goods and Services.html" }
+        ]
+      },
+      {
+        id: "biology",
+        nameBn: "জীববিদ্যা",
+        nameEn: "Biology",
+        icon: "fa-dna",
+        iconColor: "text-emerald-400",
+        badgeColor: "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/80",
+        chapters: [
+          { id: "bio-01", titleBn: "জীববিদ্যার বিভিন্ন শাখা", titleEn: "Different Branches of Biology", targetUrl: "Biology/Different Branches of Biology.html" },
+          { id: "bio-02", titleBn: "বিন্যাসবিধি ও সিস্টেমেটিক্স", titleEn: "Taxonomy and Systematics", targetUrl: "Biology/Taxonomy and Systematics.html" },
+          { id: "bio-03", titleBn: "জীবের শ্রেণিভিন্যাস", titleEn: "Biological Classification", targetUrl: "Biology/Biological Classification.html" },
+          { id: "bio-04", titleBn: "কোষ", titleEn: "Cell", targetUrl: "Biology/Cell.html" },
+          { id: "bio-05", titleBn: "উদ্ভিদ কলা ও প্রাণী কলা", titleEn: "Plant Tissue & Animal Tissue", targetUrl: "Biology/Plant Tissue & Animal Tissue.html" },
+          { id: "bio-06", titleBn: "নিউক্লিক অ্যাসিড", titleEn: "Nucleic Acid", targetUrl: "Biology/Nucleic Acid.html" },
+          { id: "bio-07", titleBn: "ক্রোমোজোম ও বংশগতি", titleEn: "Chromosome and Heredity", targetUrl: "Biology/Chromosome and Heredity.html" },
+          { id: "bio-08", titleBn: "কোষচক্র ও কোষ বিভাজন", titleEn: "Cell Cycle and Cell Division", targetUrl: "Biology/Cell Cycle and Cell Division.html" },
+          { id: "bio-09", titleBn: "ক্যানসার", titleEn: "Cancer", targetUrl: "Biology/Cancer.html" },
+          { id: "bio-10", titleBn: "উদ্ভিদের গঠনগত অঙ্গসংস্থান", titleEn: "Morphology of Plants", targetUrl: "Biology/Morphology of Plants.html" },
+          { id: "bio-11", titleBn: "সালোকসংশ্লেষ", titleEn: "Photosynthesis", targetUrl: "Biology/Photosynthesis.html" },
+          { id: "bio-12", titleBn: "বাষ্পমোচন", titleEn: "Transpiration", targetUrl: "Biology/Transpiration.html" },
+          { id: "bio-13", titleBn: "উদ্ভিদের শোষণ ও পরিবহণ", titleEn: "Absorption and Transportation in Plants", targetUrl: "Biology/Absorption and Transportation in Plants.html" },
+          { id: "bio-14", titleBn: "উদ্ভিদের বিভিন্ন রোগ", titleEn: "Different Plant Diseases", targetUrl: "Biology/Different Plant Diseases.html" },
+          { id: "bio-15", titleBn: "মানুষের সংবহন", titleEn: "Circulation in Human", targetUrl: "Biology/Circulation in Human.html" },
+          { id: "bio-16", titleBn: "মানুষের পৌষ্টিকতন্ত্র", titleEn: "Digestive System of Human", targetUrl: "Biology/Digestive System of Human.html" },
+          { id: "bio-17", titleBn: "স্নায়ুতন্ত্র ও জ্ঞানেন্দ্রিয়", titleEn: "Nervous System and Sense Organ", targetUrl: "Biology/Nervous System and Sense Organ.html" },
+          { id: "bio-18", titleBn: "অনাক্রম্য তন্ত্র", titleEn: "Immune System", targetUrl: "Biology/Immune System.html" },
+          { id: "bio-19", titleBn: "উদ্ভিদ ও প্রাণী পুষ্টি", titleEn: "Nutrition in Plants and Animals", targetUrl: "Biology/Nutrition in Plants and Animals.html" },
+          { id: "bio-20", titleBn: "শ্বসন ও শ্বাসকার্য", titleEn: "Respiration and Breathing", targetUrl: "Biology/Respiration and Breathing.html" },
+          { id: "bio-21", titleBn: "উদ্ভিদ ও প্রাণীর রেচন", titleEn: "Excretion in Plants and Animals", targetUrl: "Biology/Excretion in Plants and Animals.html" },
+          { id: "bio-22", titleBn: "উদ্ভিদ ও প্রাণীর জনন", titleEn: "Reproduction in Plants and Animals", targetUrl: "Biology/Reproduction in Plants and Animals.html" },
+          { id: "bio-23", titleBn: "উদ্ভিদ ও প্রাণী হরমোন", titleEn: "Plant and Animal Hormone", targetUrl: "Biology/Plant and Animal Hormone.html" },
+          { id: "bio-24", titleBn: "চলন ও গমন", titleEn: "Movement and Locomotion", targetUrl: "Biology/Movement and Locomotion.html" },
+          { id: "bio-25", titleBn: "অভিব্যক্তি ও অভিযোজন", titleEn: "Evolution and Adaptation", targetUrl: "Biology/Evolution and Adaptation.html" },
+          { id: "bio-26", titleBn: "বাস্তুবিদ্যা ও জীববৈচিত্র্য", titleEn: "Ecology and Biodiversity", targetUrl: "Biology/Ecology and Biodiversity.html" },
+          { id: "bio-27", titleBn: "জৈবপ্রযুক্তিবিদ্যা", titleEn: "Biotechnology", targetUrl: "Biology/Biotechnology.html" },
+          { id: "bio-28", titleBn: "চিকিৎসাবিজ্ঞানে ব্যবহৃত বিভিন্ন পরীক্ষা পদ্ধতি ও যন্ত্রপাতি এবং আবিষ্কার", titleEn: "Some Tests and Instruments used in Medical Science and Some Discoveries", targetUrl: "Biology/Some Tests and Instruments used in Medical Science and Some Discoveries.html" },
+          { id: "bio-29", titleBn: "পরিবেশবিদ্যা", titleEn: "Environmental Studies", targetUrl: "Biology/Environmental Studies.html" },
+          { id: "bio-30", titleBn: "বিবিধ", titleEn: "Miscellaneous", targetUrl: "Biology/Miscellaneous.html" }
+        ]
+      },
+      {
+        id: "physics",
+        nameBn: "পদার্থবিদ্যা",
+        nameEn: "Physics",
+        icon: "fa-atom",
+        iconColor: "text-cyan-400",
+        badgeColor: "bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800/80",
+        chapters: [
+          { id: "phy-01", titleBn: "ভৌত বিশ্ব ও পরিমাপ", titleEn: "Physical World and Measurement", targetUrl: "Physics/Physical World and Measurement.html" },
+          { id: "phy-02", titleBn: "বল ও গতি", titleEn: "Force and Motion", targetUrl: "Physics/Force and Motion.html" },
+          { id: "phy-03", titleBn: "পদার্থের সাধারণ ধর্ম", titleEn: "General Properties of Matter", targetUrl: "Physics/General Properties of Matter.html" },
+          { id: "phy-04", titleBn: "কার্য, ক্ষমতা, শক্তি ও সরল যন্ত্র", titleEn: "Work, Power, Energy and Simple Machine", targetUrl: "Physics/Work, Power, Energy and Simple Machine.html" },
+          { id: "phy-05", titleBn: "তাপ", titleEn: "Heat", targetUrl: "Physics/Heat.html" },
+          { id: "phy-06", titleBn: "কম্পন ও তরঙ্গ", titleEn: "Oscillations and Waves", targetUrl: "Physics/Oscillations and Waves.html" },
+          { id: "phy-07", titleBn: "আলোকবিজ্ঞান", titleEn: "Optics", targetUrl: "Physics/Optics.html" },
+          { id: "phy-08", titleBn: "তড়িৎবিজ্ঞান", titleEn: "Electricity", targetUrl: "Physics/Electricity.html" },
+          { id: "phy-09", titleBn: "তড়িৎচৌম্বকীয় আবেশ ও পদার্থের চৌম্বক ধর্ম", titleEn: "Electromagnetic Induction and Magnetic Properties of Matter", targetUrl: "Physics/Electromagnetic Induction and Magnetic Properties of Matter.html" },
+          { id: "phy-10", titleBn: "আধুনিক পদার্থবিদ্যা ও ইলেকট্রনিক্স", titleEn: "Modern Physics and Electronics", targetUrl: "Physics/Modern Physics and Electronics.html" }
+        ]
+      },
+      {
+        id: "chemistry",
+        nameBn: "রসায়ন",
+        nameEn: "Chemistry",
+        icon: "fa-flask-vial",
+        iconColor: "text-rose-400",
+        badgeColor: "bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800/80",
+        chapters: [
+          { id: "chm-01", titleBn: "রসায়নের প্রাথমিক ধারণা", titleEn: "Basic Concepts of Chemistry", targetUrl: "Chemistry/Basic Concepts of Chemistry.html" },
+          { id: "chm-02", titleBn: "পদার্থ ও তার ধর্ম", titleEn: "Matter and Its Properties", targetUrl: "Chemistry/Matter and Its Properties.html" },
+          { id: "chm-03", titleBn: "পরমাণু ও অণুর ধারণা", titleEn: "Concept of Atoms and Molecules", targetUrl: "Chemistry/Concept of Atoms and Molecules.html" },
+          { id: "chm-04", titleBn: "পদার্থের কঠিন অবস্থা", titleEn: "Solid State of Matter", targetUrl: "Chemistry/Solid State of Matter.html" },
+          { id: "chm-05", titleBn: "দ্রবণ ও মিশ্রণ", titleEn: "Solution and Mixture", targetUrl: "Chemistry/Solution and Mixture.html" },
+          { id: "chm-06", titleBn: "পদার্থের গ্যাসীয় অবস্থা", titleEn: "Gaseous State of Matter", targetUrl: "Chemistry/Gaseous State of Matter.html" },
+          { id: "chm-07", titleBn: "পৃষ্ঠতলীয় রসায়ন", titleEn: "Surface Chemistry", targetUrl: "Chemistry/Surface Chemistry.html" },
+          { id: "chm-08", titleBn: "অ্যাসিড, ক্ষারক, লবণ ও অক্সাইড", titleEn: "Acid, Base, Salt and Oxide", targetUrl: "Chemistry/Acid, Base, Salt and Oxide.html" },
+          { id: "chm-09", titleBn: "জারণ ও বিজারণ", titleEn: "Oxidation and Reduction", targetUrl: "Chemistry/Oxidation and Reduction.html" },
+          { id: "chm-10", titleBn: "পর্যায়-সারণি", titleEn: "Periodic Table", targetUrl: "Chemistry/Periodic Table.html" },
+          { id: "chm-11", titleBn: "রাসায়নিক বন্ধন ও আণবিক গঠন", titleEn: "Chemical Bonding and Molecular Structure", targetUrl: "Chemistry/Chemical Bonding and Molecular Structure.html" },
+          { id: "chm-12", titleBn: "তড়িৎবিশ্লেষণ ও তড়িৎ রসায়ন", titleEn: "Electrolysis & Electrochemistry", targetUrl: "Chemistry/Electrolysis & Electrochemistry.html" },
+          { id: "chm-13", titleBn: "তাপগতিবিদ্যা", titleEn: "Thermodynamics", targetUrl: "Chemistry/Thermodynamics.html" },
+          { id: "chm-14", titleBn: "অজৈব রসায়ন", titleEn: "Inorganic Chemistry", targetUrl: "Chemistry/Inorganic Chemistry.html" },
+          { id: "chm-15", titleBn: "ধাতুবিদ্যা", titleEn: "Metallurgy", targetUrl: "Chemistry/Metallurgy.html" },
+          { id: "chm-16", titleBn: "জৈব রসায়ন", titleEn: "Organic Chemistry", targetUrl: "Chemistry/Organic Chemistry.html" },
+          { id: "chm-17", titleBn: "প্রাত্যহিক জীবনে রসায়ন", titleEn: "Chemistry in Daily Life", targetUrl: "Chemistry/Chemistry in Daily Life.html" }
+        ]
+      },
+      {
+        id: "computer",
+        nameBn: "কম্পিউটার",
+        nameEn: "Computer & IT",
+        icon: "fa-laptop-code",
+        iconColor: "text-indigo-400",
+        badgeColor: "bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/80",
+        chapters: [
+          { id: "cmp-01", titleBn: "কম্পিউটার সম্পর্কিত সাধারণ জ্ঞান, তথ্যপ্রযুক্তি ও তার পরিভাষা", titleEn: "Basic Knowledge about Computer Technology and Its Definition", targetUrl: "Computer/Basic Knowledge about Computer Technology and Its Definition.html" },
+          { id: "cmp-02", titleBn: "কম্পিউটার হার্ডওয়্যার এবং সফটওয়্যার", titleEn: "Computer Hardware and Software", targetUrl: "Computer/Computer Hardware and Software.html" },
+          { id: "cmp-03", titleBn: "কম্পিউটার মেমরি", titleEn: "Computer Memory", targetUrl: "Computer/Computer Memory.html" },
+          { id: "cmp-04", titleBn: "কম্পিউটার সম্বন্ধীয় লজিক গেট এবং কম্বিনেশনাল সার্কিট", titleEn: "Computer Logic Gate and Combinational Circuit", targetUrl: "Computer/Computer Logic Gate and Combinational Circuit.html" },
+          { id: "cmp-05", titleBn: "কম্পিউটার নাম্বার সিস্টেম", titleEn: "Computer Number System", targetUrl: "Computer/Computer Number System.html" },
+          { id: "cmp-06", titleBn: "কম্পিউটার অপারেটিং সিস্টেম", titleEn: "Computer Operating System", targetUrl: "Computer/Computer Operating System.html" },
+          { id: "cmp-07", titleBn: "কম্পিউটার ল্যাঙ্গুয়েজ", titleEn: "Computer Language", targetUrl: "Computer/Computer Language.html" },
+          { id: "cmp-08", titleBn: "ডাটাবেস ম্যানেজমেন্ট সিস্টেম", titleEn: "Database Management System", targetUrl: "Computer/Database Management System.html" },
+          { id: "cmp-09", titleBn: "নেটওয়ার্কিং এবং তার পরিভাষা", titleEn: "Networking and Its Definition", targetUrl: "Computer/Networking and Its Definition.html" },
+          { id: "cmp-10", titleBn: "ইন্টারনেট এবং সোশ্যাল নেটওয়ার্কিং", titleEn: "Internet and Social Networking", targetUrl: "Computer/Internet and Social Networking.html" },
+          { id: "cmp-11", titleBn: "কম্পিউটার ভাইরাস এবং অ্যান্টিভাইরাস", titleEn: "Computer Virus and Antivirus", targetUrl: "Computer/Computer Virus and Antivirus.html" },
+          { id: "cmp-12", titleBn: "সাইবার ক্রাইম এবং সিকিউরিটি", titleEn: "Cyber Crime and Security", targetUrl: "Computer/Cyber Crime and Security.html" },
+          { id: "cmp-13", titleBn: "কমিউনিকেশন টেকনোলজি ও ডাটা ট্রান্সমিশন", titleEn: "Communication Technology and Data Transmission", targetUrl: "Computer/Communication Technology and Data Transmission.html" },
+          { id: "cmp-14", titleBn: "মোবাইল ফোনের বিবর্তন", titleEn: "Evolution of Mobile Phone", targetUrl: "Computer/Evolution of Mobile Phone.html" },
+          { id: "cmp-15", titleBn: "রোবটিক্স সম্পর্কিত তথ্য", titleEn: "Information about Robotics", targetUrl: "Computer/Information about Robotics.html" },
+          { id: "cmp-16", titleBn: "গ্রাফিক্স এবং ন্যানোটেকনোলজি", titleEn: "Graphics and Nanotechnology", targetUrl: "Computer/Graphics and Nanotechnology.html" }
+        ]
+      },
+      {
+        id: "generalknowledge",
+        nameBn: "সাধারণ জ্ঞান",
+        nameEn: "General Knowledge & Static GK",
+        icon: "fa-book-open-reader",
+        iconColor: "text-amber-400",
+        badgeColor: "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/80",
+        chapters: [
+          { id: "gk-01", titleBn: "খেলাধুলা", titleEn: "Sports", targetUrl: "General Knowledge/Sports.html" },
+          { id: "gk-02", titleBn: "পুরস্কার", titleEn: "Award", targetUrl: "General Knowledge/Award.html" },
+          { id: "gk-03", titleBn: "বিজ্ঞান ও প্রযুক্তি", titleEn: "Science and Technology", targetUrl: "General Knowledge/Science and Technology.html" },
+          { id: "gk-04", titleBn: "কলা, সংস্কৃতি, স্থাপত্য ও ভাস্কর্য", titleEn: "Art, Culture, Architecture and Sculpture", targetUrl: "General Knowledge/Art, Culture, Architecture and Sculpture.html" },
+          { id: "gk-05", titleBn: "চলচ্চিত্র, বেতার, টেলিভিশন", titleEn: "Film, Radio, Television", targetUrl: "General Knowledge/Film, Radio, Television.html" },
+          { id: "gk-06", titleBn: "সাহিত্যের অতীত ও বর্তমান", titleEn: "Past & Present of Literature", targetUrl: "General Knowledge/Past & Present of Literature.html" },
+          { id: "gk-07", titleBn: "আন্তর্জাতিক প্রতিষ্ঠানসমূহ", titleEn: "International Organisations", targetUrl: "General Knowledge/International Organisations.html" },
+          { id: "gk-08", titleBn: "গুরুত্বপূর্ণ দিবস, বর্ষ, সপ্তাহ", titleEn: "Important Dates, Years, Weeks", targetUrl: "General Knowledge/Important Dates, Years, Weeks.html" },
+          { id: "gk-09", titleBn: "দেশ, রাজধানী, ভাষা, মুদ্রা", titleEn: "Country, Capital, Language, Currency", targetUrl: "General Knowledge/Country, Capital, Language, Currency.html" },
+          { id: "gk-10", titleBn: "বিভিন্ন ক্ষেত্রে প্রথম", titleEn: "First in Various Case", targetUrl: "General Knowledge/First in Various Case.html" },
+          { id: "gk-11", titleBn: "উচ্চতম-দীর্ঘতম-বৃহত্তম", titleEn: "Superlative", targetUrl: "General Knowledge/Superlative.html" },
+          { id: "gk-12", titleBn: "জাতীয় বিষয়সমূহ", titleEn: "National Subjects", targetUrl: "General Knowledge/National Subjects.html" },
+          { id: "gk-13", titleBn: "সাধারণ জ্ঞানের পাঁচমিশালি", titleEn: "Miscellaneous", targetUrl: "General Knowledge/Miscellaneous.html" }
+        ]
+      },
+      {
+        id: "currentaffairs",
+        nameBn: "সাম্প্রতিক ঘটনাবলি",
+        nameEn: "Current Affairs",
+        icon: "fa-newspaper",
+        iconColor: "text-red-400",
+        badgeColor: "bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800/80",
+        chapters: [
+          { id: "ca-01", titleBn: "জাতীয় ও আন্তর্জাতিক সাম্প্রতিক ঘটনাবলি", titleEn: "National and International Current Affairs", targetUrl: "Current Affairs/National and International Current Affairs.html" },
+          { id: "ca-02", titleBn: "সাম্প্রতিক সরকারি প্রকল্প, নীতি ও পোর্টাল", titleEn: "Recent Government Schemes, Policies and Portals", targetUrl: "Current Affairs/Recent Government Schemes, Policies and Portals.html" },
+          { id: "ca-03", titleBn: "সামিট, সম্মেলন ও বৈঠক", titleEn: "Summits, Conferences and Meetings", targetUrl: "Current Affairs/Summits, Conferences and Meetings.html" },
+          { id: "ca-04", titleBn: "সামরিক মহড়া ও প্রতিরক্ষা সংক্রান্ত ঘটনাবলি", titleEn: "Military Exercises and Defence Affairs", targetUrl: "Current Affairs/Military Exercises and Defence Affairs.html" },
+          { id: "ca-05", titleBn: "মহাকাশ গবেষণা, বিজ্ঞান ও প্রযুক্তিগত অগ্রগতি", titleEn: "Space Missions, Science and Technology Advancements", targetUrl: "Current Affairs/Space Missions, Science and Technology Advancements.html" },
+          { id: "ca-06", titleBn: "সাম্প্রতিক নিয়োগ ও পদাধিকারী ব্যক্তিগণ", titleEn: "Recent Appointments and Key Dignitaries", targetUrl: "Current Affairs/Recent Appointments and Key Dignitaries.html" },
+          { id: "ca-07", titleBn: "পদত্যাগ ও প্রয়াত বিশিষ্ট ব্যক্তিবর্গ", titleEn: "Resignations and Recent Obits", targetUrl: "Current Affairs/Resignations and Recent Obits.html" },
+          { id: "ca-08", titleBn: "সাম্প্রতিক পুরস্কার ও সম্মাননা", titleEn: "Recent Awards and Honours", targetUrl: "Current Affairs/Recent Awards and Honours.html" },
+          { id: "ca-09", titleBn: "খেলাধুলা সংক্রান্ত সাম্প্রতিক ঘটনাবলি ও টুর্নামেন্ট", titleEn: "Sports Current Affairs and Tournaments", targetUrl: "Current Affairs/Sports Current Affairs and Tournaments.html" },
+          { id: "ca-10", titleBn: "সাম্প্রতিক প্রকাশিত বই ও লেখক", titleEn: "Recent Books and Authors", targetUrl: "Current Affairs/Recent Books and Authors.html" },
+          { id: "ca-11", titleBn: "আন্তর্জাতিক সূচক ও ভারতের অবস্থান", titleEn: "Global Indexes and India's Rank", targetUrl: "Current Affairs/Global Indexes and India's Rank.html" },
+          { id: "ca-12", titleBn: "গুরুত্বপূর্ণ সাম্প্রতিক চুক্তি ও সমঝোতা স্মারক", titleEn: "Key MoUs and Bilateral Agreements", targetUrl: "Current Affairs/Key MoUs and Bilateral Agreements.html" },
+          { id: "ca-13", titleBn: "ব্যাংকিং, অর্থ ও বাণিজ্যিক সাম্প্রতিক তথ্যাবলি", titleEn: "Banking, Financial and Economy Updates", targetUrl: "Current Affairs/Banking, Financial and Economy Updates.html" },
+          { id: "ca-14", titleBn: "পরিবেশ, আবহাওয়া ও দুর্যোগ সংক্রান্ত ঘটনাবলি", titleEn: "Environment, Climate and Disaster Management Affairs", targetUrl: "Current Affairs/Environment, Climate and Disaster Management Affairs.html" },
+          { id: "ca-15", titleBn: "পশ্চিমবঙ্গের সাম্প্রতিক ঘটনাবলি ও রাজ্য প্রকল্প", titleEn: "West Bengal Current Affairs and State Schemes", targetUrl: "Current Affairs/West Bengal Current Affairs and State Schemes.html" },
+          { id: "ca-16", titleBn: "সাম্প্রতিক জিআই ট্যাগ ও ঐতিহ্যবাহী স্থান", titleEn: "Recent GI Tags and Heritage Sites", targetUrl: "Current Affairs/Recent GI Tags and Heritage Sites.html" },
+          { id: "ca-17", titleBn: "গুরুত্বপূর্ণ সাম্প্রতিক দিবস ও প্রতিপাদ্য বিষয়", titleEn: "Important Days and Themes", targetUrl: "Current Affairs/Important Days and Themes.html" },
+          { id: "ca-18", titleBn: "সাম্প্রতিক বিবিধ ঘটনাবলি", titleEn: "Miscellaneous Current Affairs", targetUrl: "Current Affairs/Miscellaneous Current Affairs.html" }
+        ]
+      }
+    ];
+    /**
+     * Application State
+     */
+    const appState = {
+      theme: localStorage.getItem('mcq_app_theme') || 'dark',
+      expandedSubjectIds: new Set(),
+      searchQuery: ""
+    };
+
+    /**
+     * DOM Cache
+     */
+    const dom = {
+      html: document.documentElement,
+      btnTheme: document.getElementById('btn-theme'),
+      themeIcon: document.getElementById('theme-icon'),
+      themeText: document.getElementById('theme-text'),
+      searchInput: document.getElementById('search-input'),
+      searchClear: document.getElementById('search-clear'),
+      subjectsContainer: document.getElementById('subjects-container'),
+      emptySearch: document.getElementById('empty-search')
+    };
+
+    /* Theme Handler */
+    function applyTheme(theme) {
+      appState.theme = theme;
+      localStorage.setItem('mcq_app_theme', theme);
+      if (theme === 'dark') {
+        dom.html.classList.add('dark');
+        dom.themeIcon.className = 'fa-solid fa-sun text-amber-400';
+        dom.themeText.innerText = 'দিন';
+      } else {
+        dom.html.classList.remove('dark');
+        dom.themeIcon.className = 'fa-solid fa-moon text-indigo-500';
+        dom.themeText.innerText = 'রাত্রি';
+      }
+    }
+
+    /* Accordion Toggle */
+    function toggleSubject(subjectId) {
+      if (appState.expandedSubjectIds.has(subjectId)) {
+        appState.expandedSubjectIds.delete(subjectId);
+      } else {
+        appState.expandedSubjectIds.add(subjectId);
+      }
+      renderSubjects();
+    }
+
+    /* Render Main Subject Cards */
+    function renderSubjects() {
+      const q = appState.searchQuery.trim().toLowerCase();
+      dom.subjectsContainer.innerHTML = '';
+
+      let visibleSubjectsCount = 0;
+
+      GK_DATABASE.forEach((subject) => {
+        // Filter chapters according to search input
+        const matchedChapters = subject.chapters.filter(ch => {
+          if (!q) return true;
+          return (
+            ch.titleBn.toLowerCase().includes(q) ||
+            ch.titleEn.toLowerCase().includes(q) ||
+            subject.nameBn.toLowerCase().includes(q) ||
+            subject.nameEn.toLowerCase().includes(q)
+          );
+        });
+
+        // Hide subject if nothing matches query
+        if (q && matchedChapters.length === 0) {
+          return;
+        }
+
+        visibleSubjectsCount++;
+        const isExpanded = q ? true : appState.expandedSubjectIds.has(subject.id);
+
+        const card = document.createElement('div');
+        card.className = "bg-white dark:bg-[#151f32] rounded-2xl border border-slate-200 dark:border-[#24334d] shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden";
+
+        // Subject Header (Clickable accordion trigger)
+        const headerBtn = document.createElement('div');
+        headerBtn.setAttribute('role', 'button');
+        headerBtn.setAttribute('tabindex', '0');
+        headerBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        headerBtn.className = "p-4 sm:p-5 flex items-center justify-between gap-3.5 cursor-pointer select-none bg-slate-50/50 hover:bg-indigo-50/30 dark:bg-transparent dark:hover:bg-slate-800/40 transition";
+
+        headerBtn.innerHTML = `
+          <div class="flex items-center gap-3.5 sm:gap-4 min-w-0">
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-slate-700/80 flex items-center justify-center text-lg sm:text-xl shadow-xs flex-shrink-0">
+              <i class="fa-solid ${subject.icon} ${subject.iconColor}"></i>
+            </div>
+
+            <div class="min-w-0">
+              <h2 class="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white leading-tight">
+                ${subject.nameBn}
+              </h2>
+              <p class="text-xs sm:text-sm font-latin font-medium text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                ${subject.nameEn}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center transition-transform duration-200 ${isExpanded ? 'rotate-180 bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400' : ''}">
+              <i class="fa-solid fa-chevron-down text-xs sm:text-sm"></i>
+            </span>
+          </div>
+        `;
+
+        headerBtn.addEventListener('click', () => {
+          toggleSubject(subject.id);
+        });
+
+        headerBtn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSubject(subject.id);
+          }
+        });
+
+        card.appendChild(headerBtn);
+
+        // Accordion Content (Chapters List)
+        if (isExpanded) {
+          const bodyContainer = document.createElement('div');
+          bodyContainer.className = "border-t border-slate-200 dark:border-[#24334d] bg-slate-50/70 dark:bg-[#0c1322] p-3 sm:p-4";
+
+          const chaptersList = document.createElement('div');
+          chaptersList.className = "space-y-2";
+
+          matchedChapters.forEach((ch, idx) => {
+            const chItem = document.createElement('a');
+            chItem.href = ch.targetUrl;
+            chItem.className = "group block bg-white dark:bg-[#151f32] p-3 sm:p-3.5 rounded-xl border border-slate-200 dark:border-slate-700/80 hover:border-indigo-400 dark:hover:border-indigo-500/60 shadow-xs hover:shadow transition-all duration-150";
+
+            chItem.innerHTML = `
+              <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 min-w-0 flex-1">
+                  <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-latin font-bold text-xs sm:text-sm border border-indigo-100 dark:border-slate-700 flex items-center justify-center flex-shrink-0">
+                    ${idx + 1}
+                  </span>
+
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <h3 class="text-xs sm:text-sm md:text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition leading-snug">
+                        ${ch.titleBn}
+                      </h3>
+                    </div>
+                    <p class="text-[11px] sm:text-xs font-latin text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                      ${ch.titleEn}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 flex-shrink-0">
+                  <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-400 group-hover:bg-indigo-600 group-hover:text-white dark:group-hover:bg-indigo-600 dark:group-hover:text-white flex items-center justify-center transition-all duration-200 border border-slate-200/80 dark:border-slate-700/80 group-hover:border-indigo-600 shadow-2xs group-hover:shadow-xs group-hover:scale-105 active:scale-95">
+                    <i class="fa-solid fa-chevron-right text-xs sm:text-sm transition-transform duration-200 group-hover:translate-x-0.5"></i>
+                  </span>
+                </div>
+              </div>
+            `;
+
+            chaptersList.appendChild(chItem);
+          });
+
+          bodyContainer.appendChild(chaptersList);
+          card.appendChild(bodyContainer);
+        }
+
+        dom.subjectsContainer.appendChild(card);
+      });
+
+      if (visibleSubjectsCount === 0) {
+        dom.emptySearch.classList.remove('hidden');
+      } else {
+        dom.emptySearch.classList.add('hidden');
+      }
+    }
+
+    /* Event Listeners */
+    function initListeners() {
+      dom.btnTheme.addEventListener('click', () => {
+        applyTheme(appState.theme === 'dark' ? 'light' : 'dark');
+      });
+
+      dom.searchInput.addEventListener('input', (e) => {
+        const val = e.target.value;
+        appState.searchQuery = val;
+        if (val.trim()) {
+          dom.searchClear.classList.remove('hidden');
+        } else {
+          dom.searchClear.classList.add('hidden');
+        }
+        renderSubjects();
+      });
+
+      dom.searchClear.addEventListener('click', () => {
+        dom.searchInput.value = '';
+        appState.searchQuery = '';
+        dom.searchClear.classList.add('hidden');
+        renderSubjects();
+        dom.searchInput.focus();
+      });
+    }
+
+    /* Initialization */
+    function initialize() {
+      applyTheme(appState.theme);
+      initListeners();
+      renderSubjects();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initialize);
+    } else {
+      initialize();
+    }
+  </script>
+</body>
+</html>

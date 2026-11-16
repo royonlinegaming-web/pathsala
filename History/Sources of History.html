@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+<html lang="bn" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ইতিহাসের উপাদান (Sources of History) - বিগত বছরের প্রশ্নাবলী ও বিশ্লেষণাত্মক অনুশীলন">
+  <meta name="theme-color" content="#0b1120">
+  <title>ইতিহাসের উপাদান (Sources of History)</title>
+
+  <!-- 1. Initial Theme & Font-Size Guard (Prevents FOUC) -->
+  <script>
+    (() => {
+      try {
+        const theme = localStorage.getItem('mcq_app_theme');
+        if (theme === 'light') {
+          document.documentElement.classList.remove('dark');
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#f1f5f9');
+        }
+        const savedSize = parseInt(localStorage.getItem('mcq_app_font_size'), 10);
+        document.documentElement.style.fontSize =
+          (!isNaN(savedSize) && savedSize >= 10 && savedSize <= 18 ? savedSize : 14) + 'px';
+      } catch {
+        document.documentElement.style.fontSize = '14px';
+      }
+    })();
+  </script>
+
+  <!-- 2. Fonts & Tailwind CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            bengali: ['"Hind Siliguri"', 'sans-serif'],
+            latin: ['"Inter"', 'sans-serif']
+          },
+          keyframes: {
+            fadeSlideIn: {
+              '0%': { opacity: '0', transform: 'translateY(-6px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
+          },
+          animation: {
+            'fade-slide': 'fadeSlideIn 0.22s ease-out forwards'
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- 3. Custom Component & Rich Content Styles -->
+  <style>
+    html {
+      font-size: 14px;
+      scroll-behavior: smooth;
+      transition: font-size 0.15s ease;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-latin {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Subtle Custom Scrollbars */
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(148, 163, 184, 0.35);
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(148, 163, 184, 0.55);
+    }
+
+    /* Auto-hiding Sub-Navigation Bar */
+    #sub-nav-bar {
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+      will-change: transform, opacity;
+    }
+    #sub-nav-bar.subbar-hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Card Rendering Optimization */
+    .question-card {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 320px;
+    }
+    .explanation-container u {
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 3px;
+    }
+
+    /* Rich Content Typography, Lists & Tables */
+    .rich-content-table-wrap {
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+    .rich-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92em;
+      text-align: left;
+    }
+    .rich-content thead th {
+      background-color: rgba(79, 70, 229, 0.1);
+      color: #312e81;
+      font-weight: 700;
+      padding: 0.55rem 0.8rem;
+      border-bottom: 1.5px solid rgba(99, 102, 241, 0.28);
+      white-space: nowrap;
+    }
+    .dark .rich-content thead th {
+      background-color: rgba(99, 102, 241, 0.18);
+      color: #c7d2fe;
+      border-bottom-color: rgba(129, 140, 248, 0.3);
+    }
+    .rich-content tbody td {
+      padding: 0.55rem 0.8rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    .dark .rich-content tbody td {
+      border-top-color: rgba(51, 65, 85, 0.75);
+    }
+    .rich-content tbody tr:nth-child(even) {
+      background-color: rgba(248, 250, 252, 0.65);
+    }
+    .dark .rich-content tbody tr:nth-child(even) {
+      background-color: rgba(30, 41, 59, 0.45);
+    }
+    .rich-content tbody tr:hover {
+      background-color: rgba(99, 102, 241, 0.06);
+    }
+    .dark .rich-content tbody tr:hover {
+      background-color: rgba(99, 102, 241, 0.12);
+    }
+    .rich-content ul {
+      list-style-type: disc;
+      padding-left: 1.35rem;
+    }
+    .rich-content ol {
+      list-style-type: decimal;
+      padding-left: 1.35rem;
+    }
+    .rich-content li + li {
+      margin-top: 0.375rem;
+    }
+
+    /* Search Highlight Mark */
+    mark.search-hl {
+      background-color: rgba(250, 204, 21, 0.35);
+      color: inherit;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+    .dark mark.search-hl {
+      background-color: rgba(234, 179, 8, 0.3);
+      color: #fef08a;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 dark:bg-[#0b1120] text-slate-800 dark:text-slate-100 min-h-screen flex flex-col overflow-x-hidden transition-colors duration-200 antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Skip to Main Content (Accessibility) -->
+  <a href="#questions-feed" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-xl focus:bg-indigo-600 focus:text-white focus:font-semibold focus:shadow-lg">
+    মূল প্রশ্নাবলিতে যান
+  </a>
+
+  <!-- Live Screen-Reader Announcer -->
+  <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Floating Toast Feedback -->
+  <div id="app-toast" role="status" aria-live="polite" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-slate-900/90 dark:bg-slate-800/95 text-white text-xs sm:text-sm font-medium shadow-lg border border-slate-700/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-200 translate-y-2 flex items-center gap-2">
+    <i id="app-toast-icon" class="fa-solid fa-circle-info text-indigo-400"></i>
+    <span id="app-toast-text"></span>
+  </div>
+
+  <!-- ================= 1. STICKY TOP HEADER ================= -->
+  <header class="sticky top-0 z-30 bg-white/95 dark:bg-[#151f32]/95 backdrop-blur-md border-b border-slate-200 dark:border-[#24334d] shadow-sm transition-colors duration-200">
+    <div class="w-full px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-3">
+
+      <!-- Chapter Identity -->
+      <div class="flex items-center gap-2.5 sm:gap-4 min-w-0">
+        <a
+          id="btn-back-top"
+          href="#top"
+          aria-label="ইতিহাসের উপাদান — উপরে যান"
+          title="উপরে যান"
+          class="p-2 sm:p-3 rounded-2xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-slate-700/80 shadow-sm hover:bg-indigo-100 dark:hover:bg-slate-700 transition active:scale-95 flex-shrink-0 inline-flex items-center justify-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+        >
+          <i class="fa-solid fa-book-bookmark text-base sm:text-xl" aria-hidden="true"></i>
+        </a>
+
+        <div class="min-w-0 truncate select-none">
+          <h1 class="text-base sm:text-lg md:text-xl font-bold leading-tight text-slate-900 dark:text-white truncate">
+            ইতিহাসের উপাদান
+          </h1>
+          <p class="text-xs sm:text-sm font-latin font-medium text-slate-500 dark:text-slate-400 truncate mt-0.5">
+            (Sources of History)
+          </p>
+        </div>
+      </div>
+
+      <!-- Progress HUD Gauge Button -->
+      <div class="ml-auto flex items-center justify-end flex-shrink-0">
+        <button
+          id="btn-palette-open"
+          type="button"
+          aria-label="প্রশ্ন তালিকা খুলুন"
+          aria-controls="palette-drawer"
+          aria-expanded="false"
+          title="প্রশ্ন তালিকা দেখুন"
+          class="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-transparent border border-slate-300/60 dark:border-slate-700/60 hover:border-indigo-400/80 hover:bg-indigo-500/10 transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60"
+        >
+          <svg class="absolute inset-0 w-full h-full -rotate-90 p-1 pointer-events-none" viewBox="0 0 36 36" aria-hidden="true">
+            <circle
+              cx="18" cy="18" r="15.5"
+              class="text-slate-300/65 dark:text-slate-600/55 stroke-current transition-colors group-hover:text-indigo-400/70"
+              stroke-width="2.2" fill="transparent"
+            />
+            <path
+              id="header-gauge-progress"
+              class="text-indigo-600 dark:text-indigo-400 stroke-current transition-all duration-300 ease-out"
+              stroke-width="2.6" stroke-linecap="round" fill="transparent"
+              stroke-dasharray="97.4" stroke-dashoffset="0"
+              d="M18 2.5 a 15.5 15.5 0 0 1 0 31 a 15.5 15.5 0 0 1 0 -31"
+            />
+          </svg>
+          <span
+            id="header-unanswered-badge"
+            class="relative z-10 font-latin font-bold text-xs sm:text-[13px] tracking-tight text-indigo-700 dark:text-indigo-300 group-hover:scale-105 transition-transform tabular-nums leading-none"
+          >0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= 2. STICKY AUTO-HIDING SUB-NAV BAR ================= -->
+  <nav
+    id="sub-nav-bar"
+    aria-label="ফিল্টার এবং নেভিগেশন নিয়ন্ত্রণ"
+    class="sticky top-16 sm:top-20 z-20 bg-white/95 dark:bg-[#151f32]/95 backdrop-blur-md border-b border-slate-200 dark:border-[#24334d] shadow-sm"
+  >
+    <div class="max-w-5xl mx-auto px-2.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-1.5 sm:gap-3">
+
+      <!-- Left: Category Menu & Search -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-1 min-w-0">
+        <button
+          id="btn-menu-drawer"
+          type="button"
+          aria-label="সূচিপত্র মেনু খুলুন"
+          aria-controls="category-drawer"
+          aria-expanded="false"
+          title="সূচিপত্র মেনু"
+          class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/80 flex items-center justify-center transition active:scale-95 flex-shrink-0 cursor-pointer shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+        >
+          <i class="fa-solid fa-bars text-sm sm:text-lg" aria-hidden="true"></i>
+        </button>
+
+        <div class="relative flex-1 min-w-0 max-w-xs sm:max-w-sm md:max-w-md">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-2.5 sm:pl-3 pointer-events-none text-slate-400">
+            <i class="fa-solid fa-magnifying-glass text-xs sm:text-sm" aria-hidden="true"></i>
+          </span>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="অনুসন্ধান করুন..."
+            aria-label="প্রশ্ন বা বিষয় খুঁজুন"
+            autocomplete="off"
+            spellcheck="false"
+            class="w-full h-9 sm:h-10 pl-8 sm:pl-9 pr-12 text-xs sm:text-sm rounded-xl bg-slate-100 dark:bg-[#0b1120] border border-slate-200 dark:border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-slate-100 placeholder-slate-400 transition [&::-webkit-search-cancel-button]:hidden"
+          >
+          <kbd id="search-kbd-hint" class="hidden sm:inline-flex items-center justify-center absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-latin font-semibold text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded pointer-events-none">/</kbd>
+          <button
+            id="search-clear"
+            type="button"
+            aria-label="অনুসন্ধান মুছুন"
+            class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hidden cursor-pointer"
+          >
+            <i class="fa-solid fa-circle-xmark text-xs" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Global Controls -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <button
+          id="btn-toggle-all-explains"
+          type="button"
+          aria-pressed="false"
+          title="সকল প্রশ্নের ব্যাখ্যা একসাথে খুলুন বা বন্ধ করুন"
+          class="h-9 sm:h-10 px-2.5 sm:px-3.5 rounded-xl bg-indigo-50 hover:bg-indigo-100/90 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs sm:text-sm font-semibold transition border border-indigo-200 dark:border-indigo-800 shadow-sm active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+        >
+          <i id="icon-toggle-all" class="fa-solid fa-eye text-xs sm:text-sm text-indigo-500" aria-hidden="true"></i>
+          <span id="text-toggle-all" class="hidden md:inline whitespace-nowrap">সব ব্যাখ্যা দেখুন</span>
+        </button>
+
+        <button
+          id="btn-shuffle"
+          type="button"
+          title="প্রশ্ন ও অপশনগুলি শাফেল করুন"
+          class="h-9 sm:h-10 px-2.5 sm:px-3.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-semibold transition border border-slate-200 dark:border-slate-700/80 shadow-sm active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+        >
+          <i class="fa-solid fa-shuffle text-xs sm:text-sm text-indigo-500" aria-hidden="true"></i>
+          <span class="hidden md:inline whitespace-nowrap">শাফেল</span>
+        </button>
+
+        <button
+          id="btn-theme"
+          type="button"
+          title="দিন ও রাত্রি মোড পরিবর্তন"
+          class="h-9 sm:h-10 px-2.5 sm:px-3.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-semibold transition border border-slate-200 dark:border-slate-700/80 shadow-sm active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+        >
+          <i id="theme-icon" class="fa-solid fa-sun text-xs sm:text-sm text-amber-400" aria-hidden="true"></i>
+          <span id="theme-text" class="hidden md:inline whitespace-nowrap">দিন</span>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ================= 3. RIGHT DRAWER: QUESTION PALETTE ================= -->
+  <div id="palette-backdrop" class="fixed inset-0 bg-slate-950/40 backdrop-blur-[2px] z-40 transition-opacity duration-200 opacity-0 pointer-events-none"></div>
+  <aside
+    id="palette-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="প্রশ্ন তালিকা"
+    aria-hidden="true"
+    tabindex="-1"
+    class="fixed top-0 right-0 bottom-0 w-72 sm:w-80 max-w-[85vw] bg-white/90 dark:bg-[#0f172a]/90 backdrop-blur-xl z-50 shadow-2xl transform translate-x-full transition-transform duration-250 ease-out flex flex-col border-l border-slate-200/70 dark:border-slate-700/60 focus:outline-none"
+  >
+    <div class="px-3.5 py-3 border-b border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between bg-white/40 dark:bg-slate-900/40">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-indigo-600/90 text-white flex items-center justify-center text-xs font-bold shadow-sm">
+          <i class="fa-solid fa-list-ol" aria-hidden="true"></i>
+        </div>
+        <h2 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">প্রশ্ন তালিকা</h2>
+      </div>
+      <button
+        id="btn-palette-close"
+        type="button"
+        aria-label="প্রশ্ন তালিকা বন্ধ করুন"
+        class="p-1.5 rounded-lg text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+      >
+        <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- Score Counters -->
+    <div class="px-2.5 sm:px-3 py-2 border-b border-slate-200/50 dark:border-slate-700/50 select-none">
+      <div class="min-h-[2.25rem] w-full rounded-xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-md p-1 flex items-center gap-1 border border-slate-300/50 dark:border-slate-700/50">
+        <div class="flex-1 min-w-0 h-full rounded-lg bg-emerald-500/15 border border-emerald-500/30 px-2 sm:px-2.5 py-1 flex items-center justify-between gap-1">
+          <div class="flex items-center gap-1 sm:gap-1.5 min-w-0">
+            <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] shadow-sm flex-shrink-0">
+              <i class="fa-solid fa-check" aria-hidden="true"></i>
+            </span>
+            <span class="font-latin text-[10px] font-bold tracking-wider text-emerald-700 dark:text-emerald-400 truncate">CORRECT</span>
+          </div>
+          <span id="counter-correct" class="font-latin font-black text-sm text-emerald-600 dark:text-emerald-300 leading-none tabular-nums flex-shrink-0">0</span>
+        </div>
+
+        <div class="w-[1px] h-4 bg-slate-300/60 dark:bg-slate-700/60 flex-shrink-0"></div>
+
+        <div class="flex-1 min-w-0 h-full rounded-lg bg-rose-500/15 border border-rose-500/30 px-2 sm:px-2.5 py-1 flex items-center justify-between gap-1">
+          <div class="flex items-center gap-1 sm:gap-1.5 min-w-0">
+            <span class="w-4 h-4 rounded-full bg-rose-500 text-white flex items-center justify-center text-[9px] shadow-sm flex-shrink-0">
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </span>
+            <span class="font-latin text-[10px] font-bold tracking-wider text-rose-700 dark:text-rose-400 truncate">WRONG</span>
+          </div>
+          <span id="counter-wrong" class="font-latin font-black text-sm text-rose-600 dark:text-rose-300 leading-none tabular-nums flex-shrink-0">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto custom-scroll p-2.5 sm:p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
+      <div id="palette-grid" class="grid grid-cols-5 gap-1.5 sm:gap-2"></div>
+    </div>
+  </aside>
+
+  <!-- ================= 4. LEFT DRAWER: SYLLABUS & SETTINGS ================= -->
+  <div id="category-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40 transition-opacity duration-200 opacity-0 pointer-events-none"></div>
+  <aside
+    id="category-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="অধ্যায় সূচিপত্র"
+    aria-hidden="true"
+    tabindex="-1"
+    class="fixed top-0 left-0 bottom-0 w-72 sm:w-80 max-w-[85vw] bg-white dark:bg-[#151f32] z-50 shadow-2xl transform -translate-x-full transition-transform duration-250 ease-out flex flex-col border-r border-slate-200 dark:border-[#24334d] focus:outline-none"
+  >
+    <div class="px-3.5 py-3 border-b border-slate-200 dark:border-[#24334d] flex items-center justify-between bg-slate-50 dark:bg-[#101827]">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-bold shadow-sm">
+          <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+        </div>
+        <h2 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">সূচিপত্র</h2>
+      </div>
+      <button
+        id="btn-category-close"
+        type="button"
+        aria-label="সূচিপত্র বন্ধ করুন"
+        class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800 transition cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+      >
+        <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto custom-scroll p-3 space-y-1" id="category-list"></div>
+
+    <!-- Font Size & Reset Controls -->
+    <div class="p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] border-t border-slate-200 dark:border-[#24334d] bg-slate-50 dark:bg-[#101827] space-y-2.5">
+      <div class="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80">
+        <span class="text-xs font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 whitespace-nowrap">
+          <i class="fa-solid fa-text-height text-indigo-500 text-xs" aria-hidden="true"></i>
+          <span>ফন্ট সাইজ</span>
+        </span>
+        <div class="flex items-center gap-1 font-latin">
+          <button id="btn-font-dec" type="button" title="ফন্ট ছোট করুন" aria-label="ফন্ট ছোট করুন" class="w-7 h-7 rounded-md bg-slate-100 hover:bg-indigo-100 dark:bg-slate-700 dark:hover:bg-indigo-900/60 text-slate-700 dark:text-slate-200 font-bold text-xs transition flex items-center justify-center cursor-pointer active:scale-95">A-</button>
+          <button id="btn-font-reset" type="button" title="ডিফল্ট ফন্ট সাইজ (14px)" aria-label="ডিফল্ট ফন্ট সাইজ" class="w-7 h-7 rounded-md bg-indigo-600 text-white border border-indigo-600 font-bold text-xs transition flex items-center justify-center cursor-pointer active:scale-95 shadow-sm">A</button>
+          <button id="btn-font-inc" type="button" title="ফন্ট বড় করুন" aria-label="ফন্ট বড় করুন" class="w-7 h-7 rounded-md bg-slate-100 hover:bg-indigo-100 dark:bg-slate-700 dark:hover:bg-indigo-900/60 text-slate-700 dark:text-slate-200 font-bold text-xs transition flex items-center justify-center cursor-pointer active:scale-95">A+</button>
+        </div>
+      </div>
+
+      <button
+        id="btn-reset-progress"
+        type="button"
+        class="w-full py-2 px-3 text-xs font-semibold rounded-lg text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 border border-rose-200 dark:border-rose-900/80 transition flex items-center justify-center gap-1.5 active:scale-[0.98] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+      >
+        <i class="fa-solid fa-rotate-left text-xs" aria-hidden="true"></i>
+        <span>সকল উত্তর পুনরায় শুরু করুন (Reset)</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ================= 5. MAIN QUESTION FEED ================= -->
+  <main id="top" class="flex-1 max-w-4xl w-full mx-auto px-3 sm:px-6 pt-5 sm:pt-8 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
+
+    <!-- Active Filter Pill -->
+    <div id="filter-indicator" class="mb-4 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden">
+      <span class="inline-flex items-center gap-1.5 min-w-0">
+        <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 flex-shrink-0"></span>
+        <span class="truncate">বর্তমান ক্যাটাগরি: <b id="filter-category-name" class="text-slate-800 dark:text-slate-200"></b></span>
+      </span>
+      <button id="btn-show-all-categories" type="button" class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline cursor-pointer flex-shrink-0">
+        সকল প্রশ্ন দেখুন
+      </button>
+    </div>
+
+    <!-- Feed Container -->
+    <section id="questions-feed" class="space-y-6" aria-label="প্রশ্নাবলি তালিকা"></section>
+
+    <!-- Empty Search State -->
+    <div id="empty-state" class="hidden py-16 text-center select-none">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-indigo-50 dark:bg-slate-800 text-indigo-500 flex items-center justify-center text-2xl shadow-inner">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      </div>
+      <h3 class="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100">কোনো প্রশ্ন খুঁজে পাওয়া যায়নি</h3>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
+        অন্য কোনো কি-ওয়ার্ড লিখে অনুসন্ধান করুন অথবা সূচিপত্র থেকে ক্যাটাগরি পরিবর্তন করুন।
+      </p>
+      <button id="btn-clear-filters-empty" type="button" class="mt-4 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold shadow-sm transition cursor-pointer">
+        সব ফিল্টার মুছুন
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ================= 6. MODULAR APPLICATION SCRIPT ================= -->
+  <script>
+    (() => {
+      'use strict';
+
+      /* =====================================================================
+         MODULE A: QUESTION BANK DATA
+         ===================================================================== */
+      const QUESTIONS_DATA = [
+        {
+          id: 1,
+          category: "বৈদেশিক সাহিত্য",
+          pyqYear: "WBP Mains 2019, Food SI 2024, WBPSC MVI 2018, WBCS 2014",
+          questionBn: "মেগাস্থিনিস (Megasthenes) রচিত 'ইন্ডিকা' (Indica) গ্রন্থ থেকে কোন বংশের ইতিহাস জানা যায়?",
+          questionEn: "The history of which dynasty is known from the book 'Indica' written by Megasthenes?",
+          options: {
+            A: { bn: "গুপ্ত", en: "Gupta" },
+            B: { bn: "পল্লব", en: "Pallava" },
+            C: { bn: "মৌর্য", en: "Maurya" },
+            D: { bn: "চালুক্য", en: "Chalukya" }
+          },
+          correctKey: "C",
+          explanation: {
+            context: `• <u>মেগাস্থিনিস (Megasthenes)</u> রচিত বিখ্যাত গ্রন্থটির নাম <u>'ইন্ডিকা' (Indica)</u>।
+                      • তিনি ছিলেন পশ্চিম এশিয়ার গ্রিক শাসক <u>সেলুকাসের দূত</u>।
+                      • তিনি মৌর্য সাম্রাজ্যের প্রতিষ্ঠাতা <u>চন্দ্রগুপ্ত মৌর্যের</u> রাজত্বকালে ভারতে এসেছিলেন।
+                      • গ্রিক ভাষায় রচিত তাঁর এই গ্রন্থ থেকে মৌর্য সাম্রাজ্যের শাসনব্যবস্থা এবং সমকালীন ভারতবর্ষের রাজনৈতিক, সামাজিক ও অর্থনৈতিক অবস্থা সম্পর্কে বহু গুরুত্বপূর্ণ তথ্য জানা যায়।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>গুপ্ত:</strong> গুপ্ত বংশের ইতিহাস জানার অন্যতম প্রধান বিদেশি উপাদান হলো চৈনিক পর্যটক ফা-হিয়েনের <u>'ফো-কুয়ো-কি' (Fo-Kwo-Ki)</u> এবং দেশীয় উপাদান হলো সমুদ্রগুপ্তের সভাকবি হরিষেণ রচিত <u>'এলাহাবাদ প্রশস্তি'</u>।" },
+              { key: "B", desc: "<strong>পল্লব:</strong> পল্লব বংশের ইতিহাস সম্পর্কে জানার জন্য পল্লব রাজা প্রথম মহেন্দ্র বর্মন রচিত <u>'মত্তবিলাস প্রহসন'</u> গ্রন্থ এবং কাঞ্চী ও মহাবলীপুরমের বিভিন্ন স্থাপত্য ও শিলালিপি বিশেষভাবে উল্লেখযোগ্য।" },
+              { key: "D", desc: "<strong>চালুক্য:</strong> চালুক্য বংশের ইতিহাস জানার প্রধান উৎস হলো দ্বিতীয় পুলকেশীর সভাকবি রবিকীর্তি রচিত <u>'আইহোল প্রশস্তি'</u> এবং চালুক্য রাজসভার পণ্ডিত বিজ্ঞানেশ্বর রচিত <u>'মিতাক্ষরা'</u> গ্রন্থ।" }
+            ],
+            notes: `• মেগাস্থিনিসের রচিত মূল 'ইন্ডিকা' গ্রন্থটি বর্তমানে হারিয়ে গেলেও পরবর্তীকালের গ্রিক লেখক <u>স্ট্র্যাবো, অ্যারিয়ান, ডায়োডোরাস</u> প্রমুখের রচনায় এই গ্রন্থের বহু উদ্ধৃতি পাওয়া যায়।
+                    • মৌর্য বংশের ইতিহাস জানার অপর একটি অত্যন্ত গুরুত্বপূর্ণ দেশীয় সাহিত্যিক উপাদান হলো <u>কৌটিল্য (চাণক্য বা বিষ্ণুগুপ্ত)</u> রচিত <u>'অর্থশাস্ত্র'</u>।
+                    • এছাড়া মৌর্য সম্রাট অশোকের শিলালিপি (যার পাঠোদ্ধার করেন <u>স্যার জেমস প্রিন্সেপ ১৮৩৭ খ্রিস্টাব্দে</u>) এবং বৌদ্ধ গ্রন্থ <u>'দীপবংশ' ও 'মহাবংশ'</u> থেকেও মৌর্য যুগের ইতিহাস জানা যায়।`,
+            moreInformation: {
+              title: "বৈদেশিক সাহিত্য:",
+              content: `| পর্যটক | দেশ | রাজা | বৈদেশিক সাহিত্য | কী জানা যায় |
+                        | :--- | :--- | :--- | :--- | :--- |
+                        | <strong>মেগাস্থিনিস</strong> | গ্রিস | চন্দ্রগুপ্ত মৌর্য | ইন্ডিকা | মৌর্য সাম্রাজ্য ও সমকালীন ভারত সম্পর্কে নানান তথ্য পাওয়া যায়। |
+                        | <strong>হিউয়েন সাঙ</strong> | চিন | হর্ষবর্ধন | সি-ইউকি | হর্ষবর্ধন, বৌদ্ধ ধর্ম ও সমকালীন ভারত সম্পর্কে নানান তথ্য পাওয়া যায়। |
+                        | <strong>ফা-হিয়েন</strong> | চিন | দ্বিতীয় চন্দ্রগুপ্ত | ফো-কুয়োকি | দ্বিতীয় চন্দ্রগুপ্তের শাসনকালের বর্ণনা পাওয়া যায়। |
+                        | <strong>ভূগোলবিদ ক্লডিয়াস টলেমি</strong> | রোম | — | জিওগ্রাফিকে হাইফেগেসিস | ভূগোল বিষয়ক এই গ্রন্থটি সামুদ্রিক বিবরণে সমৃদ্ধ। |
+                        | <strong>অজানা গ্রিক নাবিক</strong> | গ্রিস | — | পেরিপ্লাস অফ দি ইরিথ্রিয়ান সি | ভারতের বন্দর, পোতাশ্রয়, পণ্যদ্রব্য, আমদানি-রফতানি প্রভৃতির বর্ণনা পাওয়া যায়। |
+                        | <strong>প্লিনি</strong> | রোম | — | ন্যাচারালিস হিস্টোরিয়া বা ন্যাচারাল হিস্ট্রি | ভারতের ব্যাপারে, প্রাকৃতিক বিষয় সম্পর্কে বহু তথ্য পাওয়া যায়। রোম-ভারত বাণিজ্য সম্পর্কেও জানা যায়। |
+                        | <strong>স্ট্যাবো</strong> | গ্রিস | — | জিওগ্রাফিকা | ভারত বিষয়ক তথ্য পাওয়া যায়। |
+                        | <strong>ডেইমাকাস</strong> | সিরিয়া | বিন্দুসার | — | গ্রিস ও ভারতের সুসম্পর্কের কথা জানা যায়। |
+                        | <strong>অল বিরুনি</strong> | আরব | — | তহকিক-ই-হিন্দ | মামুদ কর্তৃক মথুরা ও সোমনাথ মন্দির লুঠের বর্ণনা পাওয়া যায়। |
+                        | <strong>ইবন বতুতা</strong> | মরক্কো (আফ্রিকা) | মহম্মদ বিন তুঘলক | কিতাব-উল-রিহলা | দিল্লির কাজী পদে নিযুক্ত হন। |
+                        | <strong>মার্কোপোলো</strong> | ইটালি | — | — | করমণ্ডল উপকূল থেকে ভারতে প্রবেশ করেন। পান্ড্য রাজ্যের বিবরণ পাওয়া যায়। |`
+            }
+          }
+        },
+        {
+          id: 2,
+          category: "ধর্মনিরপেক্ষ গ্রন্থ",
+          pyqYear: "Food SI 2014, Food SI 2024",
+          questionBn: "কৌটিল্যের লেখা বইটি হল—",
+          questionEn: "The book written by Kautilya is—",
+          options: {
+            A: { bn: "মুদ্রারাক্ষস", en: "Mudrarakshasa" },
+            B: { bn: "অষ্টাধ্যায়ী", en: "Ashtadhyayi" },
+            C: { bn: "বুদ্ধচরিত", en: "Buddhacharita" },
+            D: { bn: "অর্থশাস্ত্র", en: "Arthashastra" }
+          },
+          correctKey: "D",
+          explanation: {
+            context: `• <u>কৌটিল্য</u> (যিনি <u>চাণক্য</u> বা <u>বিষ্ণুগুপ্ত</u> নামেও পরিচিত) রচিত বিখ্যাত গ্রন্থটির নাম হলো <u>'অর্থশাস্ত্র' (Arthashastra)</u>।
+                      • তিনি ছিলেন মৌর্য সাম্রাজ্যের প্রতিষ্ঠাতা <u>চন্দ্রগুপ্ত মৌর্যের</u> প্রধানমন্ত্রী ও প্রধান পরামর্শদাতা।
+                      • <u>সংস্কৃত ভাষায়</u> রচিত এই গ্রন্থটি মূলত রাষ্ট্রবিজ্ঞান, শাসনব্যবস্থা, কূটনীতি এবং অর্থনীতির ওপর ভিত্তি করে লেখা একটি ধর্মনিরপেক্ষ গ্রন্থ। এই গ্রন্থ থেকে মৌর্য সাম্রাজ্যের শাসনব্যবস্থা, প্রশাসন ও সমকালীন আর্থ-সামাজিক অবস্থা সম্পর্কে বহু প্রামাণ্য তথ্য জানা যায়।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>মুদ্রারাক্ষস:</strong> এটি গুপ্ত যুগের বিখ্যাত সাহিত্যিক <u>বিশাখদত্ত</u> রচিত একটি ঐতিহাসিক নাটক, যেখান থেকে চন্দ্রগুপ্ত মৌর্যের সিংহাসন আরোহণের কাহিনি জানা যায়।" },
+              { key: "B", desc: "<strong>অষ্টাধ্যায়ী:</strong> এটি প্রাচীন ভারতের প্রখ্যাত বৈয়াকরণ <u>পাণিনি</u> রচিত সংস্কৃত ব্যাকরণ বিষয়ক সর্বশ্রেষ্ঠ ও উল্লেখযোগ্য গ্রন্থ।" },
+              { key: "C", desc: "<strong>বুদ্ধচরিত:</strong> এটি কুষাণ সম্রাট কনিষ্কের রাজসভার পণ্ডিত <u>অশ্বঘোষ</u> রচিত গৌতম বুদ্ধের জীবনচরিত বিষয়ক একটি বিখ্যাত গ্রন্থ।" }
+            ],
+            notes: `• কৌটিল্যের 'অর্থশাস্ত্র' গ্রন্থটির উপর নির্ভর করে পরবর্তীকালে গুপ্ত যুগে <u>কামন্দক</u> <u>'নীতিসার' (Nitisara)</u> নামক গ্রন্থটি রচনা করেছিলেন।`,
+            moreInformation: {
+              title: "ধর্মনিরপেক্ষ গ্রন্থ:",
+              content: `| রচয়িতা | গ্রন্থের নাম |
+                        | :--- | :--- |
+                        | <strong>কৌটিল্য (চাণক্য)</strong> | অর্থশাস্ত্র |
+                        | <strong>বরাহমিহির</strong> | বৃহৎসংহিতা, পঞ্চসিদ্ধান্তিকা |
+                        | <strong>বিশাখদত্ত</strong> | মুদ্রারাক্ষস, দেবীচন্দ্রগুপ্তম |
+                        | <strong>সুশ্রুত</strong> | সুশ্রুতসংহিতা |
+                        | <strong>চরক</strong> | চরকসংহিতা |
+                        | <strong>শূদ্রক</strong> | মৃচ্ছকটিক |
+                        | <strong>গুণাঢ্য</strong> | বৃহৎকথা |
+                        | <strong>ভাস</strong> | স্বপ্নবাসবদত্তা |
+                        | <strong>পতঞ্জলি</strong> | মহাভাষ্য |
+                        | <strong>পাণিনি</strong> | অষ্টাধ্যায়ী |
+                        | <strong>আর্যভট্ট</strong> | সূর্যসিদ্ধান্ত |
+                        | <strong>ভাস্করাচার্য</strong> | সিদ্ধান্ত শিরোমণি |
+                        | <strong>সুরেশ্বর</strong> | শব্দ-প্রদীপ, বৃক্ষায়ুর্বেদ |
+                        | <strong>ব্রহ্মগুপ্ত</strong> | ব্রহ্মস্ফুটসিদ্ধান্ত |
+                        | <strong>গর্গমুনি</strong> | গর্গ সংহিতা |`
+            }
+          }
+        },
+        {
+          id: 3,
+          category: "ধর্মনিরপেক্ষ গ্রন্থ",
+          pyqYear: "WBP SI 2021",
+          questionBn: "'মুদ্রারাক্ষস' নাটকটির রচয়িতা কে?",
+          questionEn: "Who is the author of the play 'Mudrarakshasa'?",
+          options: {
+            A: { bn: "শূদ্রক", en: "Shudraka" },
+            B: { bn: "বিশাখদত্ত", en: "Vishakhadatta" },
+            C: { bn: "কলহন", en: "Kalhana" },
+            D: { bn: "কালিদাস", en: "Kalidasa" }
+          },
+          correctKey: "B",
+          explanation: {
+            context: `• <u>'মুদ্রারাক্ষস' (Mudrarakshasa)</u> নাটকটির রচয়িতা হলেন <u>বিশাখদত্ত</u>।
+                      • তিনি ছিলেন <u>গুপ্ত যুগের</u> একজন প্রখ্যাত সংস্কৃত সাহিত্যিক ও নাট্যকার।
+                      • সংস্কৃত ভাষায় রচিত এই ঐতিহাসিক নাটকটি থেকে <u>নন্দ বংশের পতন</u> এবং <u>চাণক্যের কূটনীতির</u> সাহায্যে <u>চন্দ্রগুপ্ত মৌর্যের</u> সিংহাসন আরোহণের কাহিনি জানা যায়।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>শূদ্রক:</strong> তিনি গুপ্ত যুগের একজন বিশিষ্ট সাহিত্যিক ছিলেন এবং তাঁর রচিত বিখ্যাত নাটকটির নাম হলো <u>'মৃচ্ছকটিক' (Mrichchhakatika)</u>।" },
+              { key: "C", desc: "<strong>কলহন:</strong> তিনি ছিলেন একজন প্রখ্যাত ঐতিহাসিক, যাঁর রচিত <u>'রাজতরঙ্গিনী' (Rajatarangini)</u> গ্রন্থ থেকে প্রাচীন কাশ্মীরের ধারাবাহিক ইতিহাস জানা যায়।" },
+              { key: "D", desc: "<strong>কালিদাস:</strong> তিনি গুপ্ত সম্রাট দ্বিতীয় চন্দ্রগুপ্তের রাজসভার নবরত্নের অন্যতম শ্রেষ্ঠ কবি ও নাট্যকার ছিলেন, যাঁর রচিত উল্লেখযোগ্য গ্রন্থগুলি হলো <u>'অভিজ্ঞানশকুন্তলম'</u>, <u>'মেঘদূতম'</u>, <u>'মালবিকাগ্নিমিত্রম'</u> এবং <u>'কুমারসম্ভবম'</u>।" }
+            ],
+            notes: `• বিশাখদত্ত রচিত অপর একটি উল্লেখযোগ্য ঐতিহাসিক নাটক হলো <u>'দেবীচন্দ্রগুপ্তম' (Devichandraguptam)</u>, যেখান থেকে গুপ্ত সম্রাট <u>রামগুপ্ত</u> ও <u>দ্বিতীয় চন্দ্রগুপ্তের</u> ইতিহাস জানা যায়।`,
+            moreInformation: {
+              title: "ধর্মনিরপেক্ষ গ্রন্থ:",
+              content: `| রচয়িতা | গ্রন্থের নাম |
+                        | :--- | :--- |
+                        | <strong>কৌটিল্য (চাণক্য)</strong> | অর্থশাস্ত্র |
+                        | <strong>বরাহমিহির</strong> | বৃহৎসংহিতা, পঞ্চসিদ্ধান্তিকা |
+                        | <strong>বিশাখদত্ত</strong> | মুদ্রারাক্ষস, দেবীচন্দ্রগুপ্তম |
+                        | <strong>সুশ্রুত</strong> | সুশ্রুতসংহিতা |
+                        | <strong>চরক</strong> | চরকসংহিতা |
+                        | <strong>শূদ্রক</strong> | মৃচ্ছকটিক |
+                        | <strong>গুণাঢ্য</strong> | বৃহৎকথা |
+                        | <strong>ভাস</strong> | স্বপ্নবাসবদত্তা |
+                        | <strong>পতঞ্জলি</strong> | মহাভাষ্য |
+                        | <strong>পাণিনি</strong> | অষ্টাধ্যায়ী |
+                        | <strong>আর্যভট্ট</strong> | সূর্যসিদ্ধান্ত |
+                        | <strong>ভাস্করাচার্য</strong> | সিদ্ধান্ত শিরোমণি |
+                        | <strong>সুরেশ্বর</strong> | শব্দ-প্রদীপ, বৃক্ষায়ুর্বেদ |
+                        | <strong>ব্রহ্মগুপ্ত</strong> | ব্রহ্মস্ফুটসিদ্ধান্ত |
+                        | <strong>গর্গমুনি</strong> | গর্গ সংহিতা |`
+            }
+          }
+        },
+        {
+          id: 4,
+          category: "প্রত্নতাত্ত্বিক উপাদান ও লিপি",
+          pyqYear: "WBCS 2019",
+          questionBn: "অশোকের লিপি ও ব্রাহ্মী লিপির পাঠোদ্ধার করেন—",
+          questionEn: "Who deciphered Ashoka's inscriptions and the Brahmi script?",
+          options: {
+            A: { bn: "আলেকজান্ডার কানিংহাম", en: "Alexander Cunningham" },
+            B: { bn: "জেমস্ প্রিন্সেপ", en: "James Prinsep" },
+            C: { bn: "ম্যাক্স মুলার", en: "Max Muller" },
+            D: { bn: "মর্টিমার হুইলার", en: "Mortimer Wheeler" }
+          },
+          correctKey: "B",
+          explanation: {
+            context: `• এশিয়াটিক সোসাইটি অফ বেঙ্গলের সম্পাদক <u>স্যার জেমস্ প্রিন্সেপ (James Prinsep)</u> <u>১৮৩৭ খ্রিস্টাব্দে</u> মৌর্য সম্রাট অশোকের শিলালিপির পাঠোদ্ধার করেন।
+                      • তিনিই সর্বপ্রথম প্রাচীন ভারতের প্রধান লিপি <u>ব্রাহ্মী</u> এবং <u>খরোষ্ঠী লিপির</u> পাঠোদ্ধার করেছিলেন।
+                      • অশোকের লিপিটিই হলো ভারতের প্রাচীনতম পাঠোদ্ধার করা লিপি, যা থেকে মৌর্য সম্রাট অশোকের রাজত্বকাল ও কলিঙ্গ যুদ্ধের বর্ণনা পাওয়া যায়।
+                      • ব্রাহ্মী লিপি বাঁদিক থেকে ডানদিকে লেখা হতো এবং এটি ভারতীয় উপমহাদেশের অধিকাংশ অঞ্চলেই প্রচলিত ছিল।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>আলেকজান্ডার কানিংহাম:</strong> তিনি <u>'ভারতীয় প্রত্নতত্ত্বের জনক'</u> হিসেবে পরিচিত এবং তাঁর উদ্যোগে <u>১৮৬১ খ্রিস্টাব্দে</u> বড়োলাট লর্ড ক্যানিংয়ের আমলে <u>ভারতীয় প্রত্নতত্ত্ব বিভাগ (ASI)</u> প্রতিষ্ঠিত হয়।" },
+              { key: "C", desc: "<strong>ম্যাক্স মুলার:</strong> তিনি একজন প্রখ্যাত জার্মান ইনডোলজিস্ট (ভারততত্ত্ববিদ), যিনি আর্যদের জাতিগত উৎস সম্পর্কে তথ্য দেন এবং <u>'ঋকবেদ'</u> ও <u>'হিতোপদেশ'</u> জার্মান ভাষায় অনুবাদ করেন।" },
+              { key: "D", desc: "<strong>মর্টিমার হুইলার:</strong> তিনি একজন বিখ্যাত ব্রিটিশ প্রত্নতত্ত্ববিদ, যিনি সিন্ধু সভ্যতার (<u>হরপ্পা ও মহেনজোদাড়ো</u>) খননকার্যে গুরুত্বপূর্ণ অবদান রেখেছিলেন।" }
+            ],
+            notes: `• লিপি পাঠোদ্ধার বিদ্যাকে বলা হয় <u>'এপিগ্রাফি' (Epigraphy)</u> এবং লিপি সংক্রান্ত পড়াশোনাকে বলা হয় <u>'প্যালিওগ্রাফি' (Palaeography)</u>।
+                    • <u>খরোষ্ঠী লিপি</u> লেখা হতো ডানদিক থেকে বাঁদিকে, যেখানে <u>ব্রাহ্মী লিপি</u> লেখা হতো বাঁদিক থেকে ডানদিকে।`
+          }
+        },
+        {
+          id: 5,
+          category: "প্রত্নতাত্ত্বিক উপাদান ও লিপি",
+          pyqYear: "Food SI 2024, WBCS 2013",
+          questionBn: "আইহল প্রশস্তি যাঁর সঙ্গে যুক্ত—",
+          questionEn: "With whom is the Aihole Prasasti associated?",
+          options: {
+            A: { bn: "সমুদ্রগুপ্ত", en: "Samudragupta" },
+            B: { bn: "বিষ্ণুগুপ্ত", en: "Vishnugupta" },
+            C: { bn: "দ্বিতীয় পুলকেশিন", en: "Pulakeshin II" },
+            D: { bn: "রাজেন্দ্র চোল", en: "Rajendra Chola" }
+          },
+          correctKey: "C",
+          explanation: {
+            context: `• <u>'আইহোল প্রশস্তি' (Aihole Prasasti)</u> বাতাপির চালুক্য বংশের শ্রেষ্ঠ সম্রাট <u>দ্বিতীয় পুলকেশীর (দ্বিতীয় পুলকেশিন)</u> সঙ্গে যুক্ত।
+                      • এই প্রশস্তিটি রচনা করেছিলেন দ্বিতীয় পুলকেশীর সভাকবি <u>রবিকীর্তি</u>।
+                      • এই লিপি থেকে দ্বিতীয় পুলকেশীর রাজত্বকাল, সামরিক কৃতিত্ব ও রাজ্যজয়ের বিস্তারিত বিবরণ পাওয়া যায়।
+                      • এছাড়াও এই প্রশস্তি থেকে জানা যায় যে উত্তর ভারতের প্রতাপশালী রাজা <u>হর্ষবর্ধন</u> দাক্ষিণাত্য বিজয়ে অগ্রসর হলে নর্মদা নদীর তীরে দ্বিতীয় পুলকেশীর কাছে পরাজিত হয়েছিলেন।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>সমুদ্রগুপ্ত:</strong> গুপ্ত সম্রাট সমুদ্রগুপ্তের সঙ্গে যুক্ত বিখ্যাত লিপিটির নাম <u>'এলাহাবাদ প্রশস্তি'</u>, যা তাঁর সভাকবি <u>হরিষেণ</u> রচনা করেছিলেন।" },
+              { key: "B", desc: "<strong>বিষ্ণুগুপ্ত:</strong> বিষ্ণুগুপ্ত ছিলেন মৌর্য সম্রাট চন্দ্রগুপ্ত মৌর্যের প্রধানমন্ত্রী (যিনি <u>কৌটিল্য</u> বা <u>চাণক্য</u> নামেও পরিচিত), যাঁর রচিত বিখ্যাত গ্রন্থের নাম <u>'অর্থশাস্ত্র'</u>।" },
+              { key: "D", desc: "<strong>রাজেন্দ্র চোল:</strong> চোল সম্রাট প্রথম রাজেন্দ্র চোলের কৃতিত্ব ও রাজ্যজয়ের বিবরণ পাওয়া যায় <u>'তাঞ্জোর লিপি'</u> এবং <u>'তিরুমালাই'</u> শিলালিপি থেকে।" }
+            ],
+            notes: `• সংস্কৃত ভাষায় ও দক্ষিণী ব্রাহ্মী লিপিতে উৎকীর্ণ 'আইহোল প্রশস্তি'-তে রবিকীর্তি নিজেকে মহাকবি <u>কালিদাস</u> ও <u>ভারবির</u> সমকক্ষ বলে দাবি করেছেন।
+                    • দ্বিতীয় পুলকেশী কর্ণাটকের আইহোলে <u>'মেগুটির জৈন মন্দির'</u> নির্মাণ করেছিলেন।`,
+            moreInformation: {
+              title: "গুরুত্বপূর্ণ লিপিসমূহ:",
+              content: `<strong>দেশীয় লিপিসমূহ:</strong>
+                        | লিপি বা লেখমালার নাম | রচয়িতা | কী জানা যায় |
+                        | :--- | :--- | :--- |
+                        | <strong>এলাহাবাদ প্রশস্তি</strong> | হরিষেণ (সমুদ্রগুপ্তের সভাকবি) | সমুদ্রগুপ্তের সামরিক প্রতিভা, রাজত্বকাল ও রাজ্যবিস্তার |
+                        | <strong>নানাঘাট শিলালিপি</strong> | রানি নায়নিকা | প্রথম সাতকর্ণির রাজত্বকাল ও 'দক্ষিণাপথপতি' উপাধি |
+                        | <strong>নাসিক প্রশস্তি</strong> | গৌতমী বলশ্রী | গৌতমীপুত্র সাতকর্ণির রাজ্যজয় ও শক-যবন-পহ্লব ধ্বংসের কীর্তি |
+                        | <strong>হাতিগুম্ফা লিপি</strong> | — | কলিঙ্গরাজ খারবেলের রাজত্বকালের বিবরণ ও প্রথম সাতকর্ণির উল্লেখ |
+                        | <strong>দেওপাড়া প্রশস্তি</strong> | উমাপতি ধর (লক্ষণসেনের সভাকবি) | রাজা বিজয়সেনের কীর্তিকাহিনি ও রাজ্যজয় |
+                        | <strong>জুনাগড় প্রশস্তি</strong> | শকরাজ রুদ্রদামন | রুদ্রদামনের রাজ্যজয়, সুদর্শন হ্রদ রক্ষণাবেক্ষণ ও জনকল্যাণমূলক কাজ |
+                        | <strong>আইহোল প্রশস্তি</strong> | রবিকীর্তি (দ্বিতীয় পুলকেশীর সভাকবি) | দ্বিতীয় পুলকেশীর কৃতিত্ব ও তাঁর কাছে হর্ষবর্ধনের পরাজয় |
+                        | <strong>কলিঙ্গ লিপি</strong> | — | মৌর্য সম্রাট অশোকের রাজত্বকাল ও কলিঙ্গ যুদ্ধের বর্ণনা |
+                        | <strong>তাঞ্জোর ও তিরুমালাই লিপি</strong> | — | প্রথম রাজেন্দ্র চোলের কথা |
+                        | <strong>খলিমপুর তাম্রশাসন</strong> | — | পালসম্রাট ধর্মপালের রাজত্বকাল ও কৃতিত্ব |
+                        | <strong>গঞ্জাম লিপি</strong> | — | গৌড়রাজ শশাঙ্কের কথা |
+                        | <strong>মান্দাশোর প্রশস্তি</strong> | — | যশোধর্মনের কথা |
+                        | <strong>ভিতারি স্তম্ভলেখ</strong> | — | স্কন্দগুপ্তের হুন বিজয়ের বর্ণনা |
+                        | <strong>এরান লিপি</strong> | — | সমুদ্রগুপ্ত, বুধগুপ্ত ও তোরমানের রাজত্বকাল |
+                        | <strong>পেশোয়ার সম্পূট লিপি</strong> | — | কুষাণ সম্রাট কনিষ্কের রাজত্বকাল ও ধর্মবিশ্বাস |
+                        | <strong>মধুবন ও বাঁশখেরা তাম্রপট্ট</strong> | — | পুষ্যভূতি সম্রাট হর্ষবর্ধনের কথা |
+                        | <strong>মথুরা, সাঁচি ও সারনাথ লিপি</strong> | — | কুষাণ সম্রাট কনিষ্কের কথা |
+                        | <strong>স্তম্ভলিপি, মাস্কি ও ব্রহ্মগিরি লিপি</strong> | — | সম্রাট অশোকের কথা ও তাঁর 'দেবানাংপ্রিয় প্রিয়দর্শী' উপাধি (মাস্কি) |
+                        <strong>বৈদেশিক লিপিসমূহ:</strong>
+                        | লিপির নাম | প্রাপ্তিস্থান | কী জানা যায় |
+                        | :--- | :--- | :--- |
+                        | <strong>বোঘাজকোই শিলালিপি</strong> | এশিয়া মাইনর | ভারত সম্পর্কিত প্রাচীনতম বৈদেশিক লেখ, যাতে বৈদিক দেবতা ইন্দ্র, বরুণ, মিত্র, নাসত্য-র নাম উল্লিখিত ও আর্যদের আগমনকাল এবং ব্যাবিলন ও মেসোপটেমিয়া সভ্যতার সঙ্গে ভারতের যোগাযোগ |
+                        | <strong>নকস-ই-রুস্তম</strong> | ইরান (পার্সিপোলিস শহর) | উত্তর-পশ্চিম ভারতের সঙ্গে ইরানের সম্পর্ক ও সর্বপ্রথম 'হিন্দুস্থান' কথাটির উল্লেখ পাওয়া যায় |`
+            }
+          }
+        },
+        {
+          id: 6,
+          category: "প্রত্নতাত্ত্বিক উপাদান ও লিপি",
+          pyqYear: "KP SI 2022, WBCS 2012",
+          questionBn: "সমুদ্রগুপ্তের যুদ্ধজয়ের বিবরণী কোন 'প্রশস্তি' থেকে জানতে পারা যায়?",
+          questionEn: "From which 'Prasasti' can the account of Samudragupta's conquests be known?",
+          options: {
+            A: { bn: "মহীশ্বর প্রশস্তি", en: "Mahishwar Prasasti" },
+            B: { bn: "এলাহাবাদ প্রশস্তি", en: "Allahabad Prasasti" },
+            C: { bn: "নাসিক প্রশস্তি", en: "Nasik Prasasti" },
+            D: { bn: "হরিষেণ প্রশস্তি", en: "Harishena Prasasti" }
+          },
+          correctKey: "B",
+          explanation: {
+            context: `• গুপ্ত সম্রাট <u>সমুদ্রগুপ্তের</u> সামরিক প্রতিভা ও যুদ্ধজয়ের বিস্তারিত বিবরণ <u>'এলাহাবাদ প্রশস্তি' (Allahabad Prasasti)</u> থেকে জানা যায়।
+                      • এই প্রশস্তিটি রচনা করেছিলেন সমুদ্রগুপ্তের সভাকবি <u>হরিষেণ</u>।
+                      • এই লিপি থেকে সমুদ্রগুপ্তের রাজত্বকাল এবং উত্তর ও দক্ষিণ ভারতে তাঁর রাজ্যবিস্তারের প্রামাণ্য তথ্য পাওয়া যায়।
+                      • <u>সংস্কৃত ভাষায়</u> রচিত এই প্রশস্তিটি প্রাচীন ভারতের গুপ্ত যুগের ইতিহাস জানার অন্যতম প্রধান প্রত্নতাত্ত্বিক উপাদান।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>মহীশ্বর প্রশস্তি:</strong> প্রাচীন ভারতের ইতিহাসে এই নামে কোনো প্রসিদ্ধ ঐতিহাসিক প্রশস্তির অস্তিত্ব পাওয়া যায় না।" },
+              { key: "C", desc: "<strong>নাসিক প্রশস্তি:</strong> সাতবাহন রাজা <u>গৌতমীপুত্র সাতকর্ণির</u> মা <u>গৌতমী বলশ্রী</u> <u>'নাসিক প্রশস্তি'</u> রচনা করেছিলেন, যেখান থেকে গৌতমীপুত্র সাতকর্ণির অতীত কীর্তি ও রাজ্যজয় সম্পর্কে জানা যায়।" },
+              { key: "D", desc: "<strong>হরিষেণ প্রশস্তি:</strong> <u>হরিষেণ</u> ছিলেন সমুদ্রগুপ্তের সভাকবি যিনি প্রশস্তিটি রচনা করেছিলেন, কিন্তু প্রশস্তিটির প্রকৃত ঐতিহাসিক নাম <u>'এলাহাবাদ প্রশস্তি'</u>।" }
+            ],
+            notes: `• <u>'এলাহাবাদ প্রশস্তি'</u>-র অপর নাম <u>'প্রয়াগ প্রশস্তি'</u> এবং এটি মূলত মৌর্য সম্রাট <u>অশোকের</u> নির্মিত একটি স্তম্ভের গায়ে খোদাই করা হয়েছিল।
+                    • সমুদ্রগুপ্তের মুদ্রায় অঙ্কিত চিত্র থেকে তাঁর সম্পর্কে নানা তথ্য জানা যায়— যেমন <u>লক্ষ্মীমূর্তির ছবি</u> থেকে তিনি দেবী লক্ষ্মীর অনুরাগী ছিলেন বলে জানা যায়, <u>বীণাবাদনরত ছবি</u> থেকে তাঁর সংগীত বিষয়ে পারদর্শিতার প্রমাণ মেলে এবং <u>ঘোড়ার ছবি</u> থেকে তাঁর <u>অশ্বমেধ যজ্ঞের</u> প্রমাণ পাওয়া যায়।`,
+            moreInformation: {
+              title: "গুরুত্বপূর্ণ লিপিসমূহ:",
+              content: `<strong>দেশীয় লিপিসমূহ:</strong>
+                        | লিপি বা লেখমালার নাম | রচয়িতা | কী জানা যায় |
+                        | :--- | :--- | :--- |
+                        | <strong>এলাহাবাদ প্রশস্তি</strong> | হরিষেণ (সমুদ্রগুপ্তের সভাকবি) | সমুদ্রগুপ্তের সামরিক প্রতিভা, রাজত্বকাল ও রাজ্যবিস্তার |
+                        | <strong>নানাঘাট শিলালিপি</strong> | রানি নায়নিকা | প্রথম সাতকর্ণির রাজত্বকাল ও 'দক্ষিণাপথপতি' উপাধি |
+                        | <strong>নাসিক প্রশস্তি</strong> | গৌতমী বলশ্রী | গৌতমীপুত্র সাতকর্ণির রাজ্যজয় ও শক-যবন-পহ্লব ধ্বংসের কীর্তি |
+                        | <strong>হাতিগুম্ফা লিপি</strong> | — | কলিঙ্গরাজ খারবেলের রাজত্বকালের বিবরণ ও প্রথম সাতকর্ণির উল্লেখ |
+                        | <strong>দেওপাড়া প্রশস্তি</strong> | উমাপতি ধর (লক্ষণসেনের সভাকবি) | রাজা বিজয়সেনের কীর্তিকাহিনি ও রাজ্যজয় |
+                        | <strong>জুনাগড় প্রশস্তি</strong> | শকরাজ রুদ্রদামন | রুদ্রদামনের রাজ্যজয়, সুদর্শন হ্রদ রক্ষণাবেক্ষণ ও জনকল্যাণমূলক কাজ |
+                        | <strong>আইহোল প্রশস্তি</strong> | রবিকীর্তি (দ্বিতীয় পুলকেশীর সভাকবি) | দ্বিতীয় পুলকেশীর কৃতিত্ব ও তাঁর কাছে হর্ষবর্ধনের পরাজয় |
+                        | <strong>কলিঙ্গ লিপি</strong> | — | মৌর্য সম্রাট অশোকের রাজত্বকাল ও কলিঙ্গ যুদ্ধের বর্ণনা |
+                        | <strong>তাঞ্জোর ও তিরুমালাই লিপি</strong> | — | প্রথম রাজেন্দ্র চোলের কথা |
+                        | <strong>খলিমপুর তাম্রশাসন</strong> | — | পালসম্রাট ধর্মপালের রাজত্বকাল ও কৃতিত্ব |
+                        | <strong>গঞ্জাম লিপি</strong> | — | গৌড়রাজ শশাঙ্কের কথা |
+                        | <strong>মান্দাশোর প্রশস্তি</strong> | — | যশোধর্মনের কথা |
+                        | <strong>ভিতারি স্তম্ভলেখ</strong> | — | স্কন্দগুপ্তের হুন বিজয়ের বর্ণনা |
+                        | <strong>এরান লিপি</strong> | — | সমুদ্রগুপ্ত, বুধগুপ্ত ও তোরমানের রাজত্বকাল |
+                        | <strong>পেশোয়ার সম্পূট লিপি</strong> | — | কুষাণ সম্রাট কনিষ্কের রাজত্বকাল ও ধর্মবিশ্বাস |
+                        | <strong>মধুবন ও বাঁশখেরা তাম্রপট্ট</strong> | — | পুষ্যভূতি সম্রাট হর্ষবর্ধনের কথা |
+                        | <strong>মথুরা, সাঁচি ও সারনাথ লিপি</strong> | — | কুষাণ সম্রাট কনিষ্কের কথা |
+                        | <strong>স্তম্ভলিপি, মাস্কি ও ব্রহ্মগিরি লিপি</strong> | — | সম্রাট অশোকের কথা ও তাঁর 'দেবানাংপ্রিয় প্রিয়দর্শী' উপাধি (মাস্কি) |
+                        <strong>বৈদেশিক লিপিসমূহ:</strong>
+                        | লিপির নাম | প্রাপ্তিস্থান | কী জানা যায় |
+                        | :--- | :--- | :--- |
+                        | <strong>বোঘাজকোই শিলালিপি</strong> | এশিয়া মাইনর | ভারত সম্পর্কিত প্রাচীনতম বৈদেশিক লেখ, যাতে বৈদিক দেবতা ইন্দ্র, বরুণ, মিত্র, নাসত্য-র নাম উল্লিখিত ও আর্যদের আগমনকাল এবং ব্যাবিলন ও মেসোপটেমিয়া সভ্যতার সঙ্গে ভারতের যোগাযোগ |
+                        | <strong>নকস-ই-রুস্তম</strong> | ইরান (পার্সিপোলিস শহর) | উত্তর-পশ্চিম ভারতের সঙ্গে ইরানের সম্পর্ক ও সর্বপ্রথম 'হিন্দুস্থান' কথাটির উল্লেখ পাওয়া যায় |`
+            }
+          }
+        },
+        {
+          id: 7,
+          category: "প্রত্নতাত্ত্বিক উপাদান ও লিপি",
+          pyqYear: "WBCS 2012",
+          questionBn: "'খালিমপুর তাম্রপট' পালবংশীয় কোন রাজার সমরকীর্তি সম্পর্কে আমাদের অবহিত করে?",
+          questionEn: "The 'Khalimpur Copper Plate' informs us about the military achievements of which Pala king?",
+          options: {
+            A: { bn: "দেবপাল", en: "Devapala" },
+            B: { bn: "রামপাল", en: "Ramapala" },
+            C: { bn: "ধর্মপাল", en: "Dharmapala" },
+            D: { bn: "প্রথম মহীপাল", en: "Mahipala I" }
+          },
+          correctKey: "C",
+          explanation: {
+            context: `• <u>'খালিমপুর তাম্রপট'</u> (বা খলিমপুর তাম্রশাসন) থেকে পালবংশীয় সম্রাট <u>ধর্মপালের</u> রাজত্বকাল, সমরকীর্তি ও কৃতিত্বের কথা জানা যায়।
+                      • তিনি ছিলেন পাল বংশের প্রতিষ্ঠাতা <u>গোপালের</u> পুত্র এবং এই বংশের অন্যতম শ্রেষ্ঠ শাসক।
+                      • মালদা জেলার খালিমপুর গ্রাম থেকে আবিষ্কৃত এই তাম্রশাসনটি <u>সংস্কৃত ভাষায়</u> রচিত।
+                      • এই লিপি থেকে ধর্মপালের উত্তর ভারত বিজয়, কনৌজের সিংহাসনে <u>চক্রায়ুধকে</u> বসানো এবং তৎকালীন <u>ত্রিশক্তি দ্বন্দ্ব</u> সম্পর্কে বহু গুরুত্বপূর্ণ ঐতিহাসিক তথ্য পাওয়া যায়।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>দেবপাল:</strong> তিনি ধর্মপালের পুত্র ও উত্তরাধিকারী ছিলেন, যাঁর রাজত্বকাল ও কৃতিত্ব সম্পর্কে <u>'মুঙ্গের তাম্রশাসন'</u> এবং <u>'বাদল স্তম্ভলিপি'</u> থেকে জানা যায়।" },
+              { key: "B", desc: "<strong>রামপাল:</strong> তিনি পাল বংশের একজন উল্লেখযোগ্য শাসক ছিলেন এবং তাঁর সভাকবি <u>সন্ধ্যাকর নন্দী</u> রচিত <u>'রামচরিত'</u> গ্রন্থ থেকে কৈবর্ত বিদ্রোহ ও রামপালের কৃতিত্বের কথা জানা যায়।" },
+              { key: "D", desc: "<strong>প্রথম মহীপাল:</strong> তিনি <u>'পাল সাম্রাজ্যের দ্বিতীয় প্রতিষ্ঠাতা'</u> হিসেবে পরিচিত, যাঁর শাসনকাল সম্পর্কে <u>'বাণগড় তাম্রশাসন'</u> থেকে তথ্য পাওয়া যায়।" }
+            ],
+            notes: `• পাল যুগে প্রচলিত রৌপ্য মুদ্রাগুলি <u>'দ্রম্ম'</u> ও <u>'নারায়ণী'</u> নামে পরিচিত ছিল।
+                    • আরব পর্যটক <u>সুলেমান</u> (নবম শতক) এবং <u>অল-মাসুদি</u> (দশম শতক) পাল, প্রতিহার ও রাষ্ট্রকূটদের মধ্যকার <u>'ত্রিশক্তি দ্বন্দ্ব'</u> সম্পর্কে গুরুত্বপূর্ণ বিবরণ লিপিবদ্ধ করেছেন।
+                    • এছাড়া পাল যুগের প্রখ্যাত চিকিৎসক <u>চক্রপাণি দত্ত</u> <u>'চিকিৎসাসংগ্রহ'</u> নামক বিখ্যাত গ্রন্থটি রচনা করেছিলেন।`,
+            moreInformation: {
+              title: "গুরুত্বপূর্ণ লিপিসমূহ:",
+              content: `<strong>দেশীয় লিপিসমূহ:</strong>
+                        | লিপি বা লেখমালার নাম | রচয়িতা | কী জানা যায় |
+                        | :--- | :--- | :--- |
+                        | <strong>এলাহাবাদ প্রশস্তি</strong> | হরিষেণ (সমুদ্রগুপ্তের সভাকবি) | সমুদ্রগুপ্তের সামরিক প্রতিভা, রাজত্বকাল ও রাজ্যবিস্তার |
+                        | <strong>নানাঘাট শিলালিপি</strong> | রানি নায়নিকা | প্রথম সাতকর্ণির রাজত্বকাল ও 'দক্ষিণাপথপতি' উপাধি |
+                        | <strong>নাসিক প্রশস্তি</strong> | গৌতমী বলশ্রী | গৌতমীপুত্র সাতকর্ণির রাজ্যজয় ও শক-যবন-পহ্লব ধ্বংসের কীর্তি |
+                        | <strong>হাতিগুম্ফা লিপি</strong> | — | কলিঙ্গরাজ খারবেলের রাজত্বকালের বিবরণ ও প্রথম সাতকর্ণির উল্লেখ |
+                        | <strong>দেওপাড়া প্রশস্তি</strong> | উমাপতি ধর (লক্ষণসেনের সভাকবি) | রাজা বিজয়সেনের কীর্তিকাহিনি ও রাজ্যজয় |
+                        | <strong>জুনাগড় প্রশস্তি</strong> | শকরাজ রুদ্রদামন | রুদ্রদামনের রাজ্যজয়, সুদর্শন হ্রদ রক্ষণাবেক্ষণ ও জনকল্যাণমূলক কাজ |
+                        | <strong>আইহোল প্রশস্তি</strong> | রবিকীর্তি (দ্বিতীয় পুলকেশীর সভাকবি) | দ্বিতীয় পুলকেশীর কৃতিত্ব ও তাঁর কাছে হর্ষবর্ধনের পরাজয় |
+                        | <strong>কলিঙ্গ লিপি</strong> | — | মৌর্য সম্রাট অশোকের রাজত্বকাল ও কলিঙ্গ যুদ্ধের বর্ণনা |
+                        | <strong>তাঞ্জোর ও তিরুমালাই লিপি</strong> | — | প্রথম রাজেন্দ্র চোলের কথা |
+                        | <strong>খলিমপুর তাম্রশাসন</strong> | — | পালসম্রাট ধর্মপালের রাজত্বকাল ও কৃতিত্ব |
+                        | <strong>গঞ্জাম লিপি</strong> | — | গৌড়রাজ শশাঙ্কের কথা |
+                        | <strong>মান্দাশোর প্রশস্তি</strong> | — | যশোধর্মনের কথা |
+                        | <strong>ভিতারি স্তম্ভলেখ</strong> | — | স্কন্দগুপ্তের হুন বিজয়ের বর্ণনা |
+                        | <strong>এরান লিপি</strong> | — | সমুদ্রগুপ্ত, বুধগুপ্ত ও তোরমানের রাজত্বকাল |
+                        | <strong>পেশোয়ার সম্পূট লিপি</strong> | — | কুষাণ সম্রাট কনিষ্কের রাজত্বকাল ও ধর্মবিশ্বাস |
+                        | <strong>মধুবন ও বাঁশখেরা তাম্রপট্ট</strong> | — | পুষ্যভূতি সম্রাট হর্ষবর্ধনের কথা |
+                        | <strong>মথুরা, সাঁচি ও সারনাথ লিপি</strong> | — | কুষাণ সম্রাট কনিষ্কের কথা |
+                        | <strong>স্তম্ভলিপি, মাস্কি ও ব্রহ্মগিরি লিপি</strong> | — | সম্রাট অশোকের কথা ও তাঁর 'দেবানাংপ্রিয় প্রিয়দর্শী' উপাধি (মাস্কি) |
+                        <strong>বৈদেশিক লিপিসমূহ:</strong>
+                        | লিপির নাম | প্রাপ্তিস্থান | কী জানা যায় |
+                        | :--- | :--- | :--- |
+                        | <strong>বোঘাজকোই শিলালিপি</strong> | এশিয়া মাইনর | ভারত সম্পর্কিত প্রাচীনতম বৈদেশিক লেখ, যাতে বৈদিক দেবতা ইন্দ্র, বরুণ, মিত্র, নাসত্য-র নাম উল্লিখিত ও আর্যদের আগমনকাল এবং ব্যাবিলন ও মেসোপটেমিয়া সভ্যতার সঙ্গে ভারতের যোগাযোগ |
+                        | <strong>নকস-ই-রুস্তম</strong> | ইরান (পার্সিপোলিস শহর) | উত্তর-পশ্চিম ভারতের সঙ্গে ইরানের সম্পর্ক ও সর্বপ্রথম 'হিন্দুস্থান' কথাটির উল্লেখ পাওয়া যায় |`
+            }
+          }
+        },
+        {
+          id: 8,
+          category: "আঞ্চলিক ইতিহাস",
+          pyqYear: "WBCS 2020",
+          questionBn: "'রাজতরঙ্গিনী'-র রচয়িতা কে?",
+          questionEn: "Who is the author of 'Rajatarangini'?",
+          options: {
+            A: { bn: "আর্যভট্ট", en: "Aryabhata" },
+            B: { bn: "কলহন", en: "Kalhana" },
+            C: { bn: "আল বেরুনী", en: "Al-Biruni" },
+            D: { bn: "হেরোডোটাস", en: "Herodotus" }
+          },
+          correctKey: "B",
+          explanation: {
+            context: `• <u>'রাজতরঙ্গিনী' (Rajatarangini)</u> গ্রন্থটির রচয়িতা হলেন প্রখ্যাত ঐতিহাসিক <u>কলহন</u>।
+                      • <u>সংস্কৃত ভাষায়</u> রচিত এই গ্রন্থটি থেকে <u>প্রাচীন কাশ্মীরের</u> ধারাবাহিক ও প্রামাণ্য ইতিহাস জানা যায়।
+                      • দ্বাদশ শতাব্দীতে (১১৪৮–১১৫০ খ্রিস্টাব্দ নাগাদ) রচিত এই গ্রন্থটিকে <u>ভারতের প্রথম প্রকৃত ঐতিহাসিক গ্রন্থ</u> হিসেবে বিবেচনা করা হয়।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>আর্যভট্ট:</strong> তিনি গুপ্ত যুগের একজন প্রখ্যাত গণিতবিদ ও জ্যোতির্বিজ্ঞানী ছিলেন, যাঁর রচিত বিখ্যাত গ্রন্থের নাম <u>'সূর্যসিদ্ধান্ত'</u> (এবং <u>'আর্যভট্টীয়'</u>)।" },
+              { key: "C", desc: "<strong>আল বেরুনী:</strong> তাঁর প্রকৃত নাম <u>আবু রেহান মুহাম্মদ বিন আহমদ অল বিরুনি</u>, যিনি গজনির সুলতান মামুদের সঙ্গে ভারতে এসেছিলেন এবং <u>'তহকিক-ই-হিন্দ' (Tahaqiq-i-Hind)</u> নামক বিখ্যাত গ্রন্থটি রচনা করেছিলেন।" },
+              { key: "D", desc: "<strong>হেরোডোটাস:</strong> তিনি প্রাচীন গ্রিসের একজন বিখ্যাত ঐতিহাসিক, যিনি <u>'ইতিহাসের জনক' (Father of History)</u> হিসেবে পরিচিত।" }
+            ],
+            notes: `• কলহনের 'রাজতরঙ্গিনী' গ্রন্থটি মোট <u>৮টি তরঙ্গে (অধ্যায়ে)</u> বিভক্ত এবং এতে প্রায় <u>৭,৮২৬টি সংস্কৃত শ্লোক</u> রয়েছে।
+                    • প্রাচীন ভারতের অন্যান্য উল্লেখযোগ্য আঞ্চলিক ইতিহাস বিষয়ক গ্রন্থগুলির মধ্যে সোমদেব ভট্ট রচিত <u>'কথাসরিৎসাগর'</u> (যেখান থেকে দক্ষিণ-পূর্ব এশিয়ার সঙ্গে ভারতের বাণিজ্যের বিবরণ পাওয়া যায়) এবং গুজরাট রাজ্যের ইতিহাস সম্পর্কিত মেরুতুঙ্গ রচিত <u>'প্রবন্ধচিন্তামণি'</u> ও রাজশেখর সূরি রচিত <u>'প্রবন্ধকোষ'</u> বিশেষভাবে উল্লেখযোগ্য।`,
+            moreInformation: {
+              title: "আঞ্চলিক ইতিহাস:",
+              content: `| গ্রন্থের নাম | রচয়িতা | যে অঞ্চলের ইতিহাস জানা যায় |
+                        | :--- | :--- | :--- |
+                        | <strong>রাজতরঙ্গিনী</strong> | কলহন | কাশ্মীরের ইতিহাস |
+                        | <strong>কথাসরিৎসাগর</strong> | সোমদেব ভট্ট | দক্ষিণ-পূর্ব এশিয়ার সঙ্গে ভারতের বাণিজ্যের বিবরণ |
+                        | <strong>প্রবন্ধচিন্তামণি</strong> | মেরুতুঙ্গ | গুজরাট রাজ্যের ইতিহাস |
+                        | <strong>প্রবন্ধকোষ</strong> | রাজশেখর সূরি | গুজরাট রাজ্যের ইতিহাস |
+                        | <strong>রাসমালা, কীর্তিকৌমুদি</strong> | সোমেশ্বর | গুজরাট রাজ্যের ইতিহাস |`
+            }
+          }
+        },
+        {
+          id: 9,
+          category: "বৈদেশিক সাহিত্য",
+          pyqYear: "WBCS 2018",
+          questionBn: "কিতাব-উল-হিন্দ কার রচনা?",
+          questionEn: "Who is the author of 'Kitab-ul-Hind'?",
+          options: {
+            A: { bn: "আল মাসুদি", en: "Al Masudi" },
+            B: { bn: "আলবিরুনি", en: "Al-Biruni" },
+            C: { bn: "সুলেমান", en: "Sulaiman" },
+            D: { bn: "ফিরদৌসি", en: "Firdausi" }
+          },
+          correctKey: "B",
+          explanation: {
+            context: `• <u>'কিতাব-উল-হিন্দ'</u> (বা <u>তহকিক-ই-হিন্দ</u>) গ্রন্থটির রচয়িতা হলেন প্রখ্যাত আরব পণ্ডিত ও পর্যটক <u>আলবিরুনি (অল বিরুনি)</u>।
+                      • তাঁর প্রকৃত নাম ছিল <u>আবু রেহান মুহাম্মদ বিন আহমদ অল বিরুনি</u>।
+                      • তিনি গজনির সুলতান <u>মামুদের</u> সঙ্গে ভারতে এসেছিলেন।
+                      • <u>আরবি ভাষায়</u> রচিত এই গ্রন্থটি থেকে একাদশ শতকের ভারতের সমাজ, ধর্ম, দর্শন, বিজ্ঞান এবং সুলতান মামুদ কর্তৃক <u>মথুরা ও সোমনাথ মন্দির লুঠের</u> বিস্তারিত বিবরণ পাওয়া যায়।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>আল মাসুদি:</strong> তিনি দশম শতকের একজন প্রখ্যাত আরব পর্যটক ও ঐতিহাসিক ছিলেন, যাঁর রচিত বিখ্যাত গ্রন্থের নাম <u>'মুরুজ-উল-জাহাব' (Meadows of Gold)</u>।" },
+              { key: "C", desc: "<strong>সুলেমান:</strong> তিনি নবম শতকের একজন আরব বণিক ও পর্যটক ছিলেন, যাঁর বিবরণী থেকে পাল, প্রতিহার ও রাষ্ট্রকূটদের মধ্যকার <u>'ত্রিশক্তি দ্বন্দ্ব'</u> এবং বাংলায় তৈরি মসলিনের উচ্চ গুণমান সম্পর্কে জানা যায়।" },
+              { key: "D", desc: "<strong>ফিরদৌসি:</strong> তিনি গজনির সুলতান মামুদের রাজসভার একজন বিখ্যাত পারসিক কবি ছিলেন, যাঁর রচিত অমর মহাকাব্যটির নাম <u>'শাহনামা' (Shahnameh)</u>।" }
+            ],
+            notes: `• আলবিরুনি সংস্কৃত ভাষা শিখেছিলেন এবং ভারতীয় দর্শন, জ্যোতির্বিদ্যা ও পুরাণ অধ্যয়ন করেছিলেন বলে তাঁকে <u>'প্রথম ইনডোলজিস্ট'</u> বা ভারততত্ত্ববিদ বলা হয়।
+                    • ভারতের ইতিহাস জানার অন্যান্য উল্লেখযোগ্য আরবি ও পারসিক গ্রন্থগুলির মধ্যে অল-বালাদুরি রচিত <u>'ফুতুহ-অল-বুলদান'</u> (যেখান থেকে ভারতে আরব আক্রমণ ও তার প্রভাব সম্পর্কে জানা যায়) এবং মরক্কোর পর্যটক ইবন বতুতা রচিত <u>'কিতাব-উল-রিহলা'</u> বিশেষভাবে উল্লেখযোগ্য।`,
+            moreInformation: {
+              title: "বৈদেশিক সাহিত্য:",
+              content: `| পর্যটক | দেশ | রাজা | বৈদেশিক সাহিত্য | কী জানা যায় |
+                        | :--- | :--- | :--- | :--- | :--- |
+                        | <strong>মেগাস্থিনিস</strong> | গ্রিস | চন্দ্রগুপ্ত মৌর্য | ইন্ডিকা | মৌর্য সাম্রাজ্য ও সমকালীন ভারত সম্পর্কে নানান তথ্য পাওয়া যায়। |
+                        | <strong>হিউয়েন সাঙ</strong> | চিন | হর্ষবর্ধন | সি-ইউকি | হর্ষবর্ধন, বৌদ্ধ ধর্ম ও সমকালীন ভারত সম্পর্কে নানান তথ্য পাওয়া যায়। |
+                        | <strong>ফা-হিয়েন</strong> | চিন | দ্বিতীয় চন্দ্রগুপ্ত | ফো-কুয়োকি | দ্বিতীয় চন্দ্রগুপ্তের শাসনকালের বর্ণনা পাওয়া যায়। |
+                        | <strong>ভূগোলবিদ ক্লডিয়াস টলেমি</strong> | রোম | — | জিওগ্রাফিকে হাইফেগেসিস | ভূগোল বিষয়ক এই গ্রন্থটি সামুদ্রিক বিবরণে সমৃদ্ধ। |
+                        | <strong>অজানা গ্রিক নাবিক</strong> | গ্রিস | — | পেরিপ্লাস অফ দি ইরিথ্রিয়ান সি | ভারতের বন্দর, পোতাশ্রয়, পণ্যদ্রব্য, আমদানি-রফতানি প্রভৃতির বর্ণনা পাওয়া যায়। |
+                        | <strong>প্লিনি</strong> | রোম | — | ন্যাচারালিস হিস্টোরিয়া বা ন্যাচারাল হিস্ট্রি | ভারতের ব্যাপারে, প্রাকৃতিক বিষয় সম্পর্কে বহু তথ্য পাওয়া যায়। রোম-ভারত বাণিজ্য সম্পর্কেও জানা যায়। |
+                        | <strong>স্ট্যাবো</strong> | গ্রিস | — | জিওগ্রাফিকা | ভারত বিষয়ক তথ্য পাওয়া যায়। |
+                        | <strong>ডেইমাকাস</strong> | সিরিয়া | বিন্দুসার | — | গ্রিস ও ভারতের সুসম্পর্কের কথা জানা যায়। |
+                        | <strong>অল বিরুনি</strong> | আরব | — | তহকিক-ই-হিন্দ | মামুদ কর্তৃক মথুরা ও সোমনাথ মন্দির লুঠের বর্ণনা পাওয়া যায়। |
+                        | <strong>ইবন বতুতা</strong> | মরক্কো (আফ্রিকা) | মহম্মদ বিন তুঘলক | কিতাব-উল-রিহলা | দিল্লির কাজী পদে নিযুক্ত হন। |
+                        | <strong>মার্কোপোলো</strong> | ইটালি | — | — | করমণ্ডল উপকূল থেকে ভারতে প্রবেশ করেন। পান্ড্য রাজ্যের বিবরণ পাওয়া যায়। |`
+            }
+          }
+        },
+        {
+          id: 10,
+          category: "প্রত্নতাত্ত্বিক উপাদান ও লিপি",
+          pyqYear: "WBCS 2016",
+          questionBn: "ভারতীয় প্রত্নতত্ত্বের জনক কাকে বলা হয়?",
+          questionEn: "Who is called the Father of Indian Archaeology?",
+          options: {
+            A: { bn: "আলেকজান্ডার কানিংহাম", en: "Alexander Cunningham" },
+            B: { bn: "গর্ডন চাইল্ড", en: "Gordon Childe" },
+            C: { bn: "মর্টিমার হুইলার", en: "Mortimer Wheeler" },
+            D: { bn: "জন মার্শাল", en: "John Marshall" }
+          },
+          correctKey: "A",
+          explanation: {
+            context: `• ভারতীয় প্রত্নতত্ত্বের জনক বলা হয় <u>স্যার আলেকজান্ডার কানিংহামকে (Alexander Cunningham)</u>।
+                      • তাঁর উদ্যোগেই বড়োলাট <u>লর্ড ক্যানিং (Lord Canning)</u>-এর আমলে <u>১৮৬১ খ্রিস্টাব্দে</u> <u>ভারতীয় প্রত্নতত্ত্ব বিভাগ (Archaeological Survey of India)</u> প্রতিষ্ঠিত হয়।
+                      • তিনি ভারতীয় প্রত্নতত্ত্ব বিভাগের <u>প্রথম ডিরেক্টর জেনারেল বা মহানির্দেশক</u> হিসেবে নিযুক্ত হয়েছিলেন।`,
+            optionAnalysis: [
+              { key: "B", desc: "<strong>গর্ডন চাইল্ড:</strong> ভি. গর্ডন চাইল্ড ছিলেন একজন বিখ্যাত অস্ট্রেলীয় প্রত্নতত্ত্ববিদ, যিনি <u>নব্যপ্রস্তর বিপ্লব (Neolithic Revolution)</u> এবং <u>নগর বিপ্লব (Urban Revolution)</u> তত্ত্বের জন্য বিশেষভাবে পরিচিত।" },
+              { key: "C", desc: "<strong>মর্টিমার হুইলার:</strong> তিনি একজন প্রখ্যাত ব্রিটিশ প্রত্নতত্ত্ববিদ ছিলেন, যিনি সিন্ধু সভ্যতার (<u>হরপ্পা ও মহেনজোদাড়ো</u>) খননকার্যে গুরুত্বপূর্ণ অবদান রেখেছিলেন।" },
+              { key: "D", desc: "<strong>জন মার্শাল:</strong> লর্ড কার্জনের উদ্যোগে 'মহানির্দেশক' পদটি পুনরায় ফিরিয়ে আনা হলে <u>১৯০২ খ্রিস্টাব্দে</u> <u>স্যার জন মার্শাল (John Marshall)</u> এই পদে আসীন হন এবং তাঁর তত্ত্বাবধানেই <u>সিন্ধু সভ্যতা</u> আবিষ্কৃত হয়।" }
+            ]
+          }
+        },
+        {
+          id: 11,
+          category: "প্রত্নতাত্ত্বিক উপাদান ও লিপি",
+          pyqYear: "Food SI 2024",
+          questionBn: "এপিগ্রাফি হল—",
+          questionEn: "Epigraphy is—",
+          options: {
+            A: { bn: "শিলালিপি অধ্যয়ন", en: "Study of inscriptions" },
+            B: { bn: "গ্রাফিকাল মানচিত্র", en: "Graphical maps" },
+            C: { bn: "মহাকাব্যের শনাক্তকরণ", en: "Identification of epics" },
+            D: { bn: "মহাকাব্যের অধ্যয়ন", en: "Study of epics" }
+          },
+          correctKey: "A",
+          explanation: {
+            context: `• প্রাচীন লিপি বা লেখমালা পাঠোদ্ধার এবং সেগুলি সম্পর্কিত অধ্যয়ন বা বিদ্যাকে <u>'এপিগ্রাফি' (Epigraphy)</u> বলা হয়।`,
+            optionAnalysis: [
+              { key: "B", desc: "<strong>গ্রাফিকাল মানচিত্র:</strong> গ্রাফিকাল বা ভৌগোলিক মানচিত্র অঙ্কন ও অধ্যয়ন সংক্রান্ত বিদ্যাকে <u>'কার্টোগ্রাফি' (Cartography)</u> বলা হয়।" },
+              { key: "C", desc: "<strong>মহাকাব্যের শনাক্তকরণ:</strong> মহাকাব্য বা প্রাচীন সাহিত্য শনাক্তকরণ ও বিশ্লেষণমূলক চর্চা সাধারণত সাহিত্যতত্ত্ব বা <u>টেক্সচুয়াল ক্রিটিসিজমের (Textual Criticism)</u> অন্তর্ভুক্ত।" },
+              { key: "D", desc: "<strong>মহাকাব্যের অধ্যয়ন:</strong> মহাকাব্য ও প্রাচীন ভাষাতত্ত্ব সংক্রান্ত অধ্যয়নকে <u>'ফিলোলজি' (Philology)</u> বা মহাকাব্য চর্চা বলা হয়।" }
+            ],
+            notes: `• লিপি সংক্রান্ত পড়াশোনা বা প্রাচীন হস্তলিপির তারিখ নির্ণয় ও পাঠ সংক্রান্ত বিদ্যাকে বলা হয় <u>'প্যালিওগ্রাফি' (Palaeography)</u> এবং মুদ্রার পঠনপাঠন সম্পর্কিত বিদ্যাকে বলা হয় <u>'নিউমিসমেটিকস' (Numismatics)</u>।
+                    • এশিয়াটিক সোসাইটি অফ বেঙ্গলের সম্পাদক <u>স্যার জেমস প্রিন্সেপ</u> <u>১৮৩৭ খ্রিস্টাব্দে</u> সর্বপ্রথম <u>ব্রাহ্মী</u> ও <u>খরোষ্ঠী লিপির</u> পাশাপাশি অশোকের শিলালিপির পাঠোদ্ধার করেছিলেন।
+                    • ভারতের প্রাচীনতম লিপি হলো <u>সিন্ধু লিপি</u> (যার পাঠোদ্ধার এখনও সম্ভব হয়নি), এবং ভারত সম্পর্কিত সম্ভবত প্রাচীনতম বৈদেশিক লেখটি হলো এশিয়া মাইনরে প্রাপ্ত <u>'বোঘাজকোই শিলালিপি'</u>।`
+          }
+        },
+        {
+          id: 12,
+          category: "প্রত্নতাত্ত্বিক উপাদান ও লিপি",
+          pyqYear: "Clerkship 2024",
+          questionBn: "নিউমিসম্যাটিক্স হল যার অধ্যয়ন—",
+          questionEn: "Numismatics is the study of—",
+          options: {
+            A: { bn: "পাথর ও মুদ্রা", en: "Stones and coins" },
+            B: { bn: "পোড়ামাটি", en: "Terracotta" },
+            C: { bn: "মুদ্রা", en: "Coins" },
+            D: { bn: "শিলালিপি", en: "Inscriptions" }
+          },
+          correctKey: "C",
+          explanation: {
+            context: `• প্রাচীন ও আধুনিক মুদ্রার পঠনপাঠন বা অধ্যয়ন সম্পর্কিত বিদ্যাকে বলা হয় <u>'নিউমিসম্যাটিক্স' (Numismatics)</u>।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>পাথর ও মুদ্রা:</strong> পাথর বা শিলা সংক্রান্ত বৈজ্ঞানিক অধ্যয়নকে <u>'পেট্রোলজি' (Petrology)</u> বলা হয়, আর কেবল মুদ্রার অধ্যয়নকে বলা হয় নিউমিসম্যাটিক্স।" },
+              { key: "B", desc: "<strong>পোড়ামাটি:</strong> পোড়ামাটির শিল্পকর্ম বা মৃৎপাত্রের নিদর্শন (<u>Terracotta & Pottery</u>) প্রত্নবস্তুর অন্তর্ভুক্ত এবং প্রাচীন প্রত্নবস্তু সংক্রান্ত অধ্যয়ন সাধারণত <u>প্রত্নতত্ত্বের (Archaeology)</u> আওতায় পড়ে।" },
+              { key: "D", desc: "<strong>শিলালিপি:</strong> প্রাচীন শিলালিপি বা লেখমালা পাঠোদ্ধার ও অধ্যয়ন সংক্রান্ত বিদ্যাকে বলা হয় <u>'এপিগ্রাফি' (Epigraphy)</u>।" }
+            ],
+            notes: `• প্রাচীন ভারতে মুদ্রা তৈরিতে সোনা, রুপো ও তামার ব্যবহার বেশি প্রচলিত ছিল এবং সম্ভবত কুষাণ সম্রাট <u>বিম কদফিসেস</u>-এর রাজত্বকালে ভারতে স্বর্ণমুদ্রার আবির্ভাব ঘটে।
+                    • প্রাচীন ভারতে প্রাপ্ত যেসব মুদ্রার এক পিঠে সুস্পষ্ট চিহ্ন বা নকশা অঙ্কিত মোহর দিয়ে এক থেকে পাঁচবার ছাপ দেওয়া হতো, সেগুলিকে <u>'অঙ্ক-চিহ্নিত মুদ্রা' বা 'Punch-marked coin'</u> বলা হয়।
+                    • এছাড়া গুপ্ত যুগের স্বর্ণমুদ্রা <u>'দিনার'</u> এবং রৌপ্যমুদ্রা <u>'রূপক'</u> নামে পরিচিত ছিল; অন্যদিকে সাতবাহন যুগে সিসা, তামা ও টিন মিশ্রিত <u>'পোতিন'</u> মুদ্রা প্রচলিত ছিল।`
+          }
+        },
+        {
+          id: 13,
+          category: "প্রত্নতাত্ত্বিক উপাদান ও লিপি",
+          pyqYear: "Food SI 2024 S3",
+          questionBn: "পেট্রোগ্লিফস মানে—",
+          questionEn: "Petroglyphs mean—",
+          options: {
+            A: { bn: "পাথর চিপিং করে হাতিয়ার তৈরি", en: "Making tools by chipping stones" },
+            B: { bn: "পেট্রোল দিয়ে পাথরের প্রস্তুতি", en: "Preparation of stone with petrol" },
+            C: { bn: "শিলা-পৃষ্ঠের কিছু পদার্থ-খোদাই, ছেনা এবং স্কুপিংয়ের মাধ্যমে শিলা-শিল্প করা", en: "Rock art created by carving, chiseling, and scooping part of a rock surface" },
+            D: { bn: "পেইন্টিং-এর আগে শিলার পৃষ্ঠতল পেট্রোলের সাহায্যে প্রস্তুতি", en: "Preparation of rock surface with petrol before painting" }
+          },
+          correctKey: "C",
+          explanation: {
+            context: `• <u>'পেট্রোগ্লিফস' (Petroglyphs)</u> হলো প্রাগৈতিহাসিক যুগের এক ধরনের <u>শিলা-শিল্প (Rock Art)</u>, যা পাথর বা শিলা-পৃষ্ঠের ওপর খোদাই করে, ছেনি দিয়ে কেটে বা আঁচড়ে তৈরি করা হতো।
+                      • গ্রিক শব্দ <u>'পেট্রোস' (Petros, যার অর্থ পাথর)</u> এবং <u>'গ্লাইফেইন' (Glyphein, যার অর্থ খোদাই করা)</u> থেকে এই শব্দটির উৎপত্তি হয়েছে।
+                      • লিখিত উপাদান আবিষ্কারের পূর্বে প্রাগৈতিহাসিক মানুষের জীবনযাত্রা, শিকার পদ্ধতি, নৃত্য এবং ধর্মীয় বিশ্বাস জানার ক্ষেত্রে পেট্রোগ্লিফস অত্যন্ত নির্ভরযোগ্য প্রত্নতাত্ত্বিক নিদর্শন হিসেবে কাজ করে।
+                      • ভারতের মধ্যপ্রদেশের <u>ভীমবেটকা গুহায়</u> এবং মহারাষ্ট্রের <u>রত্নগিরি অঞ্চলে</u> প্রাচীন পেট্রোগ্লিফস-এর বহু নিদর্শন পাওয়া গেছে।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>পাথর চিপিং করে হাতিয়ার তৈরি:</strong> প্রাচীন প্রস্তর যুগে পাথর ঠুকে বা চিপিং করে যেসব পাথরের হাতিয়ার তৈরি করা হতো, সেগুলিকে <u>'লিথিক টুলস' (Lithic tools)</u> বা প্রস্তর আয়ুধ বলা হয়।" },
+              { key: "B", desc: "<strong>পেট্রোল দিয়ে পাথরের প্রস্তুতি:</strong> এটি একটি বিভ্রান্তিকর বিকল্প; প্রাগৈতিহাসিক শিলা-শিল্পের সাথে পেট্রোলের কোনো সম্পর্ক নেই।" },
+              { key: "D", desc: "<strong>পেইন্টিং-এর আগে শিলার পৃষ্ঠতল পেট্রোলের সাহায্যে প্রস্তুতি:</strong> এটিও একটি ভুল তথ্য; গুহাচিত্র বা পেইন্টিং-এর জন্য প্রাচীন মানুষেরা <u>প্রাকৃতিক খনিজ রঙের</u> ব্যবহার করত।" }
+            ],
+            notes: `• শিলা-পৃষ্ঠে খোদাই করা চিত্রকে <u>'পেট্রোগ্লিফ' (Petroglyph)</u> বলা হয়, অন্যদিকে পাথরের গায়ে প্রাকৃতিক রঙ দিয়ে আঁকা চিত্রকে <u>'পিকটোগ্রাফ' (Pictograph)</u> বলা হয়।
+                    • প্রাগৈতিহাসিক ভারতবর্ষ (যখন লিখিত উপাদান ছিল না)-কে জানার সবচেয়ে নির্ভরযোগ্য তথ্যসূত্র হলো <u>প্রত্নবস্তু (Artifacts)</u>, যা অনুসন্ধান (Exploration) এবং উৎখনন (Excavation)-এর মাধ্যমে মাটির নীচ থেকে উদ্ধার করা হয়।
+                    • এছাড়া প্রাচীন শিলালিপি পাঠোদ্ধার বিদ্যাকে বলা হয় <u>'এপিগ্রাফি' (Epigraphy)</u> এবং লিপি সংক্রান্ত পড়াশোনাকে বলা হয় <u>'প্যালিওগ্রাফি' (Palaeography)</u>।`
+          }
+        },
+        {
+          id: 14,
+          category: "ভারততত্ত্ববিদ",
+          pyqYear: "WBCS 2018",
+          questionBn: "কোনো ঐতিহাসিক প্রাচীন ভারতের ইতিহাসের উপর গবেষণার জন্য বিখ্যাত?",
+          questionEn: "Which historian is famous for his research on Ancient Indian History?",
+          options: {
+            A: { bn: "সতীশ চন্দ্র", en: "Satish Chandra" },
+            B: { bn: "বিপান চন্দ্র", en: "Bipan Chandra" },
+            C: { bn: "রামশরণ শর্মা", en: "Ram Sharan Sharma" },
+            D: { bn: "অমলেশ ত্রিপাঠী", en: "Amales Tripathi" }
+          },
+          correctKey: "C",
+          explanation: {
+            context: `• <u>রামশরণ শর্মা (R. S. Sharma)</u> প্রাচীন এবং আদি মধ্যযুগীয় ভারতের ইতিহাসের ওপর গবেষণার জন্য বিশ্বখ্যাত একজন ভারতীয় ঐতিহাসিক ও ইনডোলজিস্ট।
+                      • তিনি <u>'ইন্ডিয়ান কাউন্সিল অফ হিস্টোরিক্যাল রিসার্চ' (ICHR)</u>-এর প্রথম সভাপতি ছিলেন।
+                      • প্রাচীন ভারতের আর্থ-সামাজিক ইতিহাস, <u>সামন্ততন্ত্র (Indian Feudalism)</u> এবং বর্ণব্যবস্থার ক্রমবিকাশ নিয়ে তাঁর গবেষণা বিশেষভাবে উল্লেখযোগ্য।
+                      • এছাড়া বিহার ও পশ্চিমবঙ্গের সীমান্ত সংক্রান্ত সমস্যায় তাঁর রিপোর্ট গুরুত্বপূর্ণ ভূমিকা পালন করেছিল।`,
+            optionAnalysis: [
+              { key: "A", desc: "<strong>সতীশ চন্দ্র:</strong> তিনি <u>মধ্যযুগের ভারতের ইতিহাস</u> (বিশেষত মুঘল সাম্রাজ্যের ইতিহাস) সম্পর্কে গবেষণার জন্য বিখ্যাত।" },
+              { key: "B", desc: "<strong>বিপান চন্দ্র:</strong> তিনি <u>আধুনিক ভারতের ইতিহাস</u>, ভারতের স্বাধীনতা সংগ্রাম এবং জাতীয়তাবাদী আন্দোলনের ওপর গবেষণার জন্য প্রসিদ্ধ।" },
+              { key: "D", desc: "<strong>অমলেশ ত্রিপাঠী:</strong> তিনি একজন প্রখ্যাত বাঙালি ঐতিহাসিক, যিনি <u>আধুনিক ভারতের ইতিহাস</u>, বাংলার নবজাগরণ এবং ভারতের স্বাধীনতা সংগ্রামের ইতিহাসের ওপর গবেষণার জন্য বিখ্যাত।" }
+            ],
+            notes: `• প্রাচীন ভারতের ইতিহাসের ওপর গবেষণার জন্য অন্যান্য বিখ্যাত ইনডোলজিস্ট বা ভারততত্ত্ববিদদের মধ্যে <u>দামোদর ধর্মানন্দ কোশাম্বী</u>, <u>রমেশচন্দ্র মজুমদার</u>, <u>রোমিলা থাপার</u> (মৌর্য যুগের ইতিহাস), <u>আর. জি. ভান্ডারকর</u> এবং <u>দ্বিজেন্দ্র নারায়ণ ঝাঁ</u> বিশেষভাবে উল্লেখযোগ্য।
+                    • রামশরণ শর্মা রচিত কয়েকটি বিখ্যাত ঐতিহাসিক গ্রন্থ হলো <u>'Indian Feudalism'</u>, <u>'Sudras in Ancient India'</u> এবং <u>'India's Ancient Past'</u>।
+                    • এছাড়া <u>স্যার উইলিয়াম জোনস</u> <u>১৭৮৪ খ্রিস্টাব্দে</u> ভারতের প্রাচীন সংস্কৃতি বিষয়ে চর্চার উদ্দেশ্যে কলকাতায় <u>'এশিয়াটিক সোসাইটি'</u> প্রতিষ্ঠা করেছিলেন।`
+          }
+        }
+      ];
+
+      /* =====================================================================
+         MODULE B: CONFIGURATION & PERSISTENT STORAGE
+         ===================================================================== */
+      const CONFIG = {
+        CATEGORY: { ALL: 'ALL', PYQ: 'PYQ' },
+        CATEGORY_LABELS: {
+          ALL: 'সকল প্রশ্ন',
+          PYQ: 'বিগত বছরের প্রশ্নাবলী (PYQ)'
+        },
+        STORAGE: {
+          THEME: 'mcq_app_theme',
+          ANSWERS: 'mcq_history_reform_answers_v1',
+          FONT_SIZE: 'mcq_app_font_size'
+        },
+        FONT: { DEFAULT: 14, MIN: 10, MAX: 18, STEP: 1 },
+        OPTION_KEYS: ['A', 'B', 'C', 'D'],
+        GAUGE_CIRCUMFERENCE: 97.4
+      };
+
+      const Store = {
+        get(key, fallback = null) {
+          try {
+            const val = localStorage.getItem(key);
+            return val !== null ? val : fallback;
+          } catch {
+            return fallback;
+          }
+        },
+        set(key, val) {
+          try {
+            localStorage.setItem(key, val);
+          } catch { /* Ignore quota/private mode errors */ }
+        },
+        getJson(key, fallback = {}) {
+          try {
+            const raw = localStorage.getItem(key);
+            const parsed = raw ? JSON.parse(raw) : null;
+            return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : fallback;
+          } catch {
+            return fallback;
+          }
+        },
+        setJson(key, obj) {
+          this.set(key, JSON.stringify(obj));
+        }
+      };
+
+      /* =====================================================================
+         MODULE C: RICH CONTENT, SANITIZATION & TABLE PARSER
+         ===================================================================== */
+      const RichParser = {
+        ALLOWED_TAGS: new Set([
+          'STRONG', 'B', 'EM', 'I', 'U', 'BR', 'P', 'UL', 'OL', 'LI',
+          'TABLE', 'THEAD', 'TBODY', 'TR', 'TH', 'TD', 'SPAN', 'DIV', 'MARK'
+        ]),
+
+        sanitize(html) {
+          const tpl = document.createElement('template');
+          tpl.innerHTML = String(html || '');
+
+          const walk = node => {
+            for (const child of Array.from(node.childNodes)) {
+              if (child.nodeType === Node.ELEMENT_NODE) {
+                if (!this.ALLOWED_TAGS.has(child.tagName)) {
+                  const text = document.createTextNode(child.textContent || '');
+                  node.replaceChild(text, child);
+                  continue;
+                }
+                for (const attr of Array.from(child.attributes)) {
+                  if (attr.name !== 'class' && attr.name !== 'colspan' && attr.name !== 'rowspan') {
+                    child.removeAttribute(attr.name);
+                  }
+                }
+                walk(child);
+              }
+            }
+          };
+
+          walk(tpl.content);
+          return tpl.innerHTML;
+        },
+
+        escapeHtml(str) {
+          return String(str || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+        },
+
+        highlightText(text, query) {
+          const safe = this.escapeHtml(text);
+          const q = String(query || '').trim();
+          if (!q) return safe;
+          const escapedQ = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          return safe.replace(new RegExp(`(${escapedQ})`, 'gi'), '<mark class="search-hl">$1</mark>');
+        },
+
+        stripHtml(html) {
+          return String(html || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+        },
+
+        wrapTable(tableHtml) {
+          return `<div class="rich-content-table-wrap my-2.5 overflow-x-auto custom-scroll rounded-xl border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-[#151f32] shadow-sm">${tableHtml}</div>`;
+        },
+
+        parseMarkdownTable(lines) {
+          const splitRow = row => row.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+          const isSeparator = row => /^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?$/.test(row.trim());
+
+          const headers = splitRow(lines[0]);
+          const bodyStart = lines.length > 1 && isSeparator(lines[1]) ? 2 : 1;
+          const rows = lines.slice(bodyStart).map(splitRow);
+
+          const thead = `<thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>`;
+          const tbody = rows.length
+            ? `<tbody>${rows.map(cols => {
+                const cells = headers.map((_, i) => `<td>${cols[i] ?? ''}</td>`).join('');
+                return `<tr>${cells}</tr>`;
+              }).join('')}</tbody>`
+            : '';
+
+          return this.wrapTable(`<table>${thead}${tbody}</table>`);
+        },
+
+        parse(input) {
+          if (!input) return '';
+          const raw = Array.isArray(input)
+            ? input.map(v => String(v || '').trim()).filter(Boolean).join('\n')
+            : String(input);
+          if (!raw.trim()) return '';
+
+          const htmlTables = [];
+          const tokenized = raw.replace(/<table[\s\S]*?<\/table>/gi, match => {
+            const token = `__HTML_TABLE_${htmlTables.length}__`;
+            htmlTables.push(this.wrapTable(match.trim()));
+            return `\n${token}\n`;
+          });
+
+          const blocks = [];
+          let bullets = [];
+          let mdTable = [];
+
+          const flushBullets = () => {
+            if (!bullets.length) return;
+            blocks.push(`<ul>${bullets.map(item => `<li class="leading-relaxed">${item}</li>`).join('')}</ul>`);
+            bullets = [];
+          };
+
+          const flushTable = () => {
+            if (!mdTable.length) return;
+            blocks.push(
+              mdTable.length >= 2
+                ? this.parseMarkdownTable(mdTable)
+                : `<p class="leading-relaxed">${mdTable[0]}</p>`
+            );
+            mdTable = [];
+          };
+
+          for (const line of tokenized.split(/\r?\n/)) {
+            const trimmed = line.trim();
+            if (!trimmed) {
+              flushBullets();
+              flushTable();
+              continue;
+            }
+
+            const tokenMatch = trimmed.match(/^__HTML_TABLE_(\d+)__$/);
+            if (tokenMatch) {
+              flushBullets();
+              flushTable();
+              blocks.push(htmlTables[Number(tokenMatch[1])]);
+              continue;
+            }
+
+            if (trimmed.startsWith('|') && trimmed.endsWith('|') && trimmed.length > 2) {
+              flushBullets();
+              mdTable.push(trimmed);
+              continue;
+            }
+            flushTable();
+
+            const bulletMatch = trimmed.match(/^[•\-*]\s+(.*)$/);
+            if (bulletMatch) {
+              bullets.push(bulletMatch[1].trim());
+              continue;
+            }
+            flushBullets();
+
+            if (/^<(ul|ol)\b/i.test(trimmed)) {
+              blocks.push(trimmed);
+            } else if (/^<(strong|b)\b[^>]*>[^<]+<\/\1>\s*$/i.test(trimmed)) {
+              blocks.push(`<p class="leading-relaxed mt-3 first:mt-0">${trimmed}</p>`);
+            } else {
+              blocks.push(`<p class="leading-relaxed">${trimmed}</p>`);
+            }
+          }
+
+          flushBullets();
+          flushTable();
+
+          return this.sanitize(`<div class="rich-content space-y-2">${blocks.join('')}</div>`);
+        },
+
+        formatOptionDesc(desc) {
+          const text = String(desc || '').trim();
+          if (!text) return '';
+          if (/^<(strong|b)\b/i.test(text)) return this.parse(text);
+          return this.parse(text.replace(/^([^:：<]+[:：])/, '<strong>$1</strong>'));
+        },
+
+        normalizeMoreInfo(explanation) {
+          const raw = explanation?.moreInformation || explanation?.jeneRakhun || explanation?.knowMore;
+          if (!raw) return null;
+
+          if (typeof raw === 'object' && !Array.isArray(raw)) {
+            const title = String(raw.title || raw.heading || '').trim();
+            const content = raw.content || raw.body || raw.text || '';
+            return (title || content) ? { title: title || 'More Information:', content } : null;
+          }
+
+          const str = Array.isArray(raw) ? raw.join('\n') : String(raw);
+          const lines = str.split(/\r?\n/);
+          const firstIdx = lines.findIndex(l => l.trim().length > 0);
+          if (firstIdx === -1) return null;
+
+          const firstLine = lines[firstIdx].trim();
+          const rest = lines.slice(firstIdx + 1).join('\n').trim();
+          if (rest && (/^<(strong|b)\b[^>]*>.*<\/\1>$/i.test(firstLine) || /[:：]\s*$/.test(this.stripHtml(firstLine)))) {
+            return { title: this.stripHtml(firstLine), content: rest };
+          }
+          return { title: 'More Information:', content: str };
+        }
+      };
+
+      /* =====================================================================
+         MODULE D: DATA INDEXING & APPLICATION STATE
+         ===================================================================== */
+      const cloneQuestions = () => structuredClone(QUESTIONS_DATA);
+
+      const questionMap = new Map();
+      const subCategoryStats = new Map();
+      let totalAllCount = 0;
+      let totalPyqCount = 0;
+
+      const buildSearchIndex = q => {
+        const optText = Object.values(q.options).map(o => `${o.bn || ''} ${o.en || ''}`).join(' ');
+        const contextText = RichParser.stripHtml(q.explanation?.context);
+        const analysisText = (q.explanation?.optionAnalysis || []).map(i => RichParser.stripHtml(i.desc)).join(' ');
+        const notesText = RichParser.stripHtml(q.explanation?.notes);
+        const moreObj = RichParser.normalizeMoreInfo(q.explanation);
+        const moreText = moreObj ? `${moreObj.title} ${RichParser.stripHtml(moreObj.content)}` : '';
+        return `${q.questionBn} ${q.questionEn || ''} ${optText} ${q.category} ${q.pyqYear || ''} ${contextText} ${analysisText} ${notesText} ${moreText}`.toLowerCase();
+      };
+
+      QUESTIONS_DATA.forEach(q => {
+        const isPyq = Boolean(q.pyqYear);
+        totalAllCount++;
+        if (isPyq) totalPyqCount++;
+
+        if (!subCategoryStats.has(q.category)) {
+          subCategoryStats.set(q.category, { all: 0, pyq: 0 });
+        }
+        const stat = subCategoryStats.get(q.category);
+        stat.all++;
+        if (isPyq) stat.pyq++;
+      });
+
+      const subCategoriesList = Array.from(subCategoryStats.keys());
+
+      function rebuildQuestionMap(questions) {
+        questionMap.clear();
+        questions.forEach(q => {
+          q._searchIndex = buildSearchIndex(q);
+          q._cachedExplainHtml = null;
+          questionMap.set(q.id, q);
+        });
+      }
+
+      const initialQuestions = cloneQuestions();
+      rebuildQuestionMap(initialQuestions);
+
+      const state = {
+        questions: initialQuestions,
+        filteredCache: null,
+        mainCategory: CONFIG.CATEGORY.ALL,
+        subCategory: null,
+        searchQuery: '',
+        answers: Store.getJson(CONFIG.STORAGE.ANSWERS, {}),
+        openExplains: {},
+        allExplainsOpen: false,
+        lastFocusedElement: null,
+        theme: Store.get(CONFIG.STORAGE.THEME, 'dark'),
+        fontSize: (() => {
+          const val = parseInt(Store.get(CONFIG.STORAGE.FONT_SIZE, CONFIG.FONT.DEFAULT), 10);
+          return !isNaN(val) && val >= CONFIG.FONT.MIN && val <= CONFIG.FONT.MAX ? val : CONFIG.FONT.DEFAULT;
+        })()
+      };
+
+      const $ = id => document.getElementById(id);
+      const dom = {
+        html: document.documentElement,
+        themeMeta: document.querySelector('meta[name="theme-color"]'),
+        srAnnouncer: $('sr-announcer'),
+        toast: $('app-toast'),
+        toastIcon: $('app-toast-icon'),
+        toastText: $('app-toast-text'),
+        btnBackTop: $('btn-back-top'),
+        subNavBar: $('sub-nav-bar'),
+        btnTheme: $('btn-theme'),
+        themeIcon: $('theme-icon'),
+        themeText: $('theme-text'),
+        btnShuffle: $('btn-shuffle'),
+        btnMenuDrawer: $('btn-menu-drawer'),
+        categoryDrawer: $('category-drawer'),
+        categoryBackdrop: $('category-backdrop'),
+        btnCategoryClose: $('btn-category-close'),
+        categoryList: $('category-list'),
+        btnResetProgress: $('btn-reset-progress'),
+        btnFontDec: $('btn-font-dec'),
+        btnFontReset: $('btn-font-reset'),
+        btnFontInc: $('btn-font-inc'),
+        btnPaletteOpen: $('btn-palette-open'),
+        headerUnansweredBadge: $('header-unanswered-badge'),
+        headerGaugeProgress: $('header-gauge-progress'),
+        paletteDrawer: $('palette-drawer'),
+        paletteBackdrop: $('palette-backdrop'),
+        btnPaletteClose: $('btn-palette-close'),
+        paletteGrid: $('palette-grid'),
+        counterCorrect: $('counter-correct'),
+        counterWrong: $('counter-wrong'),
+        searchInput: $('search-input'),
+        searchKbdHint: $('search-kbd-hint'),
+        searchClear: $('search-clear'),
+        btnToggleAllExplains: $('btn-toggle-all-explains'),
+        iconToggleAll: $('icon-toggle-all'),
+        textToggleAll: $('text-toggle-all'),
+        filterIndicator: $('filter-indicator'),
+        filterCategoryName: $('filter-category-name'),
+        btnShowAllCategories: $('btn-show-all-categories'),
+        btnClearFiltersEmpty: $('btn-clear-filters-empty'),
+        questionsFeed: $('questions-feed'),
+        emptyState: $('empty-state')
+      };
+
+      let toastTimer = null;
+      function showToast(message, iconClass = 'fa-solid fa-circle-info text-indigo-400') {
+        clearTimeout(toastTimer);
+        dom.toastIcon.className = iconClass;
+        dom.toastText.textContent = message;
+        dom.toast.classList.remove('opacity-0', 'translate-y-2');
+        dom.toast.classList.add('opacity-100', 'translate-y-0');
+        toastTimer = setTimeout(() => {
+          dom.toast.classList.remove('opacity-100', 'translate-y-0');
+          dom.toast.classList.add('opacity-0', 'translate-y-2');
+        }, 2200);
+      }
+
+      function announce(message) {
+        dom.srAnnouncer.textContent = '';
+        requestAnimationFrame(() => {
+          dom.srAnnouncer.textContent = message;
+        });
+      }
+
+      /* =====================================================================
+         MODULE E: UI RENDERERS & VIEW CONTROLLERS
+         ===================================================================== */
+      const OPTION_VARIANTS = {
+        default: {
+          box: 'border-slate-200 dark:border-slate-700/80 bg-slate-50/70 dark:bg-slate-800/80 hover:bg-indigo-50/50 dark:hover:bg-slate-700/60 focus-visible:ring-2 focus-visible:ring-indigo-500 text-slate-700 dark:text-slate-200',
+          pill: 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300',
+          icon: ''
+        },
+        correct: {
+          box: 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-100 ring-1 ring-emerald-500',
+          pill: 'bg-emerald-500 text-white',
+          icon: '<i class="fa-solid fa-circle-check text-emerald-500 text-lg ml-auto flex-shrink-0" aria-hidden="true"></i>'
+        },
+        wrong: {
+          box: 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-900 dark:text-rose-100 ring-1 ring-rose-500',
+          pill: 'bg-rose-500 text-white',
+          icon: '<i class="fa-solid fa-circle-xmark text-rose-500 text-lg ml-auto flex-shrink-0" aria-hidden="true"></i>'
+        },
+        muted: {
+          box: 'border-slate-200 dark:border-slate-700/60 opacity-60 text-slate-600 dark:text-slate-400',
+          pill: 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300',
+          icon: ''
+        }
+      };
+
+      function getFilteredQuestions() {
+        if (state.filteredCache) return state.filteredCache;
+        const query = state.searchQuery.trim().toLowerCase();
+
+        state.filteredCache = state.questions.filter(q => {
+          if (state.mainCategory === CONFIG.CATEGORY.PYQ && !q.pyqYear) return false;
+          if (state.subCategory && q.category !== state.subCategory) return false;
+          return !query || q._searchIndex.includes(query);
+        });
+        return state.filteredCache;
+      }
+
+      function applyTheme(theme) {
+        state.theme = theme;
+        Store.set(CONFIG.STORAGE.THEME, theme);
+        const isDark = theme === 'dark';
+        dom.html.classList.toggle('dark', isDark);
+        dom.themeMeta?.setAttribute('content', isDark ? '#0b1120' : '#f1f5f9');
+        dom.themeIcon.className = isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-indigo-500';
+        dom.themeText.textContent = isDark ? 'দিন' : 'রাত্রি';
+      }
+
+      function applyFontSize(sizePx) {
+        const clamped = Math.min(CONFIG.FONT.MAX, Math.max(CONFIG.FONT.MIN, sizePx));
+        state.fontSize = clamped;
+        dom.html.style.fontSize = `${clamped}px`;
+        Store.set(CONFIG.STORAGE.FONT_SIZE, String(clamped));
+
+        const isDefault = clamped === CONFIG.FONT.DEFAULT;
+        dom.btnFontReset.title = `ডিফল্ট ফন্ট সাইজ (${CONFIG.FONT.DEFAULT}px) — বর্তমান: ${clamped}px`;
+        dom.btnFontReset.className = isDefault
+          ? 'w-7 h-7 rounded-md bg-indigo-600 text-white border border-indigo-600 font-bold text-xs flex items-center justify-center transition active:scale-95 cursor-pointer shadow-sm'
+          : 'w-7 h-7 rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/70 dark:hover:bg-indigo-900/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 font-bold text-xs transition flex items-center justify-center cursor-pointer active:scale-95';
+
+        dom.btnFontDec.disabled = clamped <= CONFIG.FONT.MIN;
+        dom.btnFontDec.classList.toggle('opacity-40', clamped <= CONFIG.FONT.MIN);
+        dom.btnFontDec.classList.toggle('cursor-not-allowed', clamped <= CONFIG.FONT.MIN);
+
+        dom.btnFontInc.disabled = clamped >= CONFIG.FONT.MAX;
+        dom.btnFontInc.classList.toggle('opacity-40', clamped >= CONFIG.FONT.MAX);
+        dom.btnFontInc.classList.toggle('cursor-not-allowed', clamped >= CONFIG.FONT.MAX);
+      }
+
+      function renderOptionsHtml(q, userChoice) {
+        const isAnswered = userChoice !== undefined;
+        const query = state.searchQuery;
+
+        return CONFIG.OPTION_KEYS.map(key => {
+          const opt = q.options[key];
+          const variant = !isAnswered
+            ? OPTION_VARIANTS.default
+            : key === q.correctKey
+              ? OPTION_VARIANTS.correct
+              : key === userChoice
+                ? OPTION_VARIANTS.wrong
+                : OPTION_VARIANTS.muted;
+
+          const statusLabel = !isAnswered
+            ? ''
+            : key === q.correctKey
+              ? ' (সঠিক উত্তর)'
+              : key === userChoice
+                ? ' (ভুল উত্তর)'
+                : '';
+
+          return `
+            <div
+              data-option-key="${key}"
+              data-qid="${q.id}"
+              role="button"
+              tabindex="${isAnswered ? '-1' : '0'}"
+              aria-disabled="${isAnswered}"
+              aria-label="Option ${key}: ${RichParser.escapeHtml(opt.bn)}${statusLabel}"
+              class="option-item flex items-center gap-3 sm:gap-3.5 p-3 sm:p-4 rounded-xl border transition-all duration-150 focus:outline-none ${isAnswered ? 'cursor-default' : 'cursor-pointer'} ${variant.box}"
+            >
+              <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg font-latin font-bold text-sm sm:text-base flex items-center justify-center flex-shrink-0 transition-colors ${variant.pill}">
+                ${key}
+              </span>
+              <div class="flex-1 min-w-0 break-words text-base sm:text-lg font-medium leading-snug">
+                <span class="font-semibold">${RichParser.highlightText(opt.bn, query)}</span>
+                ${opt.en ? `<span class="text-slate-500 dark:text-slate-400 font-latin ml-1 text-sm sm:text-base">(${RichParser.highlightText(opt.en, query)})</span>` : ''}
+              </div>
+              ${variant.icon}
+            </div>
+          `;
+        }).join('');
+      }
+
+      function renderExplanationHtml(q) {
+        if (q._cachedExplainHtml) return q._cachedExplainHtml;
+
+        const correctOpt = q.options[q.correctKey];
+        const contextHtml = RichParser.parse(q.explanation?.context);
+        const notesHtml = RichParser.parse(q.explanation?.notes);
+        const moreObj = RichParser.normalizeMoreInfo(q.explanation);
+        const moreContentHtml = moreObj ? RichParser.parse(moreObj.content) : '';
+        const analysisList = q.explanation?.optionAnalysis || [];
+
+        q._cachedExplainHtml = `
+          <div class="animate-fade-slide bg-indigo-50/70 dark:bg-[#0b1120] rounded-2xl p-3.5 sm:p-6 border border-indigo-100 dark:border-[#24334d] space-y-4 text-base">
+            <!-- Correct Answer Banner -->
+            <div class="p-3 sm:p-3.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/[0.12] border border-emerald-500/30 flex items-center gap-2.5 text-emerald-800 dark:text-emerald-200">
+              <span class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center text-xs font-latin shadow-sm flex-shrink-0">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+              </span>
+              <span class="font-normal text-sm sm:text-base leading-snug min-w-0 break-words">
+                সঠিক উত্তর: <strong>(${q.correctKey}) ${RichParser.escapeHtml(correctOpt.bn)}</strong> ${correctOpt.en ? `<span class="text-xs sm:text-sm font-latin opacity-80">(${RichParser.escapeHtml(correctOpt.en)})</span>` : ''}
+              </span>
+            </div>
+
+            ${contextHtml ? `
+              <div class="space-y-1.5">
+                <h4 class="font-bold flex items-center gap-1.5 text-xs sm:text-sm uppercase tracking-wide text-indigo-700 dark:text-indigo-300">
+                  <i class="fa-solid fa-book-open" aria-hidden="true"></i> বিশ্লেষণ:
+                </h4>
+                <div class="text-slate-700 dark:text-slate-300 pl-0.5 sm:pl-1 min-w-0 break-words">${contextHtml}</div>
+              </div>
+            ` : ''}
+
+            ${analysisList.length ? `
+              <div class="space-y-2 pt-2 border-t border-indigo-100 dark:border-[#24334d]">
+                <h4 class="font-bold flex items-center gap-1.5 text-sm sm:text-base uppercase tracking-wide text-indigo-700 dark:text-indigo-300">
+                  <i class="fa-solid fa-list-ul" aria-hidden="true"></i> অন্যান্য বিকল্পগুলির বিশ্লেষণ:
+                </h4>
+                <div class="grid grid-cols-1 gap-2 pl-0.5 sm:pl-1">
+                  ${analysisList.map(item => `
+                    <div class="p-3 rounded-xl bg-white/90 dark:bg-[#151f32] border border-slate-200/80 dark:border-[#24334d] leading-relaxed text-slate-700 dark:text-slate-300 flex items-start gap-2">
+                      <span class="font-bold font-latin text-indigo-600 dark:text-indigo-400 flex-shrink-0 pt-0.5">(${RichParser.escapeHtml(item.key)})</span>
+                      <div class="flex-1 min-w-0 break-words">${RichParser.formatOptionDesc(item.desc)}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            ${notesHtml ? `
+              <div class="bg-amber-50/80 dark:bg-amber-950/20 p-3.5 sm:p-4 rounded-xl border border-amber-200/80 dark:border-amber-900/60 space-y-2">
+                <h4 class="text-sm sm:text-base font-bold uppercase tracking-wide text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
+                  <i class="fa-solid fa-star text-amber-500" aria-hidden="true"></i> কিছু গুরুত্বপূর্ণ তথ্য:
+                </h4>
+                <div class="text-slate-700 dark:text-slate-300 min-w-0 break-words">${notesHtml}</div>
+              </div>
+            ` : ''}
+
+            ${moreContentHtml ? `
+              <div class="bg-teal-50/80 dark:bg-teal-950/20 p-3.5 sm:p-4 rounded-xl border border-teal-200/80 dark:border-teal-900/60 space-y-2">
+                <h4 class="text-sm sm:text-base font-bold uppercase tracking-wide text-teal-900 dark:text-teal-300 flex items-center gap-1.5">
+                  <i class="fa-solid fa-lightbulb text-teal-500" aria-hidden="true"></i> ${RichParser.escapeHtml(moreObj.title)}
+                </h4>
+                <div class="text-slate-700 dark:text-slate-300 min-w-0 break-words">${moreContentHtml}</div>
+              </div>
+            ` : ''}
+
+            <div class="pt-2 flex justify-center border-t border-slate-200/60 dark:border-[#24334d]">
+              <button
+                type="button"
+                class="btn-collapse-chevron w-10 h-10 rounded-full bg-slate-200/90 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition flex items-center justify-center shadow-sm cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                title="ব্যাখ্যা বন্ধ করুন"
+                data-qid="${q.id}"
+                aria-label="ব্যাখ্যা বন্ধ করুন"
+              >
+                <i class="fa-solid fa-chevron-up text-base" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        return q._cachedExplainHtml;
+      }
+
+      function getExplainBtnMeta(qId) {
+        if (state.openExplains[qId]) return { text: 'ব্যাখ্যা লুকান', icon: 'fa-solid fa-eye-slash', expanded: 'true' };
+        return {
+          text: state.answers[qId] !== undefined ? 'ব্যাখ্যা দেখুন' : 'সরাসরি ব্যাখ্যা দেখুন',
+          icon: 'fa-solid fa-eye',
+          expanded: 'false'
+        };
+      }
+
+      function createQuestionCard(q, indexNum) {
+        const card = document.createElement('article');
+        card.id = `q-card-${q.id}`;
+        card.className = 'question-card scroll-mt-36 sm:scroll-mt-40 bg-white dark:bg-[#151f32] rounded-2xl border border-slate-200 dark:border-[#24334d] shadow-sm hover:shadow-md p-3.5 sm:p-6 transition-all duration-200';
+
+        const isOpen = Boolean(state.openExplains[q.id]);
+        const btnMeta = getExplainBtnMeta(q.id);
+        const query = state.searchQuery;
+
+        card.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
+            <span class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg text-xs sm:text-sm font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+              <i class="fa-solid fa-bookmark text-xs" aria-hidden="true"></i> ${RichParser.highlightText(q.category, query)}
+            </span>
+            <div>
+              ${q.pyqYear ? `
+                <span class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg text-xs sm:text-sm font-semibold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 font-latin">
+                  <i class="fa-solid fa-clock-rotate-left text-xs" aria-hidden="true"></i> ${RichParser.highlightText(q.pyqYear, query)}
+                </span>
+              ` : ''}
+            </div>
+          </div>
+
+          <div class="mb-4 flex items-start gap-2.5 sm:gap-3">
+            <span class="inline-flex items-center justify-center min-w-[2.2rem] sm:min-w-[2.4rem] h-8 sm:h-9 px-2 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white font-latin font-bold text-sm sm:text-base shadow-sm shadow-indigo-500/20 ring-1 ring-white/20 flex-shrink-0 select-none">
+              ${indexNum}
+            </span>
+            <div class="flex-1 min-w-0">
+              <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-relaxed pt-0.5 break-words">
+                ${RichParser.highlightText(q.questionBn, query)}
+              </h2>
+              ${q.questionEn ? `<p class="text-sm sm:text-base font-latin font-medium text-slate-500 dark:text-slate-400 mt-1.5 italic break-words">${RichParser.highlightText(q.questionEn, query)}</p>` : ''}
+            </div>
+          </div>
+
+          <div class="space-y-2.5 mb-4 options-group" role="group" aria-label="উত্তরের বিকল্পসমূহ" data-qid="${q.id}">
+            ${renderOptionsHtml(q, state.answers[q.id])}
+          </div>
+
+          <div class="pt-2 flex items-center justify-end border-t border-slate-100 dark:border-slate-800">
+            <button
+              type="button"
+              aria-expanded="${btnMeta.expanded}"
+              class="btn-toggle-explain text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 py-1.5 px-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-slate-800 transition flex items-center gap-1.5 cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+              data-qid="${q.id}"
+            >
+              <i class="${btnMeta.icon} text-indigo-500 text-xs sm:text-sm explain-icon" aria-hidden="true"></i>
+              <span class="explain-label">${btnMeta.text}</span>
+            </button>
+          </div>
+
+          <div class="explanation-container ${isOpen ? '' : 'hidden'} mt-3 pt-3 border-t border-slate-200 dark:border-[#24334d] min-w-0">
+            ${isOpen ? renderExplanationHtml(q) : ''}
+          </div>
+        `;
+        return card;
+      }
+
+      function renderCategoryDrawer() {
+        const fragment = document.createDocumentFragment();
+        const isPyqMode = state.mainCategory === CONFIG.CATEGORY.PYQ;
+
+        const mainBox = document.createElement('div');
+        mainBox.className = 'space-y-1.5';
+
+        [
+          { key: CONFIG.CATEGORY.ALL, label: CONFIG.CATEGORY_LABELS.ALL, count: totalAllCount, icon: 'fa-solid fa-book-open-reader', color: 'text-indigo-500' },
+          { key: CONFIG.CATEGORY.PYQ, label: CONFIG.CATEGORY_LABELS.PYQ, count: totalPyqCount, icon: 'fa-solid fa-clock-rotate-left', color: 'text-amber-500' }
+        ].forEach(item => {
+          const isMain = state.mainCategory === item.key;
+          const isActive = isMain && state.subCategory === null;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.dataset.mainCategory = item.key;
+          btn.setAttribute('aria-pressed', String(isActive));
+          btn.className = `w-full text-left px-3 py-2.5 rounded-xl transition flex items-center justify-between text-xs sm:text-sm font-bold cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+            isActive
+              ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
+              : isMain
+                ? 'bg-indigo-50/90 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/80'
+                : 'bg-slate-50/70 dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 border-slate-200/70 dark:border-slate-700/60 hover:bg-slate-100 dark:hover:bg-slate-800'
+          }`;
+          btn.innerHTML = `
+            <span class="flex items-center min-w-0 pr-1.5">
+              <i class="${item.icon} mr-2 text-xs ${isActive ? 'text-white' : item.color}" aria-hidden="true"></i>
+              <span class="truncate">${item.label}</span>
+            </span>
+            <span class="text-[11px] px-2 py-0.5 rounded-full font-latin font-semibold flex-shrink-0 ${
+              isActive ? 'bg-white/20 text-white' : isMain ? 'bg-indigo-100 dark:bg-indigo-900/70 text-indigo-700 dark:text-indigo-200' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+            }">${item.count}</span>
+          `;
+          mainBox.appendChild(btn);
+        });
+
+        fragment.appendChild(mainBox);
+
+        const divider = document.createElement('div');
+        divider.className = 'my-2 border-t border-slate-200 dark:border-[#24334d]';
+        fragment.appendChild(divider);
+
+        const subBox = document.createElement('div');
+        subBox.className = 'space-y-1';
+
+        subCategoriesList.forEach(subCat => {
+          const stat = subCategoryStats.get(subCat) || { all: 0, pyq: 0 };
+          const count = isPyqMode ? stat.pyq : stat.all;
+          if (!count) return;
+
+          const isSelected = state.subCategory === subCat;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.dataset.subCategory = subCat;
+          btn.setAttribute('aria-pressed', String(isSelected));
+          btn.className = `w-full text-left px-3 py-2 rounded-lg transition flex items-center justify-between text-xs sm:text-sm font-semibold cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+            isSelected ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
+          }`;
+          btn.innerHTML = `
+            <span class="truncate pr-1.5">${RichParser.escapeHtml(subCat)}</span>
+            <span class="text-[11px] px-2 py-0.5 rounded-full font-latin font-medium flex-shrink-0 ${
+              isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+            }">${count}</span>
+          `;
+          subBox.appendChild(btn);
+        });
+
+        fragment.appendChild(subBox);
+        dom.categoryList.replaceChildren(fragment);
+      }
+
+      function updateHudAndPalette(filtered = getFilteredQuestions()) {
+        let correct = 0;
+        let wrong = 0;
+        let answered = 0;
+        const fragment = document.createDocumentFragment();
+
+        filtered.forEach((q, idx) => {
+          const choice = state.answers[q.id];
+          let tileStyle = 'bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm text-slate-800 dark:text-slate-100 border-slate-300/60 dark:border-slate-600/50 hover:bg-indigo-500/15 dark:hover:bg-indigo-400/20';
+
+          if (choice !== undefined) {
+            answered++;
+            if (choice === q.correctKey) {
+              correct++;
+              tileStyle = 'bg-emerald-500/90 text-white border-emerald-500 shadow-sm shadow-emerald-500/20';
+            } else {
+              wrong++;
+              tileStyle = 'bg-rose-500/90 text-white border-rose-500 shadow-sm shadow-rose-500/20';
+            }
+          }
+
+          const tile = document.createElement('button');
+          tile.type = 'button';
+          tile.dataset.targetQid = q.id;
+          tile.className = `w-full aspect-square max-w-[2.65rem] mx-auto rounded-lg font-latin font-bold text-xs sm:text-sm border flex items-center justify-center transition active:scale-95 cursor-pointer tabular-nums focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${tileStyle}`;
+          tile.textContent = idx + 1;
+          tile.title = `প্রশ্ন নম্বর ${idx + 1}-এ যান`;
+          tile.setAttribute('aria-label', `প্রশ্ন নম্বর ${idx + 1}-এ যান`);
+          fragment.appendChild(tile);
+        });
+
+        const total = filtered.length;
+        const pending = Math.max(0, total - answered);
+
+        dom.headerUnansweredBadge.textContent = pending;
+        dom.btnPaletteOpen.title = `প্রশ্ন তালিকা (${pending} টি উত্তর বাকি, মোট ${total} টি)`;
+        dom.headerGaugeProgress.style.strokeDashoffset =
+          CONFIG.GAUGE_CIRCUMFERENCE * (1 - (total > 0 ? pending / total : 0));
+
+        dom.counterCorrect.textContent = correct;
+        dom.counterWrong.textContent = wrong;
+        dom.paletteGrid.replaceChildren(fragment);
+      }
+
+      function syncCardExplainButton(card, qId) {
+        const btn = card.querySelector('.btn-toggle-explain');
+        const label = card.querySelector('.explain-label');
+        const icon = card.querySelector('.explain-icon');
+        if (!btn || !label || !icon) return;
+        const meta = getExplainBtnMeta(qId);
+        btn.setAttribute('aria-expanded', meta.expanded);
+        label.textContent = meta.text;
+        icon.className = `${meta.icon} text-indigo-500 text-xs sm:text-sm explain-icon`;
+      }
+
+      function syncGlobalExplainButton(filtered = getFilteredQuestions()) {
+        const allOpen = filtered.length > 0 && filtered.every(q => Boolean(state.openExplains[q.id]));
+        state.allExplainsOpen = allOpen;
+        dom.btnToggleAllExplains.setAttribute('aria-pressed', String(allOpen));
+        dom.textToggleAll.textContent = allOpen ? 'সব ব্যাখ্যা লুকান' : 'সব ব্যাখ্যা দেখুন';
+        dom.iconToggleAll.className = `fa-solid ${allOpen ? 'fa-eye-slash' : 'fa-eye'} text-xs sm:text-sm text-indigo-500`;
+      }
+
+      function renderFeed() {
+        const filtered = getFilteredQuestions();
+        const isFiltered = state.mainCategory !== CONFIG.CATEGORY.ALL || state.subCategory !== null;
+
+        dom.filterIndicator.classList.toggle('hidden', !isFiltered);
+        if (isFiltered) {
+          const mainLabel = CONFIG.CATEGORY_LABELS[state.mainCategory];
+          dom.filterCategoryName.textContent = state.subCategory ? `${mainLabel} › ${state.subCategory}` : mainLabel;
+        }
+
+        if (!filtered.length) {
+          dom.questionsFeed.replaceChildren();
+          dom.emptyState.classList.remove('hidden');
+        } else {
+          dom.emptyState.classList.add('hidden');
+          const fragment = document.createDocumentFragment();
+          filtered.forEach((q, idx) => fragment.appendChild(createQuestionCard(q, idx + 1)));
+          dom.questionsFeed.replaceChildren(fragment);
+        }
+
+        updateHudAndPalette(filtered);
+        syncGlobalExplainButton(filtered);
+      }
+
+      /* =====================================================================
+         MODULE F: INTERACTION HANDLERS & EVENT BINDING
+         ===================================================================== */
+      function setDrawerOpen(drawer, backdrop, trigger, isOpen, hiddenClass) {
+        if (isOpen) {
+          state.lastFocusedElement = document.activeElement;
+        }
+        backdrop.classList.toggle('opacity-0', !isOpen);
+        backdrop.classList.toggle('pointer-events-none', !isOpen);
+        backdrop.classList.toggle('opacity-100', isOpen);
+        drawer.classList.toggle(hiddenClass, !isOpen);
+        drawer.setAttribute('aria-hidden', String(!isOpen));
+        if (trigger) trigger.setAttribute('aria-expanded', String(isOpen));
+
+        const anyOpen =
+          dom.categoryDrawer.getAttribute('aria-hidden') === 'false' ||
+          dom.paletteDrawer.getAttribute('aria-hidden') === 'false';
+        document.body.classList.toggle('overflow-hidden', anyOpen);
+
+        if (isOpen) {
+          requestAnimationFrame(() => drawer.focus());
+        } else if (state.lastFocusedElement && typeof state.lastFocusedElement.focus === 'function') {
+          state.lastFocusedElement.focus();
+          state.lastFocusedElement = null;
+        }
+      }
+
+      const closeAllDrawers = () => {
+        if (dom.categoryDrawer.getAttribute('aria-hidden') === 'false') {
+          setDrawerOpen(dom.categoryDrawer, dom.categoryBackdrop, dom.btnMenuDrawer, false, '-translate-x-full');
+        }
+        if (dom.paletteDrawer.getAttribute('aria-hidden') === 'false') {
+          setDrawerOpen(dom.paletteDrawer, dom.paletteBackdrop, dom.btnPaletteOpen, false, 'translate-x-full');
+        }
+        document.body.classList.remove('overflow-hidden');
+      };
+
+      function selectOption(qId, key) {
+        if (state.answers[qId] !== undefined) return;
+        const card = $(`q-card-${qId}`);
+        const q = questionMap.get(qId);
+        if (!card || !q) return;
+
+        state.answers[qId] = key;
+        Store.setJson(CONFIG.STORAGE.ANSWERS, state.answers);
+
+        const group = card.querySelector('.options-group');
+        if (group) group.innerHTML = renderOptionsHtml(q, key);
+
+        syncCardExplainButton(card, qId);
+        updateHudAndPalette();
+
+        const isCorrect = key === q.correctKey;
+        announce(isCorrect ? `সঠিক উত্তর: ${q.options[key].bn}` : `ভুল উত্তর। সঠিক উত্তর হলো (${q.correctKey}) ${q.options[q.correctKey].bn}`);
+      }
+
+      function toggleExplanation(qId, instantJumpBack = false) {
+        const card = $(`q-card-${qId}`);
+        const q = questionMap.get(qId);
+        if (!card || !q) return;
+
+        const nextOpen = !state.openExplains[qId];
+        state.openExplains[qId] = nextOpen;
+
+        const container = card.querySelector('.explanation-container');
+        const toggleBtn = card.querySelector('.btn-toggle-explain');
+
+        if (nextOpen) {
+          container.innerHTML = renderExplanationHtml(q);
+          container.classList.remove('hidden');
+        } else {
+          container.classList.add('hidden');
+          container.replaceChildren();
+          if (instantJumpBack && toggleBtn) {
+            toggleBtn.scrollIntoView({ behavior: 'instant', block: 'center' });
+          }
+        }
+
+        syncCardExplainButton(card, qId);
+        syncGlobalExplainButton();
+      }
+
+      function shuffleAll() {
+        let answersShifted = false;
+
+        state.questions.forEach(q => {
+          const pairs = CONFIG.OPTION_KEYS.map(k => ({ oldKey: k, val: q.options[k] }));
+          for (let i = pairs.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+          }
+
+          const keyMap = {};
+          const shuffledOpts = {};
+          pairs.forEach((p, idx) => {
+            const newKey = CONFIG.OPTION_KEYS[idx];
+            keyMap[p.oldKey] = newKey;
+            shuffledOpts[newKey] = p.val;
+          });
+
+          q.options = shuffledOpts;
+          q.correctKey = keyMap[q.correctKey] || q.correctKey;
+          q._cachedExplainHtml = null;
+
+          if (state.answers[q.id] && keyMap[state.answers[q.id]]) {
+            state.answers[q.id] = keyMap[state.answers[q.id]];
+            answersShifted = true;
+          }
+
+          if (Array.isArray(q.explanation?.optionAnalysis)) {
+            q.explanation.optionAnalysis.forEach(item => {
+              if (keyMap[item.key]) item.key = keyMap[item.key];
+            });
+            q.explanation.optionAnalysis.sort(
+              (a, b) => CONFIG.OPTION_KEYS.indexOf(a.key) - CONFIG.OPTION_KEYS.indexOf(b.key)
+            );
+          }
+        });
+
+        if (answersShifted) Store.setJson(CONFIG.STORAGE.ANSWERS, state.answers);
+
+        for (let i = state.questions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [state.questions[i], state.questions[j]] = [state.questions[j], state.questions[i]];
+        }
+
+        state.filteredCache = null;
+        renderFeed();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast('প্রশ্ন ও অপশন শাফেল করা হয়েছে', 'fa-solid fa-shuffle text-indigo-400');
+      }
+
+      function resetAllProgress() {
+        state.questions = cloneQuestions();
+        rebuildQuestionMap(state.questions);
+        state.filteredCache = null;
+        state.answers = {};
+        state.openExplains = {};
+        state.allExplainsOpen = false;
+        Store.setJson(CONFIG.STORAGE.ANSWERS, {});
+        renderFeed();
+        closeAllDrawers();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast('সকল উত্তর রিসেট করা হয়েছে', 'fa-solid fa-rotate-left text-rose-400');
+      }
+
+      function resetFilters() {
+        state.mainCategory = CONFIG.CATEGORY.ALL;
+        state.subCategory = null;
+        state.searchQuery = '';
+        state.filteredCache = null;
+        dom.searchInput.value = '';
+        dom.searchClear.classList.add('hidden');
+        dom.searchKbdHint.classList.remove('sm:hidden');
+        renderCategoryDrawer();
+        renderFeed();
+      }
+
+      function bindEvents() {
+        // Question Feed Delegation
+        dom.questionsFeed.addEventListener('click', e => {
+          const opt = e.target.closest('.option-item');
+          if (opt) {
+            selectOption(Number(opt.dataset.qid), opt.dataset.optionKey);
+            return;
+          }
+          const chevron = e.target.closest('.btn-collapse-chevron');
+          if (chevron) {
+            toggleExplanation(Number(chevron.dataset.qid), true);
+            return;
+          }
+          const explainBtn = e.target.closest('.btn-toggle-explain');
+          if (explainBtn) {
+            toggleExplanation(Number(explainBtn.dataset.qid), false);
+          }
+        });
+
+        // Keyboard Support on Options (Enter/Space + Arrow Navigation)
+        dom.questionsFeed.addEventListener('keydown', e => {
+          const opt = e.target.closest('.option-item');
+          if (!opt) return;
+
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectOption(Number(opt.dataset.qid), opt.dataset.optionKey);
+            return;
+          }
+
+          if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            const group = opt.closest('.options-group');
+            if (!group) return;
+            const items = Array.from(group.querySelectorAll('.option-item[tabindex="0"]'));
+            const idx = items.indexOf(opt);
+            if (idx === -1) return;
+            e.preventDefault();
+            const nextIdx = e.key === 'ArrowDown' ? (idx + 1) % items.length : (idx - 1 + items.length) % items.length;
+            items[nextIdx].focus();
+          }
+        });
+
+        // Palette Jump
+        dom.paletteGrid.addEventListener('click', e => {
+          const tile = e.target.closest('button[data-target-qid]');
+          if (!tile) return;
+          closeAllDrawers();
+          const card = $(`q-card-${tile.dataset.targetQid}`);
+          if (!card) return;
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          card.classList.add('ring-2', 'ring-indigo-500', 'ring-offset-2', 'dark:ring-offset-[#0b1120]');
+          setTimeout(() => card.classList.remove('ring-2', 'ring-indigo-500', 'ring-offset-2', 'dark:ring-offset-[#0b1120]'), 1000);
+        });
+
+        // Category Drawer Filters
+        dom.categoryList.addEventListener('click', e => {
+          const mainBtn = e.target.closest('button[data-main-category]');
+          if (mainBtn) {
+            state.mainCategory = mainBtn.dataset.mainCategory;
+            state.subCategory = null;
+            state.filteredCache = null;
+            renderCategoryDrawer();
+            renderFeed();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+          }
+          const subBtn = e.target.closest('button[data-sub-category]');
+          if (subBtn) {
+            const picked = subBtn.dataset.subCategory;
+            state.subCategory = state.subCategory === picked ? null : picked;
+            state.filteredCache = null;
+            closeAllDrawers();
+            renderCategoryDrawer();
+            renderFeed();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        });
+
+        // Global Action Controls
+        dom.btnToggleAllExplains.addEventListener('click', () => {
+          const filtered = getFilteredQuestions();
+          const nextOpen = !state.allExplainsOpen;
+          state.allExplainsOpen = nextOpen;
+
+          filtered.forEach(q => {
+            state.openExplains[q.id] = nextOpen;
+            const card = $(`q-card-${q.id}`);
+            if (!card) return;
+            const box = card.querySelector('.explanation-container');
+            if (nextOpen) {
+              box.innerHTML = renderExplanationHtml(q);
+              box.classList.remove('hidden');
+            } else {
+              box.classList.add('hidden');
+              box.replaceChildren();
+            }
+            syncCardExplainButton(card, q.id);
+          });
+          syncGlobalExplainButton(filtered);
+        });
+
+        dom.btnShuffle.addEventListener('click', shuffleAll);
+        dom.btnTheme.addEventListener('click', () => applyTheme(state.theme === 'dark' ? 'light' : 'dark'));
+
+        dom.btnBackTop.addEventListener('click', e => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Font Size & Reset
+        dom.btnFontDec.addEventListener('click', () => applyFontSize(state.fontSize - CONFIG.FONT.STEP));
+        dom.btnFontReset.addEventListener('click', () => applyFontSize(CONFIG.FONT.DEFAULT));
+        dom.btnFontInc.addEventListener('click', () => applyFontSize(state.fontSize + CONFIG.FONT.STEP));
+        dom.btnResetProgress.addEventListener('click', resetAllProgress);
+
+        // Drawers Open/Close
+        dom.btnMenuDrawer.addEventListener('click', () => {
+          closeAllDrawers();
+          setDrawerOpen(dom.categoryDrawer, dom.categoryBackdrop, dom.btnMenuDrawer, true, '-translate-x-full');
+        });
+        dom.btnCategoryClose.addEventListener('click', closeAllDrawers);
+        dom.categoryBackdrop.addEventListener('click', closeAllDrawers);
+
+        dom.btnPaletteOpen.addEventListener('click', () => {
+          closeAllDrawers();
+          setDrawerOpen(dom.paletteDrawer, dom.paletteBackdrop, dom.btnPaletteOpen, true, 'translate-x-full');
+        });
+        dom.btnPaletteClose.addEventListener('click', closeAllDrawers);
+        dom.paletteBackdrop.addEventListener('click', closeAllDrawers);
+
+        dom.btnShowAllCategories.addEventListener('click', () => {
+          state.mainCategory = CONFIG.CATEGORY.ALL;
+          state.subCategory = null;
+          state.filteredCache = null;
+          renderCategoryDrawer();
+          renderFeed();
+        });
+        dom.btnClearFiltersEmpty.addEventListener('click', resetFilters);
+
+        // Debounced Search
+        let searchTimer = null;
+        dom.searchInput.addEventListener('input', e => {
+          clearTimeout(searchTimer);
+          const val = e.target.value;
+          dom.searchClear.classList.toggle('hidden', !val);
+          dom.searchKbdHint.classList.toggle('sm:hidden', Boolean(val));
+          searchTimer = setTimeout(() => {
+            state.searchQuery = val;
+            state.filteredCache = null;
+            renderFeed();
+          }, 150);
+        });
+
+        dom.searchClear.addEventListener('click', () => {
+          dom.searchInput.value = '';
+          state.searchQuery = '';
+          state.filteredCache = null;
+          dom.searchClear.classList.add('hidden');
+          dom.searchKbdHint.classList.remove('sm:hidden');
+          renderFeed();
+          dom.searchInput.focus();
+        });
+
+        // Global Keyboard Shortcuts (Escape to close drawers, '/' to focus search)
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape') {
+            closeAllDrawers();
+            return;
+          }
+          if (
+            e.key === '/' &&
+            document.activeElement !== dom.searchInput &&
+            !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)
+          ) {
+            e.preventDefault();
+            dom.subNavBar.classList.remove('subbar-hidden');
+            dom.searchInput.focus();
+          }
+        });
+
+        // Auto-Hide Sub-Nav on Scroll Down
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            const currentY = window.scrollY;
+            const isFocused = dom.subNavBar && dom.subNavBar.contains(document.activeElement);
+            if (!document.body.classList.contains('overflow-hidden')) {
+              if (currentY <= 30 || isFocused) {
+                dom.subNavBar.classList.remove('subbar-hidden');
+                lastScrollY = currentY;
+              } else if (Math.abs(currentY - lastScrollY) >= 8) {
+                dom.subNavBar.classList.toggle('subbar-hidden', currentY > lastScrollY && currentY > 60);
+                lastScrollY = currentY;
+              }
+            }
+            ticking = false;
+          });
+        }, { passive: true });
+      }
+
+      /* =====================================================================
+         MODULE G: INITIALIZATION
+         ===================================================================== */
+      function init() {
+        applyTheme(state.theme);
+        applyFontSize(state.fontSize);
+        renderCategoryDrawer();
+        bindEvents();
+        renderFeed();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
